@@ -103,87 +103,96 @@ body {
 }
 
 /* ---------- Primitives (dùng chung, giữ class cũ để tương thích) ---------- */
-.field {
-  border: 2px solid var(--line);
-  background: var(--surface);
-  color: var(--text);
-  border-radius: 0.85rem;
-  padding: 0.65rem 0.85rem;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.15s;
-}
-.field:focus {
-  border-color: var(--brand);
-}
-.btn-primary,
-.btn-secondary,
-.btn-ok,
-.btn-bad {
-  border-radius: 0.9rem;
-  padding: 0.7rem 1.1rem;
-  font-weight: 700;
-  min-height: 46px;
-  letter-spacing: 0.01em;
-  transition:
-    transform 0.06s,
-    box-shadow 0.06s,
-    filter 0.15s;
-  cursor: pointer;
-}
-.btn-primary {
-  background: var(--brand);
-  color: #fff;
-  box-shadow: 0 4px 0 var(--brand-deep);
-}
-.btn-ok {
-  background: var(--ok);
-  color: #fff;
-  box-shadow: 0 4px 0 var(--ok-deep);
-}
-.btn-bad {
-  background: var(--bad);
-  color: #fff;
-  box-shadow: 0 4px 0 var(--bad-deep);
-}
-.btn-secondary {
-  border: 2px solid var(--line);
-  background: var(--surface);
-  color: var(--text);
-  box-shadow: 0 3px 0 var(--line);
-}
-.btn-primary:active:not(:disabled),
-.btn-ok:active:not(:disabled),
-.btn-bad:active:not(:disabled),
-.btn-secondary:active:not(:disabled) {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 var(--line);
-}
-.btn-primary:disabled,
-.btn-ok:disabled,
-.btn-secondary:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-.btn-primary:hover:not(:disabled),
-.btn-ok:hover:not(:disabled) {
-  filter: brightness(1.05);
-}
-.card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 1.25rem;
-  box-shadow: var(--shadow);
+/* Lớp thành phần nằm trong @layer components để tiện ích Tailwind (border-ok, bg-ok-bg, w-full…) ghi đè được. */
+@layer components {
+  .field {
+    border: 2px solid var(--line);
+    background: var(--surface);
+    color: var(--text);
+    border-radius: 0.85rem;
+    padding: 0.65rem 0.85rem;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .field:focus {
+    border-color: var(--brand);
+  }
+  .btn-primary,
+  .btn-secondary,
+  .btn-ok,
+  .btn-bad {
+    border-radius: 0.9rem;
+    padding: 0.7rem 1.1rem;
+    font-weight: 700;
+    min-height: 46px;
+    letter-spacing: 0.01em;
+    transition:
+      transform 0.06s,
+      box-shadow 0.06s,
+      filter 0.15s;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--brand);
+    color: #fff;
+    box-shadow: 0 4px 0 var(--brand-deep);
+  }
+  .btn-ok {
+    background: var(--ok);
+    color: #fff;
+    box-shadow: 0 4px 0 var(--ok-deep);
+  }
+  .btn-bad {
+    background: var(--bad);
+    color: #fff;
+    box-shadow: 0 4px 0 var(--bad-deep);
+  }
+  .btn-secondary {
+    border: 2px solid var(--line);
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 3px 0 var(--line);
+  }
+  .btn-primary:active:not(:disabled),
+  .btn-ok:active:not(:disabled),
+  .btn-bad:active:not(:disabled),
+  .btn-secondary:active:not(:disabled) {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .btn-primary:disabled,
+  .btn-ok:disabled,
+  .btn-secondary:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  .btn-primary:hover:not(:disabled),
+  .btn-ok:hover:not(:disabled) {
+    filter: brightness(1.05);
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand) 45%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 18px transparent;
+    }
+  }
+
+  /* Lựa chọn đã chấm (đúng/sai) vẫn rõ dù bị khóa. */
+  .btn-secondary:disabled:is(.border-ok, .border-bad) {
+    opacity: 1;
+  }
 }
 
-@keyframes pulse-ring {
-  0% {
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand) 45%, transparent);
-  }
-  100% {
-    box-shadow: 0 0 0 18px transparent;
-  }
-}
 .node-pulse {
   animation: pulse-ring 1.6s ease-out infinite;
 }

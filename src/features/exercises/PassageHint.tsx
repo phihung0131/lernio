@@ -20,8 +20,9 @@ const titleOf = (b: Block) => (b.kind === 'reading' || b.kind === 'dialogue' ? b
 /** Câu hỏi về bài đọc/hội thoại có thể xuất hiện ngoài bài học (kiểm tra chapter, thi thử, luyện tập, ôn tập).
  *  Nút này cho xem lại đúng đoạn văn của bài gốc để trả lời được. */
 export default function PassageHint({ ex }: { ex: Exercise }) {
-  // Bài tập từ vựng tự sinh (có tag vocab:) không phụ thuộc đoạn văn.
-  const lessonId = ex.tags.some((t) => t.startsWith('vocab:')) ? undefined : ex.tags.find((t) => t.startsWith('lesson:'))?.slice(7)
+  // Chỉ câu đúng/sai và trắc nghiệm mới có thể hỏi về đoạn văn; bài từ vựng tự sinh (tag vocab:) thì không.
+  const aboutText = (ex.type === 'trueFalse' || ex.type === 'multipleChoice') && !ex.tags.some((t) => t.startsWith('vocab:'))
+  const lessonId = aboutText ? ex.tags.find((t) => t.startsWith('lesson:'))?.slice(7) : undefined
   const [data, setData] = useState<{ lesson: Lesson; blocks: Block[] } | null>(null)
   const [open, setOpen] = useState(false)
   useEffect(() => {
