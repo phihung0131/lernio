@@ -4,6 +4,9 @@ import { supabase } from '@/core/sync/supabase'
 import { pushOutbox } from '@/core/sync/push'
 import { pullAll } from '@/core/sync/pull'
 import { closeUserDb, openUserDb } from '@/core/db/db'
+import { getProfile } from '@/core/db/profile'
+import { setAudioRate } from '@/core/audio/player'
+import { applyTheme } from '@/ui/theme'
 import { DEV_MOCK_AUTH, devSession, devSignIn, devSignOut } from '@/core/sync/devMock'
 
 interface AuthCtx {
@@ -44,7 +47,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setDbReady(null)
       return
     }
-    openUserDb(uid).then(() => alive && setDbReady(uid))
+    openUserDb(uid)
+      .then(async () => {
+        const p = await getProfile()
+        setAudioRate(p.audioRate)
+        if (p.updatedAt > '1970-01-02') applyTheme(p.theme)
+      })
+      .then(() => alive && setDbReady(uid))
     return () => {
       alive = false
     }

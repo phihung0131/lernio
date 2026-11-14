@@ -8,6 +8,7 @@ const CONFLICT: Record<string, string> = {
   review_logs: 'id',
   xp_events: 'id',
   badges: 'user_id,badge_id',
+  profiles: 'user_id',
 }
 
 let running = false

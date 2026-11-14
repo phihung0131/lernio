@@ -39,3 +39,32 @@ export function isTestUnlocked(chapters: Chapter[], chapterIdx: number, p: Progr
 export function didPass(score: number, total: number, passScore = 0.8): boolean {
   return total > 0 && score / total >= passScore
 }
+
+export type NextStep =
+  | { kind: 'lesson'; chapterIdx: number; lessonIdx: number }
+  | { kind: 'test'; chapterIdx: number }
+  | { kind: 'done' }
+
+/** Việc tiếp theo nên làm: bài học chưa xong đầu tiên, hoặc bài kiểm tra chapter đang mở. */
+export function nextStep(chapters: Chapter[], p: Progress): NextStep {
+  for (let ci = 0; ci < chapters.length; ci++) {
+    const ch = chapters[ci]
+    if (p.chaptersPassed[ch.id]) continue
+    const li = ch.lessons.findIndex((l) => p.lessons[l.id] !== 'completed')
+    if (li >= 0) return { kind: 'lesson', chapterIdx: ci, lessonIdx: li }
+    return { kind: 'test', chapterIdx: ci }
+  }
+  return { kind: 'done' }
+}
+
+/** Tỉ lệ hoàn thành chapter: mỗi bài 1 phần, bài kiểm tra 1 phần. */
+export function chapterProgress(ch: Chapter, p: Progress): number {
+  const done = ch.lessons.filter((l) => p.lessons[l.id] === 'completed').length + (p.chaptersPassed[ch.id] ? 1 : 0)
+  return done / (ch.lessons.length + 1)
+}
+
+/** Level mở khi chapter đầu tiên của nó đã mở. */
+export function isLevelUnlocked(chapters: Chapter[], levelId: string, p: Progress): boolean {
+  const idx = chapters.findIndex((c) => c.levelId === levelId)
+  return idx >= 0 && isChapterUnlocked(chapters, idx, p)
+}

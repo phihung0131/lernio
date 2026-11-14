@@ -26,7 +26,7 @@ export async function login(page: Page) {
   await page.getByLabel('Email').fill('e2e@example.com')
   await page.getByLabel('Mật khẩu').fill('password123')
   await page.getByRole('button', { name: 'Đăng nhập' }).click()
-  await page.getByRole('heading', { name: 'Lộ trình học' }).waitFor()
+  await page.getByRole('link', { name: /Bắt đầu bài học|Học tiếp|Làm bài kiểm tra/ }).waitFor()
 }
 
 // ---- trả lời bài tập dựa vào dữ liệu nội dung ----
@@ -111,4 +111,33 @@ export async function answerExercise(page: Page, correct: boolean) {
 export async function runAll(page: Page, correct = true) {
   await page.locator('[data-exercise-id]').first().waitFor()
   while (await page.locator('[data-exercise-id]').count()) await answerExercise(page, correct)
+}
+
+/** Học trọn một bài qua LessonPlayer và bấm Tiếp tục ở màn kết quả. */
+export async function completeLesson(page: Page, lessonId: string, correct = true) {
+  await page.goto(`/lesson/${lessonId}`)
+  for (let guard = 0; guard < 200; guard++) {
+    if (await page.getByRole('heading', { name: 'Hoàn thành bài học!' }).isVisible()) break
+    if (await page.locator('[data-exercise-id]').count()) {
+      await runAll(page, correct)
+      continue
+    }
+    const finish = page.getByRole('button', { name: 'Hoàn thành bài học', exact: true })
+    if (await finish.isVisible()) {
+      // Màn kết quả thay thế nút ngay khi bấm: chờ thẳng tiêu đề kết quả.
+      await finish.click({ timeout: 5000 }).catch(() => {})
+      await page.getByRole('heading', { name: 'Hoàn thành bài học!' }).waitFor()
+      break
+    }
+    await page.getByRole('button', { name: 'Tiếp tục', exact: true }).click({ timeout: 5000 }).catch(() => {})
+  }
+  await page.getByRole('heading', { name: 'Hoàn thành bài học!' }).waitFor()
+  await page.getByRole('button', { name: 'Tiếp tục', exact: true }).click()
+  await page.waitForURL(/\/path/)
+}
+
+export async function takeTest(page: Page, chapterId: string, correct: boolean) {
+  await page.goto(`/test/${chapterId}`)
+  await page.getByRole('button', { name: 'Bắt đầu' }).click()
+  await runAll(page, correct)
 }

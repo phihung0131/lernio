@@ -1,86 +1,99 @@
 import { expect, test } from '@playwright/test'
-import { login, runAll } from './helpers'
+import { completeLesson, login, runAll, takeTest } from './helpers'
 
 test('chưa đăng nhập bị chuyển về /login', async ({ page }) => {
   await page.goto('/')
   await expect(page).toHaveURL(/\/login/)
 })
 
-test('đăng nhập, học bài, khóa bài và kiểm tra chapter', async ({ page }) => {
+test('lộ trình: học bài, khóa bài, kiểm tra chapter', async ({ page }) => {
   await login(page)
+  await expect(page.getByRole('heading', { name: /Tiếng Đức là gì/ })).toBeVisible() // thẻ Học tiếp
 
-  // Bài sau bị khóa, bài đầu mở
-  await expect(page.getByRole('link', { name: /Tiếng Đức là gì/ })).toBeVisible()
-  await expect(page.getByText('Cách học hiệu quả với Lernio').locator('..').locator('..')).toHaveAttribute('aria-disabled', 'true')
+  // Bản đồ: bài 2 khóa, truy cập thẳng bị chặn
+  await page.goto('/path')
+  await page.getByRole('button', { name: /Cách học hiệu quả với Lernio \(đang khóa\)/ }).click()
+  await expect(page.getByText('Hoàn thành bài trước để mở khóa.')).toBeVisible()
   await page.goto('/lesson/a0-c01-l2')
-  await expect(page).toHaveURL('/') // truy cập thẳng bài bị khóa bị chặn
+  await expect(page).toHaveURL(/\/path/)
 
-  // Học bài 1: đi qua 6 phần
-  await page.getByRole('link', { name: /Tiếng Đức là gì/ }).click()
-  for (let i = 0; i < 4; i++) await page.getByRole('button', { name: 'Tiếp theo' }).click()
-  await expect(page.getByRole('heading', { name: '5. Luyện tập' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Hãy làm hết bài tập' })).toBeDisabled()
-  await runAll(page)
-  await page.getByRole('button', { name: 'Tiếp theo' }).click()
-  await page.getByRole('button', { name: 'Hoàn thành bài học' }).click()
-  await page.getByRole('heading', { name: 'Lộ trình học' }).waitFor() // đợi lưu xong
-  await expect(page.getByRole('heading', { name: 'Lộ trình học' })).toBeVisible()
-  await expect(page.getByRole('link', { name: /Cách học hiệu quả/ })).toBeVisible()
+  // Học bài 1 qua bản đồ
+  await page.getByRole('button', { name: 'Tiếng Đức là gì và vì sao học' }).click()
+  await page.getByRole('link', { name: 'Bắt đầu' }).click()
+  await expect(page).toHaveURL(/\/lesson\/a0-c01-l1/)
+  await completeLesson(page, 'a0-c01-l1')
 
-  // Bài kiểm tra bị khóa cho đến khi xong mọi bài của chapter
+  // Bài kiểm tra khóa đến khi xong mọi bài
   await page.goto('/test/a0-c01')
-  await expect(page).toHaveURL('/')
-  await page.getByRole('link', { name: /Cách học hiệu quả/ }).click()
-  for (let i = 0; i < 4; i++) await page.getByRole('button', { name: 'Tiếp theo' }).click()
-  await runAll(page)
-  await page.getByRole('button', { name: 'Tiếp theo' }).click()
-  await page.getByRole('button', { name: 'Hoàn thành bài học' }).click()
-  await page.getByRole('heading', { name: 'Lộ trình học' }).waitFor() // đợi lưu xong
+  await expect(page).toHaveURL(/\/path/)
+  await completeLesson(page, 'a0-c01-l2')
 
-  // Chapter 2 vẫn khóa khi chưa đạt bài kiểm tra
-  await page.goto('/lesson/a0-c02-l1')
-  await expect(page).toHaveURL('/')
-
-  // Trượt bài kiểm tra: toàn sai -> không mở chapter 2
-  await page.getByRole('link', { name: /Kiểm tra cuối chapter/ }).first().click()
-  await runAll(page, false)
+  // Trượt: chapter 2 vẫn khóa
+  await takeTest(page, 'a0-c01', false)
   await expect(page.getByText('Chưa đạt, thử lại nhé')).toBeVisible()
   await page.goto('/lesson/a0-c02-l1')
-  await expect(page).toHaveURL('/')
+  await expect(page).toHaveURL(/\/path/)
 
-  // Làm lại và đạt -> mở chapter 2
-  await page.goto('/test/a0-c01')
-  await runAll(page, true)
+  // Đạt: chapter 2 mở
+  await takeTest(page, 'a0-c01', true)
   await expect(page.getByText('Bạn đã vượt qua!')).toBeVisible()
-  await page.getByRole('link', { name: 'Về lộ trình' }).click()
-  await page.getByRole('link', { name: /Chữ cái A đến M/ }).click()
+  await page.goto('/lesson/a0-c02-l1')
   await expect(page.getByRole('heading', { name: 'Chữ cái A đến M' })).toBeVisible()
 })
 
-test('ôn tập: thẻ xuất hiện sau khi học và chấm FSRS', async ({ page }) => {
+test('trình học: lưu vị trí và học tiếp đúng chỗ', async ({ page }) => {
+  await login(page)
+  await page.goto('/lesson/a0-c01-l1')
+  await page.getByRole('button', { name: 'Tiếp tục', exact: true }).click()
+  await page.getByRole('button', { name: 'Tiếp tục', exact: true }).click()
+  const section = await page.locator('nav[aria-label="Các phần của bài"] [aria-current="step"]').textContent()
+  await page.goto('/')
+  await page.goto('/lesson/a0-c01-l1')
+  await expect(page.locator('nav[aria-label="Các phần của bài"] [aria-current="step"]')).toHaveText(section!)
+})
+
+test('ôn tập: thẻ xuất hiện sau khi học, chấm FSRS', async ({ page }) => {
   await login(page)
   await page.goto('/review')
-  await expect(page.getByText('Chưa có thẻ nào')).toBeVisible()
-  await page.goto('/')
-  await page.getByRole('link', { name: /Tiếng Đức là gì/ }).click()
-  for (let i = 0; i < 4; i++) await page.getByRole('button', { name: 'Tiếp theo' }).click()
-  await runAll(page)
-  await page.getByRole('button', { name: 'Tiếp theo' }).click()
-  await page.getByRole('button', { name: 'Hoàn thành bài học' }).click()
-  await page.getByRole('heading', { name: 'Lộ trình học' }).waitFor() // đợi lưu xong
-  await expect(page.getByRole('heading', { name: 'Lộ trình học' })).toBeVisible() // đợi lưu xong
+  await expect(page.getByText('Không có thẻ đến hạn')).toBeVisible()
+  await completeLesson(page, 'a0-c01-l1')
   await page.goto('/review')
-  await expect(page.getByRole('heading', { name: 'Ôn tập hôm nay' })).toBeVisible()
-  await page.getByRole('button', { name: 'Hiện đáp án' }).click()
-  await page.getByRole('button', { name: 'Tốt' }).click()
-  await expect(page.getByRole('heading', { name: 'Ôn tập hôm nay' }).or(page.getByRole('heading', { name: 'Hôm nay đã ôn xong!' }))).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Ôn tập' })).toBeVisible()
+  // Thẻ đầu (reps 0) là dạng nhận biết: chọn bất kỳ rồi chấm
+  await page.locator('.grid button').first().click()
+  const ok = page.getByRole('button', { name: 'Tốt' })
+  if (await ok.isVisible()) await ok.click()
+  else await page.getByRole('button', { name: 'Tiếp tục' }).click()
+  await expect(page.getByText(/còn \d+/)).toBeVisible()
+})
+
+test('luyện tập tự chọn và điểm yếu', async ({ page }) => {
+  await login(page)
+  await completeLesson(page, 'a0-c01-l1', false) // làm sai để có điểm yếu
+  await page.goto('/practice/weak')
+  await page.getByRole('button', { name: 'Luyện 10 câu' }).click()
+  await runAll(page, true)
+  await page.goto('/practice/mix')
+  await page.getByRole('button', { name: 'Bắt đầu luyện' }).click()
+  await runAll(page, true)
+  await expect(page.getByText(/Đúng \d+\/\d+ câu/)).toBeVisible()
 })
 
 test('các trang chính không crash', async ({ page }) => {
   await login(page)
-  for (const path of ['/progress', '/review', '/vocabulary', '/grammar', '/listening', '/settings']) {
+  for (const path of ['/', '/path', '/review', '/practice', '/practice/weak', '/practice/mix', '/mock', '/vocabulary', '/grammar', '/listening', '/profile', '/settings']) {
     await page.goto(path)
-    await expect(page.getByRole('alert')).toHaveCount(0)
-    await expect(page.locator('main h1').first()).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Có lỗi xảy ra' })).toHaveCount(0)
+    await expect(page.locator('main h1, main h2').first()).toBeVisible()
   }
+})
+
+test('cài đặt: mục tiêu XP và giao diện tối được lưu', async ({ page }) => {
+  await login(page)
+  await page.goto('/settings')
+  await page.getByRole('button', { name: '50 XP' }).click()
+  await page.getByRole('button', { name: 'Tối' }).click()
+  await page.reload()
+  await expect(page.getByRole('button', { name: '50 XP' })).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
 })

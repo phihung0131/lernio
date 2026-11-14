@@ -196,3 +196,41 @@ export function GenderGallery() {
     </div>
   )
 }
+
+/** Ngọn lửa streak, sáng khi active. */
+export function StreakFlame({ active, size = 56 }: { active: boolean; size?: number }) {
+  const id = useId()
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64" role="img" aria-label={active ? 'Đang giữ chuỗi ngày học' : 'Chưa học hôm nay'}>
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor={active ? '#ffcf3f' : '#cfd5e3'} />
+          <stop offset="1" stopColor={active ? '#ff6a13' : '#9aa3bd'} />
+        </linearGradient>
+      </defs>
+      <path d="M32 4c4 10 16 16 16 32a16 16 0 0 1-32 0c0-8 4-13 8-17 0 6 3 9 6 10-2-9 0-18 2-25z" fill={`url(#${id})`} />
+      <path d="M32 30c3 5 8 8 8 15a8 8 0 0 1-16 0c0-4 2-7 4-9 0 3 2 5 3 5-1-4 0-8 1-11z" fill={active ? '#fff3c4' : '#e7eaf2'} />
+    </svg>
+  )
+}
+
+/** Rương bài kiểm tra: đóng / mở / khóa. */
+export function Chest({ state, size = 64 }: { state: 'locked' | 'open' | 'done'; size?: number }) {
+  const body = state === 'locked' ? '#b8bfd1' : '#c47a2c'
+  const band = state === 'locked' ? '#8d95ab' : '#f2b233'
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64" role="img" aria-label={state === 'locked' ? 'Bài kiểm tra đang khóa' : state === 'done' ? 'Đã đạt bài kiểm tra' : 'Bài kiểm tra'}>
+      <ellipse cx="32" cy="58" rx="22" ry="4" fill="#000" opacity=".1" />
+      {state === 'done' ? (
+        <path d="M10 22 32 12l22 10-4 8H14z" fill={body} />
+      ) : (
+        <path d="M10 26c0-8 10-14 22-14s22 6 22 14z" fill={body} />
+      )}
+      <rect x="10" y="26" width="44" height="28" rx="4" fill={body} />
+      <rect x="10" y="30" width="44" height="6" fill={band} />
+      <rect x="27" y="28" width="10" height="12" rx="2" fill={band} stroke="#7a4a12" strokeWidth="1.5" />
+      {state === 'done' && <path d="M22 18l4 4 10-10" stroke="#fff" strokeWidth="4" fill="none" strokeLinecap="round" />}
+      {state === 'locked' && <circle cx="32" cy="34" r="2" fill="#5b6378" />}
+    </svg>
+  )
+}

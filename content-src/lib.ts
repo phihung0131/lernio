@@ -203,7 +203,8 @@ export interface LessonInput {
 export function lesson(i: LessonInput): Lesson {
   const vocab = i.vocab ?? []
   const all: Ex[] = [...(i.auto === false ? [] : autoExercises(vocab, i.pool ?? [], i.auto ?? {})), ...(i.ex ?? [])]
-  const exercises = all.map((e, n) => ({ ...e, id: `${i.id}-e${n + 1}` }) as Exercise)
+  const auto = [...(i.teaches ?? []).map((g) => `grammar:${g}`), `lesson:${i.id}`]
+  const exercises = all.map((e, n) => ({ ...e, id: `${i.id}-e${n + 1}`, tags: [...new Set([...(e.tags ?? []), ...auto])] }) as Exercise)
   return {
     id: i.id,
     title: i.title,
