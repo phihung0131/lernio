@@ -206,7 +206,7 @@ export default chapter({
       ex: [
         tf('Die Grundschule dauert sechs Jahre.', false, 'vier Jahre.', 'Hệ thống trường học Đức'),
         tf('Das Studium an staatlichen Hochschulen ist teuer.', false, 'fast kostenlos.', 'Hệ thống trường học Đức'),
-        tf('Azubis bekommen Geld, während sie lernen.', true, 'Đúng.', 'Hệ thống trường học Đức'),
+        tf('In der dualen Ausbildung bekommt man Geld, während man lernt.', true, 'So bekommen sie schon Geld, während sie lernen.', 'Hệ thống trường học Đức'),
         mc('Vì sao có Gesamtschule?', ['để trẻ học cùng nhau lâu hơn', 'để học phí rẻ hơn', 'để học nhanh hơn'], 0, 'damit Kinder länger zusammen lernen.'),
         mc('Điểm “1” ở Đức nghĩa là?', ['rất giỏi', 'kém nhất', 'trung bình'], 0, 'sehr gut.'),
         match('Nối trường với đặc điểm.', ['Grundschule', '4 Jahre, ab 6'], ['Gymnasium', 'Abitur'], ['Berufsschule', 'duale Ausbildung'], ['Hochschule', 'Studium']),

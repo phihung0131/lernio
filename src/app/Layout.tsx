@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Dumbbell, Flame, Home, Map, Repeat, Star, UserRound } from 'lucide-react'
 import ErrorBoundary from './ErrorBoundary'
@@ -62,7 +63,9 @@ export default function Layout() {
         </header>
         <main className="mx-auto w-full max-w-3xl px-4 pb-28 pt-2 md:pb-10">
           <ErrorBoundary resetKey={loc.pathname}>
-            <Outlet />
+            <Suspense fallback={<p className="p-8 text-center text-muted">Đang tải…</p>}>
+              <Outlet />
+            </Suspense>
           </ErrorBoundary>
         </main>
       </div>
