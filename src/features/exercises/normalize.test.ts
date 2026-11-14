@@ -12,4 +12,11 @@ describe('matchesAny', () => {
   it('rejects wrong', () => {
     expect(matchesAny('Haus', ['Maus'])).toBe(false)
   })
+  it('bỏ qua dấu phẩy giữa câu và ngoặc kép Đức', () => {
+    expect(matchesAny('Leider kann ich nicht ich muss arbeiten', ['Leider kann ich nicht, ich muss arbeiten.'])).toBe(true)
+    expect(matchesAny('"Hallo"', ['„Hallo“'])).toBe(true)
+  })
+  it('vẫn phân biệt đuôi ngữ pháp', () => {
+    expect(matchesAny('Ich helfe dem Mann', ['Ich helfe den Mann'])).toBe(false)
+  })
 })

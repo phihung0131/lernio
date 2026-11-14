@@ -11,10 +11,15 @@ function walk(dir: string): string[] {
 }
 
 const texts = new Map<string, { text: string; voice: 'm' | 'f' }>()
+// Danh sách file theo cấp độ, cho nút “tải trước audio để học offline” trong Cài đặt.
+const byLevel: Record<string, Set<string>> = {}
+let level = ''
 const add = (t?: string, voice: 'm' | 'f' = 'm') => {
   if (!t || !t.trim()) return
   const text = t.trim()
-  texts.set(voiceKey(text, voice), { text, voice })
+  const key = voiceKey(text, voice)
+  texts.set(key, { text, voice })
+  if (level) (byLevel[level] ??= new Set()).add(key)
 }
 const PRON = ['ich', 'du', 'er', 'wir', 'ihr', 'sie']
 
@@ -39,7 +44,11 @@ function visit(o: unknown, parentIsVocab = false) {
   for (const v of Object.values(r)) visit(v, parentIsVocab)
 }
 
-for (const f of walk('content')) visit(JSON.parse(readFileSync(f, 'utf8')))
+for (const f of walk('content')) {
+  level = /content\/(A0|A1|A2|B1)\//.exec(f)?.[1] ?? ''
+  visit(JSON.parse(readFileSync(f, 'utf8')))
+}
+writeFileSync('public/audio/levels.json', JSON.stringify(Object.fromEntries(Object.entries(byLevel).map(([l, s]) => [l, [...s].sort()]))))
 const manifest = Object.fromEntries(texts)
 writeFileSync('.audio-manifest.json', JSON.stringify(manifest, null, 0))
 console.log(`${Object.keys(manifest).length} câu cần audio`)

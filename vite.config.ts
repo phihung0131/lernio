@@ -34,7 +34,7 @@ export default defineConfig({
           {
             urlPattern: /\/audio\/.*\.mp3$/,
             handler: 'CacheFirst',
-            options: { cacheName: 'lernio-audio', expiration: { maxEntries: 5000 } },
+            options: { cacheName: 'lernio-audio', expiration: { maxEntries: 10000 } },
           },
         ],
       },

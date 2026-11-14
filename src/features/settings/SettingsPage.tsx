@@ -7,6 +7,7 @@ import { setAudioRate, setMuted } from '@/core/audio/player'
 import { supabase } from '@/core/sync/supabase'
 import { DEV_MOCK_AUTH } from '@/core/sync/devMock'
 import { useAuth } from '@/features/auth/AuthProvider'
+import AudioDownload from './AudioDownload'
 import { applyTheme, type Theme } from '@/ui/theme'
 
 const TABLES = ['lessonProgress', 'chapterResults', 'srsCards', 'reviewLogs', 'xpEvents', 'badges', 'mistakes'] as const
@@ -99,6 +100,10 @@ export default function SettingsPage() {
       <Section title="Học tập">
         <Segmented label="Mục tiêu XP mỗi ngày" value={profile.dailyGoalXp} options={[10, 20, 30, 50].map((v) => ({ v, t: `${v} XP` }))} onChange={(v) => void saveProfile({ dailyGoalXp: v })} />
         <Segmented label="Số thẻ mới tối đa mỗi ngày" value={profile.newCardsPerDay} options={[10, 20, 30, 50].map((v) => ({ v, t: `${v} thẻ` }))} onChange={(v) => void saveProfile({ newCardsPerDay: v })} />
+      </Section>
+
+      <Section title="Học offline">
+        <AudioDownload />
       </Section>
 
       <Section title="Âm thanh và giao diện">
