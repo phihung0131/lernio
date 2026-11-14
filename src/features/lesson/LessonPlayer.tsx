@@ -181,7 +181,8 @@ export default function LessonPlayer() {
           {(Object.keys(TITLES) as SectionKey[]).map((s) => {
             const idx = sectionIdx(s)
             const active = cur.section === s
-            const reachable = idx >= 0 && idx <= page!
+            // Bài đã hoàn thành: được nhảy tới mọi phần để ôn lại.
+            const reachable = idx >= 0 && (idx <= page! || progress.lessons[lesson.id] === 'completed')
             return (
               <button
                 key={s}

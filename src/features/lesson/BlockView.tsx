@@ -42,11 +42,21 @@ function Callout({ tone, md }: { tone: 'info' | 'tip' | 'warn'; md: string }) {
 
 export function StepQuiz({ quiz }: { quiz: { q: string; options: string[]; answer: number; why: string } }) {
   const [picked, setPicked] = useState<number | null>(null)
+  // Xáo lựa chọn một lần khi hiển thị (giữ chỉ số gốc để chấm).
+  const [order] = useState(() => {
+    const a = quiz.options.map((_, i) => i)
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[a[i], a[j]] = [a[j], a[i]]
+    }
+    return a
+  })
   return (
     <div className="mt-3 rounded-xl bg-bg p-3">
       <p className="mb-2 text-sm font-semibold">Kiểm tra nhanh: {quiz.q}</p>
       <div className="flex flex-wrap gap-2">
-        {quiz.options.map((o, i) => {
+        {order.map((i) => {
+          const o = quiz.options[i]
           const st = picked === null ? '' : i === quiz.answer ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/50' : i === picked ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/50' : 'opacity-50'
           return (
             <button key={i} type="button" disabled={picked !== null} onClick={() => setPicked(i)} className={`rounded-lg border border-line px-3 py-1.5 text-sm ${st}`}>
