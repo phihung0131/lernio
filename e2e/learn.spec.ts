@@ -23,6 +23,7 @@ test('đăng nhập, học bài, khóa bài và kiểm tra chapter', async ({ pa
   await runAll(page)
   await page.getByRole('button', { name: 'Tiếp theo' }).click()
   await page.getByRole('button', { name: 'Hoàn thành bài học' }).click()
+  await page.getByRole('heading', { name: 'Lộ trình học' }).waitFor() // đợi lưu xong
   await expect(page.getByRole('heading', { name: 'Lộ trình học' })).toBeVisible()
   await expect(page.getByRole('link', { name: /Cách học hiệu quả/ })).toBeVisible()
 
@@ -34,6 +35,7 @@ test('đăng nhập, học bài, khóa bài và kiểm tra chapter', async ({ pa
   await runAll(page)
   await page.getByRole('button', { name: 'Tiếp theo' }).click()
   await page.getByRole('button', { name: 'Hoàn thành bài học' }).click()
+  await page.getByRole('heading', { name: 'Lộ trình học' }).waitFor() // đợi lưu xong
 
   // Chapter 2 vẫn khóa khi chưa đạt bài kiểm tra
   await page.goto('/lesson/a0-c02-l1')
@@ -65,6 +67,7 @@ test('ôn tập: thẻ xuất hiện sau khi học và chấm FSRS', async ({ pa
   await runAll(page)
   await page.getByRole('button', { name: 'Tiếp theo' }).click()
   await page.getByRole('button', { name: 'Hoàn thành bài học' }).click()
+  await page.getByRole('heading', { name: 'Lộ trình học' }).waitFor() // đợi lưu xong
   await expect(page.getByRole('heading', { name: 'Lộ trình học' })).toBeVisible() // đợi lưu xong
   await page.goto('/review')
   await expect(page.getByRole('heading', { name: 'Ôn tập hôm nay' })).toBeVisible()
