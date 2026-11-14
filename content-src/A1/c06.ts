@@ -14,7 +14,7 @@ export default chapter({
       goals: ['Nói về thói quen', 'Chia động từ thường ở Präsens', 'Dùng trạng từ tần suất'],
       intro: 'Thì **Präsens** (hiện tại) dùng cho cả hiện tại lẫn thói quen. Hãy học các động từ hằng ngày và cách chia.',
       vocab: [
-        w('aufstehen', 'aufstehen', 'thức dậy', { pos: 'động từ tách', e: '⏰', r: 'ao-f-sờ-tê-ần' }), w('essen', 'essen', 'ăn', { pos: 'động từ', e: '🍽️', r: 'ét-xần' }), w('trinken', 'trinken', 'uống', { pos: 'động từ', e: '🥤', r: 'trin-kần' }), w('lernen', 'lernen', 'học', { pos: 'động từ', e: '📚', r: 'léc-nần' }), w('schlafen', 'schlafen', 'ngủ', { pos: 'động từ', e: '😴', r: 'sla-phần' }), w('arbeiten', 'arbeiten', 'làm việc', { pos: 'động từ', e: '💼', r: 'ar-bai-tần' }), w('immer', 'immer', 'luôn luôn', { pos: 'trạng từ', e: '♾️', r: 'i-mơ' }), w('oft', 'oft', 'thường', { pos: 'trạng từ', e: '🔁', r: 'ốpht' }), w('manchmal', 'manchmal', 'thỉnh thoảng', { pos: 'trạng từ', e: '〰️', r: 'man-ch-mal' }), w('nie', 'nie', 'không bao giờ', { pos: 'trạng từ', e: '🚫', r: 'ni' }),
+        w('aufstehen', 'aufstehen', 'thức dậy', { pos: 'động từ tách', r: 'ao-f-sờ-tê-ần' }), w('essen', 'essen', 'ăn', { pos: 'động từ', r: 'ét-xần' }), w('trinken', 'trinken', 'uống', { pos: 'động từ', r: 'trin-kần' }), w('lernen', 'lernen', 'học', { pos: 'động từ', r: 'léc-nần' }), w('schlafen', 'schlafen', 'ngủ', { pos: 'động từ', r: 'sla-phần' }), w('arbeiten', 'arbeiten', 'làm việc', { pos: 'động từ', r: 'ar-bai-tần' }), w('immer', 'immer', 'luôn luôn', { pos: 'trạng từ', r: 'i-mơ' }), w('oft', 'oft', 'thường', { pos: 'trạng từ', r: 'ốpht' }), w('manchmal', 'manchmal', 'thỉnh thoảng', { pos: 'trạng từ', r: 'man-ch-mal' }), w('nie', 'nie', 'không bao giờ', { pos: 'trạng từ', r: 'ni' }),
       ],
       grammar: [
         table(['', 'lernen (thường)', 'essen (e→i)', 'schlafen (a→ä)'], ['ich', 'lerne', 'esse', 'schlafe'], ['du', 'lernst', 'isst', 'schläfst'], ['er/sie/es', 'lernt', 'isst', 'schläft'], ['wir', 'lernen', 'essen', 'schlafen'], ['ihr', 'lernt', 'esst', 'schlaft'], ['sie/Sie', 'lernen', 'essen', 'schlafen']),
@@ -40,7 +40,7 @@ export default chapter({
       goals: ['Nhận biết động từ tách', 'Đặt tiền tố ở cuối câu'],
       intro: 'Nhiều động từ tiếng Đức có **tiền tố tách ra** khi chia và đứng **cuối câu**. Ví dụ: **aufstehen** (thức dậy) → *Ich **stehe** um 7 Uhr **auf**.*',
       vocab: [
-        w('einkaufen', 'einkaufen', 'đi mua sắm', { pos: 'động từ tách', e: '🛍️', r: 'ain-kao-phần' }), w('anrufen', 'anrufen', 'gọi điện', { pos: 'động từ tách', e: '📞', r: 'an-ru-phần' }), w('fernsehen', 'fernsehen', 'xem tivi', { pos: 'động từ tách', e: '📺', r: 'phe-n-dê-ần' }), w('aufraumen', 'aufräumen', 'dọn dẹp', { pos: 'động từ tách', e: '🧹', r: 'ao-f-roi-mần' }), w('mitkommen', 'mitkommen', 'đi cùng', { pos: 'động từ tách', e: '🚶', r: 'mít-kô-mần' }),
+        w('einkaufen', 'einkaufen', 'đi mua sắm', { pos: 'động từ tách', r: 'ain-kao-phần' }), w('anrufen', 'anrufen', 'gọi điện', { pos: 'động từ tách', r: 'an-ru-phần' }), w('fernsehen', 'fernsehen', 'xem tivi', { pos: 'động từ tách', r: 'phe-n-dê-ần' }), w('aufraumen', 'aufräumen', 'dọn dẹp', { pos: 'động từ tách', r: 'ao-f-roi-mần' }), w('mitkommen', 'mitkommen', 'đi cùng', { pos: 'động từ tách', r: 'mít-kô-mần' }),
       ],
       grammar: [
         T('**Quy tắc:** động từ tách (trennbares Verb) = **tiền tố** + **động từ gốc**.\n- Khi chia: động từ gốc ở vị trí 2, **tiền tố xuống cuối câu**.\n- *aufstehen*: Ich **stehe** um 7 Uhr **auf**.\n- *einkaufen*: Wir **kaufen** im Supermarkt **ein**.'),

@@ -14,7 +14,7 @@ export default chapter({
       goals: ['Nói về sở thích', 'Phân biệt nicht và kein'],
       intro: 'Thời gian rảnh là chủ đề tuyệt vời để thực hành. Bạn cũng sẽ học cách **phủ định**: **nicht** hay **kein**?',
       vocab: [
-        w('hobby', 'Hobby', 'sở thích', { art: 'das', pl: 'Hobbys', e: '🎨', r: 'hô-bi' }), w('musik', 'Musik', 'âm nhạc', { art: 'die', e: '🎵', r: 'mu-dik' }), w('sport', 'Sport', 'thể thao', { art: 'der', e: '⚽', r: 'spoất' }), w('fussball', 'Fußball', 'bóng đá', { art: 'der', e: '⚽', r: 'phu-x-bal' }), w('schwimmen', 'schwimmen', 'bơi', { pos: 'động từ', e: '🏊', r: 'svi-mần' }), w('lesen', 'lesen', 'đọc', { pos: 'động từ', e: '📖', r: 'lê-dần' }), w('kochen', 'kochen', 'nấu ăn', { pos: 'động từ', e: '🍳', r: 'kô-khần' }), w('tanzen', 'tanzen', 'nhảy', { pos: 'động từ', e: '💃', r: 'tan-tsần' }), w('reisen', 'reisen', 'du lịch', { pos: 'động từ', e: '✈️', r: 'rai-dần' }), w('spielen', 'spielen', 'chơi', { pos: 'động từ', e: '🎮', r: 'spi-lần' }),
+        w('hobby', 'Hobby', 'sở thích', { art: 'das', pl: 'Hobbys', r: 'hô-bi' }), w('musik', 'Musik', 'âm nhạc', { art: 'die', r: 'mu-dik' }), w('sport', 'Sport', 'thể thao', { art: 'der', r: 'spoất' }), w('fussball', 'Fußball', 'bóng đá', { art: 'der', r: 'phu-x-bal' }), w('schwimmen', 'schwimmen', 'bơi', { pos: 'động từ', r: 'svi-mần' }), w('lesen', 'lesen', 'đọc', { pos: 'động từ', r: 'lê-dần' }), w('kochen', 'kochen', 'nấu ăn', { pos: 'động từ', r: 'kô-khần' }), w('tanzen', 'tanzen', 'nhảy', { pos: 'động từ', r: 'tan-tsần' }), w('reisen', 'reisen', 'du lịch', { pos: 'động từ', r: 'rai-dần' }), w('spielen', 'spielen', 'chơi', { pos: 'động từ', r: 'spi-lần' }),
       ],
       grammar: [
         table(['Phủ định', 'Dùng khi', 'Ví dụ'], ['**nicht**', 'phủ định động từ, tính từ, câu', 'Ich schwimme **nicht**. Er ist **nicht** müde.'], ['**kein**', 'phủ định danh từ có **ein/không mạo từ**', 'Ich habe **keinen** Hund. Ich habe **kein** Auto.']),
@@ -41,7 +41,7 @@ export default chapter({
       goals: ['Chia 5 động từ khuyết thiếu', 'Đặt động từ nguyên mẫu ở cuối câu'],
       intro: '**Modalverben** (động từ khuyết thiếu) diễn đạt khả năng, bắt buộc, mong muốn, cho phép. Chúng luôn đi với **một động từ nguyên mẫu ở cuối câu**.',
       vocab: [
-        w('konnen', 'können', 'có thể, biết (làm)', { pos: 'động từ khuyết thiếu', e: '💪', r: 'kơ-nần' }), w('mussen', 'müssen', 'phải', { pos: 'động từ khuyết thiếu', e: '⚠️', r: 'muy-dần' }), w('wollen', 'wollen', 'muốn', { pos: 'động từ khuyết thiếu', e: '🎯', r: 'vô-lần' }), w('durfen', 'dürfen', 'được phép', { pos: 'động từ khuyết thiếu', e: '✅', r: 'đuy-phần' }), w('sollen', 'sollen', 'nên, được bảo phải', { pos: 'động từ khuyết thiếu', e: '📋', r: 'dô-lần' }),
+        w('konnen', 'können', 'có thể, biết (làm)', { pos: 'động từ khuyết thiếu', r: 'kơ-nần' }), w('mussen', 'müssen', 'phải', { pos: 'động từ khuyết thiếu', r: 'muy-dần' }), w('wollen', 'wollen', 'muốn', { pos: 'động từ khuyết thiếu', r: 'vô-lần' }), w('durfen', 'dürfen', 'được phép', { pos: 'động từ khuyết thiếu', r: 'đuy-phần' }), w('sollen', 'sollen', 'nên, được bảo phải', { pos: 'động từ khuyết thiếu', r: 'dô-lần' }),
       ],
       grammar: [
         table(['', 'können', 'müssen', 'wollen', 'dürfen'], ['ich', 'kann', 'muss', 'will', 'darf'], ['du', 'kannst', 'musst', 'willst', 'darfst'], ['er/sie/es', 'kann', 'muss', 'will', 'darf'], ['wir', 'können', 'müssen', 'wollen', 'dürfen'], ['ihr', 'könnt', 'müsst', 'wollt', 'dürft'], ['sie/Sie', 'können', 'müssen', 'wollen', 'dürfen']),

@@ -9,7 +9,8 @@ function inline(s: string): ReactNode[] {
 }
 
 /** Markdown tối giản: đoạn văn, danh sách "- ", **đậm**, *nghiêng*. */
-export default function Md({ text }: { text: string }) {
+export default function Md({ text, inline: inl }: { text: string; inline?: boolean }) {
+  if (inl) return <>{inline(text)}</>
   const blocks = text.split(/\n{2,}/)
   return (
     <>

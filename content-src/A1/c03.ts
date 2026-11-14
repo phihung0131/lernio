@@ -14,7 +14,7 @@ export default chapter({
       goals: ['Đếm đến 100', 'Hiểu quy tắc “đơn vị trước, chục sau”'],
       intro: 'Số từ 11 đến 19 có dạng riêng, từ 20 trở đi có **quy tắc đặc biệt**: tiếng Đức đọc **hàng đơn vị trước**, rồi **und**, rồi hàng chục. Ví dụ 21 = *einundzwanzig* (một-và-hai mươi).',
       vocab: [
-        w('elf', 'elf', '11', { e: '1️⃣', r: 'elf' }), w('zwolf', 'zwölf', '12', { e: '1️⃣', r: 'tsvơlf' }), w('dreizehn', 'dreizehn', '13', { r: 'đrai-tsên' }), w('zwanzig', 'zwanzig', '20', { r: 'tsvan-tsích' }), w('dreissig', 'dreißig', '30', { r: 'đrai-xích' }), w('vierzig', 'vierzig', '40', { r: 'phia-tsích' }), w('funfzig', 'fünfzig', '50', { r: 'phuynf-tsích' }), w('hundert', 'hundert', '100', { r: 'hun-đơt' }),
+        w('elf', 'elf', '11', { r: 'elf' }), w('zwolf', 'zwölf', '12', { r: 'tsvơlf' }), w('dreizehn', 'dreizehn', '13', { r: 'đrai-tsên' }), w('zwanzig', 'zwanzig', '20', { r: 'tsvan-tsích' }), w('dreissig', 'dreißig', '30', { r: 'đrai-xích' }), w('vierzig', 'vierzig', '40', { r: 'phia-tsích' }), w('funfzig', 'fünfzig', '50', { r: 'phuynf-tsích' }), w('hundert', 'hundert', '100', { r: 'hun-đơt' }),
       ],
       grammar: [
         table(['Số', 'Tiếng Đức'], ['11', 'elf'], ['12', 'zwölf'], ['13', 'dreizehn'], ['14', 'vierzehn'], ['15', 'fünfzehn'], ['16', 'sechzehn (bỏ s)'], ['17', 'siebzehn (bỏ en)'], ['18', 'achtzehn'], ['19', 'neunzehn']),
@@ -43,7 +43,7 @@ export default chapter({
       goals: ['Hỏi và nói tuổi', 'Đọc số điện thoại'],
       intro: 'Hỏi tuổi trong tiếng Đức dùng **sein** (là), không dùng “có”: **Ich bin 25 Jahre alt.** (Tôi là 25 năm tuổi).',
       vocab: [
-        w('alt', 'alt', 'tuổi, già', { pos: 'tính từ', e: '🎂', r: 'an-t' }), w('jahr', 'Jahr', 'năm, tuổi', { art: 'das', pl: 'Jahre', e: '📅', r: 'da-r' }), w('telefonnummer', 'Telefonnummer', 'số điện thoại', { art: 'die', pl: 'Telefonnummern', e: '📞', r: 'tê-lê-phôn-nu-mơ' }), w('handy', 'Handy', 'điện thoại di động', { art: 'das', pl: 'Handys', e: '📱', r: 'hen-đi' }), w('email', 'E-Mail', 'thư điện tử', { art: 'die', pl: 'E-Mails', e: '✉️', r: 'i-mêl' }),
+        w('alt', 'alt', 'tuổi, già', { pos: 'tính từ', r: 'an-t' }), w('jahr', 'Jahr', 'năm, tuổi', { art: 'das', pl: 'Jahre', r: 'da-r' }), w('telefonnummer', 'Telefonnummer', 'số điện thoại', { art: 'die', pl: 'Telefonnummern', r: 'tê-lê-phôn-nu-mơ' }), w('handy', 'Handy', 'điện thoại di động', { art: 'das', pl: 'Handys', r: 'hen-đi' }), w('email', 'E-Mail', 'thư điện tử', { art: 'die', pl: 'E-Mails', r: 'i-mêl' }),
       ],
       grammar: [
         table(['Hỏi', 'Trả lời'], ['Wie alt bist du?', 'Ich bin 25 (Jahre alt).'], ['Wie alt ist er?', 'Er ist 30.'], ['Wie ist deine Telefonnummer?', 'Meine Nummer ist 0151 …']),

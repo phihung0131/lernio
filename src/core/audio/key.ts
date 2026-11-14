@@ -10,4 +10,6 @@ export function audioKey(text: string): string {
   }
   return h1.toString(16).padStart(8, '0') + h2.toString(16).padStart(8, '0')
 }
-export const audioUrl = (text: string) => `${import.meta.env?.BASE_URL ?? '/'}audio/${audioKey(text)}.mp3`
+/** Giọng nam 'm' giữ khóa cũ; giọng nữ 'f' dùng khóa có tiền tố. */
+export const voiceKey = (text: string, voice: 'm' | 'f' = 'm') => (voice === 'f' ? audioKey(`f:${text}`) : audioKey(text))
+export const audioUrl = (text: string, voice: 'm' | 'f' = 'm') => `${import.meta.env?.BASE_URL ?? '/'}audio/${voiceKey(text, voice)}.mp3`

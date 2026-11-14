@@ -22,7 +22,7 @@ export default function ExerciseRunner({
   const [finished, setFinished] = useState(false)
 
   if (exercises.length === 0) return null
-  if (finished) return <p role="status" className="rounded-lg bg-surface p-3 text-center font-semibold">Đã làm xong phần bài tập ✓</p>
+  if (finished) return <p role="status" className="rounded-lg bg-surface p-3 text-center font-semibold">Đã làm xong phần bài tập</p>
   const ex = exercises[i]
   return (
     <div>
@@ -32,8 +32,8 @@ export default function ExerciseRunner({
       <ExerciseView
         key={ex.id}
         ex={ex}
+        onChecked={(correct) => sfx(correct ? 'ok' : 'bad')}
         onDone={({ correct }) => {
-          sfx(correct ? 'ok' : 'bad')
           const ns = score + (correct ? 1 : 0)
           const nw = correct ? wrong : [...wrong, ...ex.tags]
           if (i + 1 >= exercises.length) {

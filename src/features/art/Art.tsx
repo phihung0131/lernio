@@ -1,3 +1,4 @@
+import { IconCat, IconDog, IconHome, type Icon as TablerIcon } from '@tabler/icons-react'
 import { useId } from 'react'
 import type { LevelId } from '@/core/content/schema'
 
@@ -58,7 +59,7 @@ export function Mascot({ size = 96, mood = 'happy' }: { size?: number; mood?: 'h
       {mood === 'cheer' && (
         <>
           <path d="M14 70q-8-14 2-26M106 70q8-14-2-26" stroke="#b45309" strokeWidth="6" strokeLinecap="round" fill="none" />
-          <text x="60" y="14" textAnchor="middle" fontSize="14">✨</text>
+          <path d="M60 2l2.5 6 6 2.5-6 2.5L60 19l-2.5-6-6-2.5 6-2.5z" fill="#facc15" />
         </>
       )}
       <path d="M38 36q6-6 14-2M82 36q-6-6-14-2" stroke="#78350f" strokeWidth="3" strokeLinecap="round" fill="none" />
@@ -143,22 +144,19 @@ export function MouthDiagram({ shape, label }: { shape: 'open' | 'round' | 'smil
 }
 
 /** Thẻ danh từ theo giống: der xanh dương, die đỏ, das xanh lá. */
-export function GenderCard({ article, noun, emoji }: { article: 'der' | 'die' | 'das'; noun: string; emoji: string }) {
+export function GenderCard({ article, noun, Icon }: { article: 'der' | 'die' | 'das'; noun: string; Icon: TablerIcon }) {
   const c = { der: '#2563eb', die: '#dc2626', das: '#16a34a' }[article]
   return (
-    <svg width="120" height="130" viewBox="0 0 120 130" role="img" aria-label={`${article} ${noun}`}>
-      <rect x="4" y="4" width="112" height="122" rx="16" fill="#fff" stroke={c} strokeWidth="4" />
-      <rect x="4" y="4" width="112" height="30" rx="14" fill={c} />
-      <text x="60" y="26" textAnchor="middle" fontSize="18" fontWeight="800" fill="#fff" fontFamily="system-ui">{article}</text>
-      <text x="60" y="80" textAnchor="middle" fontSize="40">{emoji}</text>
-      <text x="60" y="112" textAnchor="middle" fontSize="16" fontWeight="700" fill="#111827" fontFamily="system-ui">{noun}</text>
-    </svg>
+    <figure className="flex w-28 flex-col overflow-hidden rounded-2xl border-4 bg-white text-center" style={{ borderColor: c }} aria-label={`${article} ${noun}`}>
+      <figcaption className="py-1 text-lg font-extrabold text-white" style={{ background: c }}>{article}</figcaption>
+      <div className="flex justify-center py-3" style={{ color: c }}><Icon size={44} stroke={1.6} aria-hidden /></div>
+      <p className="pb-2 font-bold text-slate-900">{noun}</p>
+    </figure>
   )
 }
 
 const TILE_COLORS = ['#2563eb', '#dc2626', '#16a34a', '#d97706', '#7c3aed', '#0891b2']
 
-/** Dải 26 chữ cái + ä ö ü ß dạng thẻ màu. */
 export function AlphabetStrip() {
   const letters = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß']
   return (
@@ -192,9 +190,9 @@ export function MouthVowels() {
 export function GenderGallery() {
   return (
     <div className="my-3 flex flex-wrap justify-center gap-3 rounded-xl bg-surface p-3">
-      <GenderCard article="der" noun="Hund" emoji="🐶" />
-      <GenderCard article="die" noun="Katze" emoji="🐱" />
-      <GenderCard article="das" noun="Haus" emoji="🏠" />
+      <GenderCard article="der" noun="Hund" Icon={IconDog} />
+      <GenderCard article="die" noun="Katze" Icon={IconCat} />
+      <GenderCard article="das" noun="Haus" Icon={IconHome} />
     </div>
   )
 }

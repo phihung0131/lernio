@@ -14,12 +14,12 @@ export default chapter({
       goals: ['Gọi tên thành viên gia đình', 'Hiểu 3 giống der/die/das', 'Học danh từ kèm mạo từ'],
       intro: 'Mỗi danh từ tiếng Đức có **một giống** (Genus): **der** (đực), **die** (cái), **das** (trung). Giống phải **học cùng với từ**, không đoán được hoàn toàn từ nghĩa. May là có vài quy luật hữu ích.',
       vocab: [
-        w('vater', 'Vater', 'bố', { art: 'der', pl: 'Väter', e: '👨', r: 'pha-tơ' }), w('mutter', 'Mutter', 'mẹ', { art: 'die', pl: 'Mütter', e: '👩', r: 'mu-tơ' }), w('eltern', 'Eltern', 'bố mẹ', { pos: 'danh từ số nhiều', e: '👪', r: 'el-tơn' }), w('bruder', 'Bruder', 'anh/em trai', { art: 'der', pl: 'Brüder', e: '👦', r: 'bru-đơ' }), w('schwester', 'Schwester', 'chị/em gái', { art: 'die', pl: 'Schwestern', e: '👧', r: 'své-xtơ' }), w('kind', 'Kind', 'đứa trẻ, con', { art: 'das', pl: 'Kinder', e: '🧒', r: 'kin-t' }), w('oma', 'Oma', 'bà', { art: 'die', pl: 'Omas', e: '👵', r: 'ô-ma' }), w('opa', 'Opa', 'ông', { art: 'der', pl: 'Opas', e: '👴', r: 'ô-pa' }),
+        w('vater', 'Vater', 'bố', { art: 'der', pl: 'Väter', r: 'pha-tơ' }), w('mutter', 'Mutter', 'mẹ', { art: 'die', pl: 'Mütter', r: 'mu-tơ' }), w('eltern', 'Eltern', 'bố mẹ', { pos: 'danh từ số nhiều', r: 'el-tơn' }), w('bruder', 'Bruder', 'anh/em trai', { art: 'der', pl: 'Brüder', r: 'bru-đơ' }), w('schwester', 'Schwester', 'chị/em gái', { art: 'die', pl: 'Schwestern', r: 'své-xtơ' }), w('kind', 'Kind', 'đứa trẻ, con', { art: 'das', pl: 'Kinder', r: 'kin-t' }), w('oma', 'Oma', 'bà', { art: 'die', pl: 'Omas', r: 'ô-ma' }), w('opa', 'Opa', 'ông', { art: 'der', pl: 'Opas', r: 'ô-pa' }),
       ],
       grammar: [
         T('**Mạo từ xác định (bestimmter Artikel)** dùng cho vật đã biết: **der** Mann, **die** Frau, **das** Kind. **Mạo từ không xác định (unbestimmter Artikel)** dùng cho vật mới nhắc: **ein** Mann, **eine** Frau, **ein** Kind.'),
         illus('genders'),
-        table(['Giống', 'Xác định', 'Không xác định', 'Màu'], ['Đực (maskulin)', 'der', 'ein', '🔵'], ['Cái (feminin)', 'die', 'eine', '🔴'], ['Trung (neutral)', 'das', 'ein', '🟢']),
+        table(['Giống', 'Xác định', 'Không xác định', 'Màu'], ['Đực (maskulin)', 'der', 'ein', 'xanh dương'], ['Cái (feminin)', 'die', 'eine', 'đỏ'], ['Trung (neutral)', 'das', 'ein', 'xanh lá']),
         info('**Quy luật hay gặp:** người đàn ông → **der** (der Vater), người phụ nữ → **die** (die Mutter), nhưng **das Kind**, **das Mädchen** (bé gái) là giống **trung**! Danh từ đuôi **-ung, -heit, -keit, -schaft, -ion** → **die**. Đuôi **-chen, -lein** → **das**.'),
         warn('Đừng cố đoán giống theo nghĩa. **das Mädchen** (cô gái) là giống trung, **die Person** (người) luôn là giống cái dù đó là đàn ông. Cứ học cả cụm: **der Vater**, **die Mutter**.'),
         tip('Dùng **màu** để nhớ: der = xanh dương, die = đỏ, das = xanh lá. Lernio dùng màu này ở khắp nơi.'),
@@ -40,7 +40,7 @@ export default chapter({
       goals: ['Dùng mạo từ sở hữu mein/dein', 'Nói “gia đình của tôi”'],
       intro: 'Khi nói “bố của tôi”, tiếng Đức dùng **mạo từ sở hữu** (Possessivartikel) đặt **trước** danh từ: **mein Vater**. Nó đổi đuôi giống mạo từ **ein**.',
       vocab: [
-        w('mein', 'mein', 'của tôi', { pos: 'mạo từ sở hữu', e: '🙋', r: 'mai-n' }), w('dein', 'dein', 'của bạn', { pos: 'mạo từ sở hữu', e: '🫵', r: 'đai-n' }), w('sein', 'sein', 'của anh ấy', { pos: 'mạo từ sở hữu', e: '👨', r: 'dai-n' }), w('ihr', 'ihr', 'của cô ấy', { pos: 'mạo từ sở hữu', e: '👩', r: 'i-ơ' }), w('unser', 'unser', 'của chúng tôi', { pos: 'mạo từ sở hữu', e: '👥', r: 'un-dơ' }), w('verheiratet', 'verheiratet', 'đã kết hôn', { pos: 'tính từ', e: '💍', r: 'phe-hai-ra-tết' }), w('ledig', 'ledig', 'độc thân', { pos: 'tính từ', e: '🙂', r: 'lê-đích' }),
+        w('mein', 'mein', 'của tôi', { pos: 'mạo từ sở hữu', r: 'mai-n' }), w('dein', 'dein', 'của bạn', { pos: 'mạo từ sở hữu', r: 'đai-n' }), w('sein', 'sein', 'của anh ấy', { pos: 'mạo từ sở hữu', r: 'dai-n' }), w('ihr', 'ihr', 'của cô ấy', { pos: 'mạo từ sở hữu', r: 'i-ơ' }), w('unser', 'unser', 'của chúng tôi', { pos: 'mạo từ sở hữu', r: 'un-dơ' }), w('verheiratet', 'verheiratet', 'đã kết hôn', { pos: 'tính từ', r: 'phe-hai-ra-tết' }), w('ledig', 'ledig', 'độc thân', { pos: 'tính từ', r: 'lê-đích' }),
       ],
       grammar: [
         table(['Đại từ', 'Sở hữu', 'Ví dụ'], ['ich', 'mein', 'mein Vater'], ['du', 'dein', 'deine Mutter'], ['er / es', 'sein', 'sein Bruder'], ['sie', 'ihr', 'ihre Schwester'], ['wir', 'unser', 'unsere Familie'], ['ihr', 'euer', 'eure Eltern'], ['sie / Sie', 'ihr / Ihr', 'Ihre Adresse']),
@@ -66,7 +66,7 @@ export default chapter({
       goals: ['Chia động từ haben', 'Biết Akkusativ đổi mạo từ giống đực: ein → einen'],
       intro: 'Khi nói **có** cái gì (haben), thứ được “có” đứng ở **Akkusativ** (cách 4). Khác biệt duy nhất ở giống đực: **ein → einen**, **der → den**.',
       vocab: [
-        w('haben', 'haben', 'có', { pos: 'động từ', e: '🤲', r: 'ha-bần' }), w('geschwister', 'Geschwister', 'anh chị em', { pos: 'danh từ số nhiều', e: '👫', r: 'gờ-sví-xtơ' }), w('keine', 'keine', 'không có', { pos: 'từ phủ định', e: '🚫', r: 'kai-nờ' }), w('einzelkind', 'Einzelkind', 'con một', { art: 'das', e: '1️⃣', r: 'ain-tsồl-kin-t' }),
+        w('haben', 'haben', 'có', { pos: 'động từ', r: 'ha-bần' }), w('geschwister', 'Geschwister', 'anh chị em', { pos: 'danh từ số nhiều', r: 'gờ-sví-xtơ' }), w('keine', 'keine', 'không có', { pos: 'từ phủ định', r: 'kai-nờ' }), w('einzelkind', 'Einzelkind', 'con một', { art: 'das', r: 'ain-tsồl-kin-t' }),
       ],
       grammar: [
         table(['haben', ''], ['ich habe', 'wir haben'], ['du hast', 'ihr habt'], ['er/sie/es hat', 'sie/Sie haben']),

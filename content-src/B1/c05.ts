@@ -14,7 +14,7 @@ export default chapter({
       goals: ['Tạo Konjunktiv II với würde + nguyên mẫu', 'Dùng dạng đặc biệt: wäre, hätte, könnte, müsste', 'Đưa lời khuyên và nói điều ước'],
       intro: '**Konjunktiv II** dùng để nói điều **không có thật, ước muốn, giả định, lời khuyên và yêu cầu lịch sự**. Bạn đã gặp rồi: **ich möchte** chính là Konjunktiv II của *mögen*!',
       vocab: [
-        w('wunsch', 'Wunsch', 'điều ước', { art: 'der', pl: 'Wünsche', e: '🌠', r: 'vun-s' }), w('ratschlag', 'Ratschlag', 'lời khuyên', { art: 'der', pl: 'Ratschläge', e: '💡', r: 'rát-sláck' }), w('vielleicht', 'vielleicht', 'có lẽ', { pos: 'trạng từ', e: '🤷', r: 'phi-lai-sht' }), w('eigentlich', 'eigentlich', 'thực ra', { pos: 'trạng từ', e: '🤔', r: 'ai-gần-t-lích' }), w('traum', 'Traum', 'giấc mơ', { art: 'der', pl: 'Träume', e: '💭', r: 'trao-m' }), w('raten', 'raten', 'khuyên', { pos: 'động từ + Dativ', e: '🗣️', r: 'ra-tần' }),
+        w('wunsch', 'Wunsch', 'điều ước', { art: 'der', pl: 'Wünsche', r: 'vun-s' }), w('ratschlag', 'Ratschlag', 'lời khuyên', { art: 'der', pl: 'Ratschläge', r: 'rát-sláck' }), w('vielleicht', 'vielleicht', 'có lẽ', { pos: 'trạng từ', r: 'phi-lai-sht' }), w('eigentlich', 'eigentlich', 'thực ra', { pos: 'trạng từ', r: 'ai-gần-t-lích' }), w('traum', 'Traum', 'giấc mơ', { art: 'der', pl: 'Träume', r: 'trao-m' }), w('raten', 'raten', 'khuyên', { pos: 'động từ + Dativ', r: 'ra-tần' }),
       ],
       grammar: [
         table(['Nguyên mẫu', 'Konjunktiv II', 'Nghĩa'], ['sein', 'ich **wäre**, du wärst, er wäre, wir wären', 'sẽ là'], ['haben', 'ich **hätte**, du hättest, er hätte', 'sẽ có'], ['können', 'ich **könnte**, du könntest', 'có thể'], ['müssen', 'ich **müsste**', 'sẽ phải'], ['dürfen', 'ich **dürfte**', 'được phép'], ['wollen', 'ich **wollte**', 'muốn'], ['werden', 'ich **würde**, du würdest, er würde, wir würden', 'sẽ']),
@@ -44,7 +44,7 @@ export default chapter({
       goals: ['Dùng sollte, an deiner Stelle, Ich schlage vor', 'Viết một lời khuyên ngắn cho bạn bè'],
       intro: 'Khuyên ai đó một cách **nhẹ nhàng, không ra lệnh** là kỹ năng quan trọng. Konjunktiv II giúp bạn làm điều đó.',
       vocab: [
-        w('empfehlen', 'empfehlen', 'giới thiệu, khuyên', { pos: 'động từ', e: '👍', r: 'em-pha-lần' }), w('vorschlagen', 'vorschlagen', 'đề nghị', { pos: 'động từ tách', e: '💬', r: 'phô-sla-gần' }), w('stelle', 'Stelle', 'vị trí, chỗ', { art: 'die', pl: 'Stellen', e: '📍', r: 'sờ-té-lờ' }), w('lieber', 'lieber', 'thà … hơn', { pos: 'trạng từ', e: '❤️', r: 'li-bơ' }), w('besser', 'besser', 'tốt hơn', { pos: 'trạng từ', e: '👌', r: 'bé-xơ' }),
+        w('empfehlen', 'empfehlen', 'giới thiệu, khuyên', { pos: 'động từ', r: 'em-pha-lần' }), w('vorschlagen', 'vorschlagen', 'đề nghị', { pos: 'động từ tách', r: 'phô-sla-gần' }), w('stelle', 'Stelle', 'vị trí, chỗ', { art: 'die', pl: 'Stellen', r: 'sờ-té-lờ' }), w('lieber', 'lieber', 'thà … hơn', { pos: 'trạng từ', r: 'li-bơ' }), w('besser', 'besser', 'tốt hơn', { pos: 'trạng từ', r: 'bé-xơ' }),
       ],
       grammar: [
         table(['Cách khuyên', 'Ví dụ'], ['**Du solltest** + nguyên mẫu', 'Du solltest mehr Wasser trinken.'], ['**An deiner Stelle würde ich** + nguyên mẫu', 'An deiner Stelle würde ich zum Arzt gehen.'], ['**Ich würde dir raten,** zu + nguyên mẫu', 'Ich würde dir raten, früher ins Bett zu gehen.'], ['**Warum + nicht** …?', 'Warum fragst du ihn nicht?'], ['**Vielleicht + solltest du** …', 'Vielleicht solltest du ihn anrufen.'], ['**Ich schlage vor, dass** …', 'Ich schlage vor, dass wir uns morgen treffen.']),

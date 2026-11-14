@@ -14,7 +14,7 @@ export default chapter({
       goals: ['Chia Präteritum cho động từ thường', 'Biết 20 động từ bất quy tắc phổ biến', 'Phân biệt dùng Perfekt và Präteritum'],
       intro: '**Präteritum** là thì quá khứ của **văn viết**: truyện, báo chí, tiểu thuyết, thư từ. Trong văn nói, Perfekt phổ biến hơn, trừ **sein, haben và modal**.',
       vocab: [
-        w('erlebnis', 'Erlebnis', 'trải nghiệm', { art: 'das', pl: 'Erlebnisse', e: '🎢', r: 'e-lếp-nít' }), w('erzahlen', 'erzählen', 'kể', { pos: 'động từ', e: '🗣️', r: 'e-tsê-lần' }), w('passieren', 'passieren', 'xảy ra', { pos: 'động từ', e: '❗', r: 'pa-xi-rần' }), w('plotzlich', 'plötzlich', 'đột nhiên', { pos: 'trạng từ', e: '⚡', r: 'plơ-tsờ-lích' }), w('damals', 'damals', 'hồi đó', { pos: 'trạng từ', e: '🕰️', r: 'đa-mals' }), w('einmal', 'einmal', 'một lần, ngày xưa', { pos: 'trạng từ', e: '1️⃣', r: 'ai-n-mal' }), w('kindheit', 'Kindheit', 'thời thơ ấu', { art: 'die', e: '🧒', r: 'kin-t-hai-t' }),
+        w('erlebnis', 'Erlebnis', 'trải nghiệm', { art: 'das', pl: 'Erlebnisse', r: 'e-lếp-nít' }), w('erzahlen', 'erzählen', 'kể', { pos: 'động từ', r: 'e-tsê-lần' }), w('passieren', 'passieren', 'xảy ra', { pos: 'động từ', r: 'pa-xi-rần' }), w('plotzlich', 'plötzlich', 'đột nhiên', { pos: 'trạng từ', r: 'plơ-tsờ-lích' }), w('damals', 'damals', 'hồi đó', { pos: 'trạng từ', r: 'đa-mals' }), w('einmal', 'einmal', 'một lần, ngày xưa', { pos: 'trạng từ', r: 'ai-n-mal' }), w('kindheit', 'Kindheit', 'thời thơ ấu', { art: 'die', r: 'kin-t-hai-t' }),
       ],
       grammar: [
         table(['', 'Động từ thường (yếu)', 'Động từ bất quy tắc (mạnh)'], ['Cách tạo', 'gốc + **-te**', 'đổi nguyên âm gốc (+ có khi đổi phụ âm)'], ['ich', 'mach**te**', 'ging, kam, sah'], ['du', 'mach**test**', 'gingst, kamst, sahst'], ['er/sie/es', 'mach**te**', 'ging, kam, sah (không đuôi)'], ['wir', 'mach**ten**', 'gingen, kamen, sahen'], ['ihr', 'mach**tet**', 'gingt, kamt, saht'], ['sie/Sie', 'mach**ten**', 'gingen, kamen, sahen']),
@@ -43,7 +43,7 @@ export default chapter({
       goals: ['Kể câu chuyện bằng Präteritum', 'Dùng als (khi, một lần trong quá khứ)', 'Phân biệt als / wenn / wann'],
       intro: 'Khi kể chuyện quá khứ, bạn cần nối các sự kiện bằng **als**, **nachdem**, **dann**… Hãy học cách phân biệt **als / wenn / wann**.',
       vocab: [
-        w('als', 'als', 'khi (quá khứ, một lần)', { pos: 'liên từ phụ', e: '⏮️', r: 'an-x' }), w('wenn', 'wenn', 'khi / nếu (lặp lại)', { pos: 'liên từ phụ', e: '🔁', r: 'ven' }), w('wann', 'wann', 'khi nào (câu hỏi)', { pos: 'từ hỏi', e: '❓', r: 'van' }), w('ploetzlich', 'plötzlich', 'đột nhiên', { pos: 'trạng từ', e: '⚡', r: 'plơ-tsờ-lích' }), w('endlich', 'endlich', 'cuối cùng thì', { pos: 'trạng từ', e: '🎉', r: 'en-đờ-lích' }),
+        w('als', 'als', 'khi (quá khứ, một lần)', { pos: 'liên từ phụ', r: 'an-x' }), w('wenn', 'wenn', 'khi / nếu (lặp lại)', { pos: 'liên từ phụ', r: 'ven' }), w('wann', 'wann', 'khi nào (câu hỏi)', { pos: 'từ hỏi', r: 'van' }), w('ploetzlich', 'plötzlich', 'đột nhiên', { pos: 'trạng từ', r: 'plơ-tsờ-lích' }), w('endlich', 'endlich', 'cuối cùng thì', { pos: 'trạng từ', r: 'en-đờ-lích' }),
       ],
       grammar: [
         table(['Từ', 'Dùng khi', 'Ví dụ'], ['**als**', 'sự kiện **một lần** trong **quá khứ**', 'Als ich 10 war, zog ich nach Berlin.'], ['**wenn**', 'sự kiện **lặp lại** (quá khứ/hiện tại) hoặc **tương lai**; “nếu”', 'Wenn es regnete, blieb ich zu Hause. • Wenn du kommst, rufe ich dich an.'], ['**wann**', 'câu hỏi “khi nào” hoặc câu phụ gián tiếp', 'Wann kommst du? • Ich weiß nicht, wann er kommt.']),

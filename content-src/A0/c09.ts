@@ -12,11 +12,11 @@ export default chapter({
       goals: ['Dùng ich, du, er, sie, es', 'Biết er/sie/es cho người và vật'],
       intro: '**Đại từ nhân xưng** (Personalpronomen) là từ thay cho người hoặc vật: tôi, bạn, anh ấy, cô ấy… Đây là nền tảng để chia động từ ở A1.',
       vocab: [
-        v('ich', 'ich', 'tôi', { e: '🙋', r: 'ích' }),
-        v('du', 'du', 'bạn (thân mật)', { e: '🫵', r: 'đu' }),
-        v('er', 'er', 'anh ấy / nó (giống đực)', { e: '👨', r: 'e-ơ' }),
-        v('sie', 'sie', 'cô ấy / nó (giống cái)', { e: '👩', r: 'di' }),
-        v('es', 'es', 'nó (giống trung)', { e: '🔹', r: 'ét' }),
+        v('ich', 'ich', 'tôi', { r: 'ích' }),
+        v('du', 'du', 'bạn (thân mật)', { r: 'đu' }),
+        v('er', 'er', 'anh ấy / nó (giống đực)', { r: 'e-ơ' }),
+        v('sie', 'sie', 'cô ấy / nó (giống cái)', { r: 'di' }),
+        v('es', 'es', 'nó (giống trung)', { r: 'ét' }),
       ],
       grammar: [
         table(['Đại từ', 'Nghĩa', 'Dùng khi'], ['ich', 'tôi', 'chính bạn'], ['du', 'bạn', 'nói với một người thân quen'], ['er', 'anh ấy, nó', 'một người nam hoặc vật giống der'], ['sie', 'cô ấy, nó', 'một người nữ hoặc vật giống die'], ['es', 'nó', 'vật giống das, thời tiết, trẻ nhỏ']),
@@ -40,10 +40,10 @@ export default chapter({
       goals: ['Dùng wir, ihr, sie, Sie', 'Phân biệt du và Sie'],
       intro: 'Bốn đại từ còn lại cho số nhiều và cách xưng hô lịch sự. **Sie** (viết hoa) là điều đặc biệt nhất.',
       vocab: [
-        v('wir', 'wir', 'chúng tôi, chúng ta', { e: '👫', r: 'vi-ơ' }),
-        v('ihr', 'ihr', 'các bạn', { e: '🧑‍🤝‍🧑', r: 'i-ơ' }),
-        v('sie-pl', 'sie', 'họ', { e: '👥', r: 'di' }),
-        v('sie-formal', 'Sie', 'ông/bà/bạn (lịch sự)', { e: '🎩', r: 'di' }),
+        v('wir', 'wir', 'chúng tôi, chúng ta', { r: 'vi-ơ' }),
+        v('ihr', 'ihr', 'các bạn', { r: 'i-ơ' }),
+        v('sie-pl', 'sie', 'họ', { r: 'di' }),
+        v('sie-formal', 'Sie', 'ông/bà/bạn (lịch sự)', { r: 'di' }),
       ],
       grammar: [
         table(['Số ít', 'Số nhiều'], ['ich (tôi)', 'wir (chúng tôi)'], ['du (bạn)', 'ihr (các bạn)'], ['er / sie / es', 'sie (họ)'], ['Sie (lịch sự, số ít và nhiều)', 'Sie (lịch sự)']),

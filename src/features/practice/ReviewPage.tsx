@@ -8,6 +8,7 @@ import { db } from '@/core/db/db'
 import { loadAllChapters } from '@/core/content/loader'
 import type { VocabItem } from '@/core/content/schema'
 import { Mascot } from '@/features/art/Art'
+import VocabIcon from '@/ui/VocabIcon'
 
 export default function ReviewPage() {
   const [vocab, setVocab] = useState<Map<string, VocabItem>>(new Map())
@@ -57,7 +58,7 @@ export default function ReviewPage() {
       <h1 className="mb-1 text-2xl font-bold">Ôn tập hôm nay</h1>
       <p className="mb-4 text-sm text-muted">Còn {due.length} thẻ</p>
       <div className="rounded-2xl border border-line bg-surface p-8 text-center">
-        {v?.emoji && <p className="text-6xl" aria-hidden>{v.emoji}</p>}
+        {v && <div className="flex justify-center"><VocabIcon icon={v.icon} word={v.de} article={v.article} size={72} /></div>}
         <p className="mt-3 text-2xl font-bold">{front}</p>
         {flipped && (
           <div className="mt-4">

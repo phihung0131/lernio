@@ -12,12 +12,12 @@ export default chapter({
       goals: ['Đọc đúng ch (hai kiểu), sch, sp, st đầu từ'],
       intro: 'Tiếng Đức đọc **gần như đúng như viết**. Chỉ cần học một số tổ hợp chữ cái đặc biệt, bạn có thể đọc hầu hết từ.',
       vocab: [
-        v('ich', 'ich', 'tôi', { e: '🙋', r: 'ích (hơi gió, nhẹ)', pos: 'đại từ' }),
-        v('buch', 'Buch', 'quyển sách', { art: 'das', e: '📖', r: 'bu-kh' }),
-        v('schule', 'Schule', 'trường học', { art: 'die', e: '🏫', r: 'su-lờ' }),
-        v('sprache', 'Sprache', 'ngôn ngữ', { art: 'die', e: '🗣️', r: 'sờ-pra-khờ' }),
-        v('stadt', 'Stadt', 'thành phố', { art: 'die', e: '🏙️', r: 'sờ-tát' }),
-        v('milch', 'Milch', 'sữa', { art: 'die', e: '🥛', r: 'mi-lích' }),
+        v('ich', 'ich', 'tôi', { r: 'ích (hơi gió, nhẹ)', pos: 'đại từ' }),
+        v('buch', 'Buch', 'quyển sách', { art: 'das', r: 'bu-kh' }),
+        v('schule', 'Schule', 'trường học', { art: 'die', r: 'su-lờ' }),
+        v('sprache', 'Sprache', 'ngôn ngữ', { art: 'die', r: 'sờ-pra-khờ' }),
+        v('stadt', 'Stadt', 'thành phố', { art: 'die', r: 'sờ-tát' }),
+        v('milch', 'Milch', 'sữa', { art: 'die', r: 'mi-lích' }),
       ],
       grammar: [
         table(
@@ -47,12 +47,12 @@ export default chapter({
       goals: ['Đọc ei, ie, eu, äu', 'Nhớ quy tắc “mắt ngược”: ei ≠ ie'],
       intro: 'Có **4 cặp nguyên âm** ghép bạn phải thuộc. Hai cặp ei/ie rất dễ nhầm vì viết ngược nhau nhưng đọc khác hẳn.',
       vocab: [
-        v('ei', 'Ei', 'quả trứng', { art: 'das', e: '🥚', r: 'ai' }),
-        v('bier', 'Bier', 'bia', { art: 'das', e: '🍺', r: 'bi-ơ' }),
-        v('freund', 'Freund', 'bạn (nam)', { art: 'der', e: '🧑‍🤝‍🧑', r: 'phroi-nt' }),
-        v('haus', 'Haus', 'ngôi nhà', { art: 'das', e: '🏠', r: 'hao-x' }),
-        v('baume', 'Bäume', 'những cái cây', { e: '🌳', r: 'boi-mờ', pos: 'danh từ số nhiều' }),
-        v('wein', 'Wein', 'rượu vang', { art: 'der', e: '🍷', r: 'vai-n' }),
+        v('ei', 'Ei', 'quả trứng', { art: 'das', r: 'ai' }),
+        v('bier', 'Bier', 'bia', { art: 'das', r: 'bi-ơ' }),
+        v('freund', 'Freund', 'bạn (nam)', { art: 'der', r: 'phroi-nt' }),
+        v('haus', 'Haus', 'ngôi nhà', { art: 'das', r: 'hao-x' }),
+        v('baume', 'Bäume', 'những cái cây', { r: 'boi-mờ', pos: 'danh từ số nhiều' }),
+        v('wein', 'Wein', 'rượu vang', { art: 'der', r: 'vai-n' }),
       ],
       grammar: [
         table(
@@ -82,12 +82,12 @@ export default chapter({
       goals: ['Phát âm r, s, z, v, w, j', 'Biết d, b, g cuối từ đọc thành t, p, k'],
       intro: 'Một số phụ âm có cách đọc khác tiếng Việt. Học thuộc bảng sau và bạn sẽ đọc được hầu hết từ tiếng Đức.',
       vocab: [
-        v('rot', 'rot', 'đỏ', { e: '🔴', r: 'rốt', pos: 'tính từ' }),
-        v('sonne', 'Sonne', 'mặt trời', { art: 'die', e: '☀️', r: 'dô-nờ' }),
-        v('zeit', 'Zeit', 'thời gian', { art: 'die', e: '⏳', r: 'tsai-t' }),
-        v('vater', 'Vater', 'bố', { art: 'der', e: '👨', r: 'pha-tơ' }),
-        v('wasser', 'Wasser', 'nước', { art: 'das', e: '💧', r: 'va-xơ' }),
-        v('jahr', 'Jahr', 'năm', { art: 'das', e: '📅', r: 'da-r' }),
+        v('rot', 'rot', 'đỏ', { r: 'rốt', pos: 'tính từ' }),
+        v('sonne', 'Sonne', 'mặt trời', { art: 'die', r: 'dô-nờ' }),
+        v('zeit', 'Zeit', 'thời gian', { art: 'die', r: 'tsai-t' }),
+        v('vater', 'Vater', 'bố', { art: 'der', r: 'pha-tơ' }),
+        v('wasser', 'Wasser', 'nước', { art: 'das', r: 'va-xơ' }),
+        v('jahr', 'Jahr', 'năm', { art: 'das', r: 'da-r' }),
       ],
       grammar: [
         table(

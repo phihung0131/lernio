@@ -8,7 +8,7 @@ export default function ProgressPage() {
   const data = useLiveQuery(async () => {
     const [xp, lessons, cards, chapters] = await Promise.all([
       db.xpEvents.toArray(),
-      db.lessonProgress.where('status').equals('completed').count(),
+      db.lessonProgress.filter((r) => r.status === 'completed').count(),
       db.srsCards.count(),
       db.chapterResults.filter((c) => c.passed).count(),
     ])
@@ -40,7 +40,7 @@ export default function ProgressPage() {
             const on = data.earned.includes(b.id)
             return (
               <li key={b.id} className={`rounded-xl border border-line bg-surface p-3 text-center ${on ? '' : 'opacity-40 grayscale'}`}>
-                <div className="text-3xl" aria-hidden>{b.emoji}</div>
+                <b.Icon className="mx-auto text-amber-500" size={32} aria-hidden />
                 <p className="text-sm font-semibold">{b.name}</p>
                 <p className="text-xs text-muted">{b.desc}</p>
               </li>
