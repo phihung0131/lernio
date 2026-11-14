@@ -1,4 +1,4 @@
-import { chapter, dlg, ex, fill, info, lesson, match, mc, order, table, T, tip, typ, v, warn, art } from '../lib'
+import { chapter, dlg, ex, fill, info, lesson, match, mc, order, table, T, tip, typ, v, warn, art, illus } from '../lib'
 
 const w = (id: string, de: string, vi: string, o = {}) => v(`a1c04-${id}`, de, vi, o)
 
@@ -18,6 +18,7 @@ export default chapter({
       ],
       grammar: [
         T('**Mạo từ xác định (bestimmter Artikel)** dùng cho vật đã biết: **der** Mann, **die** Frau, **das** Kind. **Mạo từ không xác định (unbestimmter Artikel)** dùng cho vật mới nhắc: **ein** Mann, **eine** Frau, **ein** Kind.'),
+        illus('genders'),
         table(['Giống', 'Xác định', 'Không xác định', 'Màu'], ['Đực (maskulin)', 'der', 'ein', '🔵'], ['Cái (feminin)', 'die', 'eine', '🔴'], ['Trung (neutral)', 'das', 'ein', '🟢']),
         info('**Quy luật hay gặp:** người đàn ông → **der** (der Vater), người phụ nữ → **die** (die Mutter), nhưng **das Kind**, **das Mädchen** (bé gái) là giống **trung**! Danh từ đuôi **-ung, -heit, -keit, -schaft, -ion** → **die**. Đuôi **-chen, -lein** → **das**.'),
         warn('Đừng cố đoán giống theo nghĩa. **das Mädchen** (cô gái) là giống trung, **die Person** (người) luôn là giống cái dù đó là đàn ông. Cứ học cả cụm: **der Vater**, **die Mutter**.'),

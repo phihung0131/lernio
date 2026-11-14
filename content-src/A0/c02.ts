@@ -1,4 +1,4 @@
-import { chapter, ex, info, lesson, mc, order, pron, T, tip, table, typ, dict, listen, warn } from '../lib'
+import { chapter, ex, info, lesson, mc, order, pron, T, tip, table, typ, dict, listen, warn, illus } from '../lib'
 
 const L = (l: string, r: string, note: string, examples: string[], audio?: string) => pron(l, r, note, examples, audio)
 
@@ -15,6 +15,7 @@ export default chapter({
       intro:
         'Bảng chữ cái tiếng Đức có **26 chữ cái** giống tiếng Anh, cộng thêm **ä, ö, ü, ß** (học ở chapter sau). Bấm vào từng chữ để nghe tên chữ cái và xem ví dụ.\n\nLưu ý: **tên chữ cái** (khi đọc đánh vần) khác với **âm** của chữ khi nằm trong từ. Hôm nay bạn học tên chữ cái.',
       grammar: [
+        illus('alphabet'),
         L('A a', 'a', 'Giống “a” tiếng Việt.', ['Apfel (quả táo)', 'Tag (ngày)'], 'Ah'),
         L('B b', 'bê', 'Giống “bê”.', ['Baum (cây)', 'Buch (sách)'], 'Beh'),
         L('C c', 'xê', 'Hiếm đứng một mình, thường trong “ch” hoặc “ck”.', ['Café (quán cà phê)'], 'Tseh'),

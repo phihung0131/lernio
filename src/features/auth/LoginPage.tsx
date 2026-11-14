@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { Navigate } from 'react-router-dom'
 import { supabase, supabaseConfigured } from '@/core/sync/supabase'
 import { useAuth } from './AuthProvider'
+import { Mascot } from '@/features/art/Art'
 
 export default function LoginPage() {
   const { session } = useAuth()
@@ -36,7 +37,8 @@ export default function LoginPage() {
 
   return (
     <main className="mx-auto flex min-h-dvh max-w-sm flex-col justify-center gap-6 px-4">
-      <header className="text-center">
+      <header className="flex flex-col items-center text-center">
+        <Mascot size={110} mood="cheer" />
         <h1 className="text-3xl font-bold">Lernio 🇩🇪</h1>
         <p className="text-muted">Học tiếng Đức từ số 0</p>
       </header>
