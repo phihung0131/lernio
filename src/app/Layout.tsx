@@ -1,10 +1,11 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import { BarChart3, BookOpen, Headphones, Map, Repeat, Settings } from 'lucide-react'
+import { BarChart3, BookOpen, GraduationCap, Headphones, Map, Repeat, Settings } from 'lucide-react'
 
 const NAV = [
   { to: '/', label: 'Lộ trình', icon: Map },
   { to: '/review', label: 'Ôn tập', icon: Repeat },
   { to: '/vocabulary', label: 'Từ vựng', icon: BookOpen },
+  { to: '/grammar', label: 'Ngữ pháp', icon: GraduationCap },
   { to: '/listening', label: 'Nghe', icon: Headphones },
   { to: '/progress', label: 'Tiến độ', icon: BarChart3 },
   { to: '/settings', label: 'Cài đặt', icon: Settings },

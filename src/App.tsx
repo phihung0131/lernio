@@ -3,7 +3,15 @@ import { AuthProvider } from '@/features/auth/AuthProvider'
 import LoginPage from '@/features/auth/LoginPage'
 import RequireAuth from '@/features/auth/RequireAuth'
 import Layout from '@/app/Layout'
-import Placeholder from '@/app/Placeholder'
+import RoadmapPage from '@/features/roadmap/RoadmapPage'
+import LessonPage from '@/features/lesson/LessonPage'
+import TestPage from '@/features/tests/TestPage'
+import ReviewPage from '@/features/practice/ReviewPage'
+import VocabularyPage from '@/features/vocabulary/VocabularyPage'
+import ProgressPage from '@/features/progress/ProgressPage'
+import GrammarPage from '@/features/grammar/GrammarPage'
+import ListeningPage from '@/features/listening/ListeningPage'
+import SettingsPage from '@/features/settings/SettingsPage'
 
 export default function App() {
   return (
@@ -13,12 +21,15 @@ export default function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route element={<RequireAuth />}>
             <Route element={<Layout />}>
-              <Route index element={<Placeholder title="Lộ trình" />} />
-              <Route path="review" element={<Placeholder title="Ôn tập" />} />
-              <Route path="vocabulary" element={<Placeholder title="Từ vựng" />} />
-              <Route path="listening" element={<Placeholder title="Nghe" />} />
-              <Route path="progress" element={<Placeholder title="Tiến độ" />} />
-              <Route path="settings" element={<Placeholder title="Cài đặt" />} />
+              <Route index element={<RoadmapPage />} />
+              <Route path="lesson/:lessonId" element={<LessonPage />} />
+              <Route path="test/:chapterId" element={<TestPage />} />
+              <Route path="review" element={<ReviewPage />} />
+              <Route path="vocabulary" element={<VocabularyPage />} />
+              <Route path="listening" element={<ListeningPage />} />
+              <Route path="grammar" element={<GrammarPage />} />
+              <Route path="progress" element={<ProgressPage />} />
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
           </Route>
         </Routes>
