@@ -114,6 +114,7 @@ export const Block = z.discriminatedUnion('kind', [
     audio: z.string().optional(),
     examples: z.array(z.string()).default([]),
   }),
+  z.object({ kind: z.literal('illustration'), name: z.enum(['mouth-vowels', 'genders', 'alphabet']) }),
   z.object({ kind: z.literal('exercises'), exerciseIds: z.array(z.string()) }),
 ])
 export type Block = z.infer<typeof Block>

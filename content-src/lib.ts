@@ -6,6 +6,7 @@ export const tip = (md: string): Block => ({ kind: 'callout', tone: 'tip', md })
 export const info = (md: string): Block => ({ kind: 'callout', tone: 'info', md })
 export const warn = (md: string): Block => ({ kind: 'callout', tone: 'warn', md })
 export const table = (head: string[], ...rows: string[][]): Block => ({ kind: 'table', head, rows })
+export const illus = (name: 'mouth-vowels' | 'genders' | 'alphabet'): Block => ({ kind: 'illustration', name })
 export const ex = (de: string, vi: string): Block => ({ kind: 'example', de, vi })
 export const dlg = (...lines: [string, string, string][]): Block => ({
   kind: 'dialogue',

@@ -48,6 +48,15 @@ for (const file of walk('content')) {
           for (const id of b.vocabIds) if (!vIds.has(id)) fail(`${l.id}: vocab "${id}" không tồn tại`)
       }
   }
+  const allEx = [...ch.lessons.flatMap((l) => l.exercises), ...ch.test.questions]
+  for (const e of allEx) {
+    if ((e.type === 'multipleChoice' || e.type === 'listenAndChoose') && (e.answer < 0 || e.answer >= e.options.length))
+      fail(`${e.id}: answer ngoài phạm vi`)
+    if ((e.type === 'multipleChoice' || e.type === 'listenAndChoose') && new Set(e.options).size !== e.options.length)
+      fail(`${e.id}: options trùng nhau`)
+    if (e.type === 'wordOrder' && [...e.words].sort().join('|') !== [...e.answer].sort().join('|'))
+      fail(`${e.id}: words và answer không khớp`)
+  }
   if (ch.test.questions.length < ch.test.questionCount)
     fail(`${ch.id}: test có ${ch.test.questions.length} câu < questionCount ${ch.test.questionCount}`)
 }

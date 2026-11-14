@@ -3,7 +3,7 @@ import { CheckCircle2, Lock, PlayCircle, Trophy } from 'lucide-react'
 import { LEVELS } from '@/core/content/loader'
 import { isChapterUnlocked, isTestUnlocked, lessonState } from '@/core/content/unlock'
 import { useChapters, useProgress } from './useCurriculum'
-import { LevelBadge } from '@/features/art/Art'
+import { LevelBadge, Mascot } from '@/features/art/Art'
 
 export default function RoadmapPage() {
   const chapters = useChapters()
@@ -13,9 +13,12 @@ export default function RoadmapPage() {
 
   return (
     <div className="space-y-10">
-      <header>
-        <h1 className="text-2xl font-bold">Lộ trình học</h1>
-        <p className="text-muted">Học lần lượt từng bài. Đạt từ 80% bài kiểm tra cuối chapter để mở chapter tiếp theo.</p>
+      <header className="flex items-center gap-4">
+        <Mascot size={72} />
+        <div>
+          <h1 className="text-2xl font-bold">Lộ trình học</h1>
+          <p className="text-muted">Học lần lượt từng bài. Đạt từ 80% bài kiểm tra cuối chapter để mở chapter tiếp theo.</p>
+        </div>
       </header>
       {LEVELS.map((lv) => {
         const list = chapters.map((c, idx) => ({ c, idx })).filter((x) => x.c.levelId === lv.id)

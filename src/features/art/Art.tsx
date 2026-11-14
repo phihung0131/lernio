@@ -155,3 +155,46 @@ export function GenderCard({ article, noun, emoji }: { article: 'der' | 'die' | 
     </svg>
   )
 }
+
+const TILE_COLORS = ['#2563eb', '#dc2626', '#16a34a', '#d97706', '#7c3aed', '#0891b2']
+
+/** Dải 26 chữ cái + ä ö ü ß dạng thẻ màu. */
+export function AlphabetStrip() {
+  const letters = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Ä', 'Ö', 'Ü', 'ß']
+  return (
+    <svg viewBox="0 0 400 150" className="my-3 w-full" role="img" aria-label="Bảng chữ cái tiếng Đức">
+      {letters.map((l, i) => {
+        const col = i % 10
+        const row = Math.floor(i / 10)
+        const special = i >= 26
+        return (
+          <g key={l} transform={`translate(${col * 40 + 2} ${row * 48 + 2})`}>
+            <rect width="36" height="42" rx="8" fill={special ? '#fef3c7' : '#fff'} stroke={special ? '#d97706' : TILE_COLORS[i % TILE_COLORS.length]} strokeWidth="2.5" />
+            <text x="18" y="29" textAnchor="middle" fontSize="22" fontWeight="800" fill={special ? '#b45309' : TILE_COLORS[i % TILE_COLORS.length]} fontFamily="system-ui">{l}</text>
+          </g>
+        )
+      })}
+    </svg>
+  )
+}
+
+export function MouthVowels() {
+  return (
+    <div className="my-3 flex flex-wrap justify-center gap-4 rounded-xl bg-surface p-3">
+      <MouthDiagram shape="smile" label="e / ä" />
+      <MouthDiagram shape="round" label="o" />
+      <MouthDiagram shape="small-round" label="ö (ê tròn môi)" />
+      <MouthDiagram shape="small-round" label="ü (i tròn môi)" />
+    </div>
+  )
+}
+
+export function GenderGallery() {
+  return (
+    <div className="my-3 flex flex-wrap justify-center gap-3 rounded-xl bg-surface p-3">
+      <GenderCard article="der" noun="Hund" emoji="🐶" />
+      <GenderCard article="die" noun="Katze" emoji="🐱" />
+      <GenderCard article="das" noun="Haus" emoji="🏠" />
+    </div>
+  )
+}

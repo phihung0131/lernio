@@ -1,4 +1,4 @@
-import { chapter, dict, ex, fill, info, lesson, listen, mc, pron, table, T, tip, typ, v, warn } from '../lib'
+import { chapter, dict, ex, fill, info, lesson, listen, mc, pron, table, T, tip, typ, v, warn, illus } from '../lib'
 import { MouthNote } from './shared'
 
 export default chapter({
@@ -23,6 +23,7 @@ export default chapter({
       grammar: [
         pron('Ä ä', 'ê (mở)', 'Đọc như “e” mở, gần “e” trong “bè”, miệng mở hơn ê thường.', ['Bär', 'Käse', 'Mädchen (bé gái)'], 'Ä'),
         pron('Ö ö', 'ơ (môi tròn)', 'Nói “ê” nhưng **tròn môi** như chuẩn bị nói “ô”. Gần “ơ” miền Nam với môi tròn.', ['schön', 'Öl', 'Köln'], 'Ö'),
+        illus('mouth-vowels'),
         MouthNote,
         info('**Mẹo:** Ä giống E trong âm. Chỉ khác ở chỗ viết. Ö là âm mới: đặt môi như nói “ô”, rồi giữ nguyên môi và phát âm “ê”.'),
         tip('**Không gõ được ä/ö?** Dùng **ae** và **oe** thay thế: *Käse = Kaese*, *schön = schoen*. App Lernio chấp nhận cách gõ này.'),
