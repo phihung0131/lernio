@@ -19,3 +19,18 @@ describe('merge', () => {
     expect(r).toMatchObject({ attempts: 3, bestScore: 0.85, passed: true, updatedAt: 'b' })
   })
 })
+
+import { mergeSrs } from './merge'
+describe('mergeSrs', () => {
+  const base = { cardId: 'c', kind: 'vocab' as const, due: 'd', stability: 1, difficulty: 1, lapses: 0, state: 2, updatedAt: 'u' }
+  it('keeps the most recently reviewed card', () => {
+    const a = { ...base, reps: 5, lastReview: '2026-01-02' }
+    const b = { ...base, reps: 9, lastReview: '2026-01-01' }
+    expect(mergeSrs(a, b)).toBe(a)
+  })
+  it('never-reviewed vs reviewed keeps reviewed', () => {
+    const a = { ...base, reps: 0 }
+    const b = { ...base, reps: 1, lastReview: '2026-01-01' }
+    expect(mergeSrs(a, b)).toBe(b)
+  })
+})

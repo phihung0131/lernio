@@ -65,6 +65,7 @@ test('ôn tập: thẻ xuất hiện sau khi học và chấm FSRS', async ({ pa
   await runAll(page)
   await page.getByRole('button', { name: 'Tiếp theo' }).click()
   await page.getByRole('button', { name: 'Hoàn thành bài học' }).click()
+  await expect(page.getByRole('heading', { name: 'Lộ trình học' })).toBeVisible() // đợi lưu xong
   await page.goto('/review')
   await expect(page.getByRole('heading', { name: 'Ôn tập hôm nay' })).toBeVisible()
   await page.getByRole('button', { name: 'Hiện đáp án' }).click()

@@ -22,3 +22,13 @@ export function mergeChapter(a: ChapterResultRow, b: ChapterResultRow): ChapterR
     updatedAt: a.updatedAt > b.updatedAt ? a.updatedAt : b.updatedAt,
   }
 }
+
+import type { SrsCardRow } from './db'
+
+/** Thẻ SRS: giữ bản có lần ôn gần nhất; hòa thì bản có nhiều lượt ôn hơn. */
+export function mergeSrs(a: SrsCardRow, b: SrsCardRow): SrsCardRow {
+  const la = a.lastReview ?? ''
+  const lb = b.lastReview ?? ''
+  if (la !== lb) return la > lb ? a : b
+  return a.reps >= b.reps ? a : b
+}
