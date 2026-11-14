@@ -1,0 +1,83 @@
+import { chapter, dict, dlg, ex, fill, info, lesson, match, mc, order, table, T, tip, typ, v, warn } from '../lib'
+
+const w = (id: string, de: string, vi: string, o = {}) => v(`a1c01-${id}`, de, vi, o)
+
+export default chapter({
+  level: 'A1',
+  order: 1,
+  title: 'Begrüßung',
+  titleVi: 'Chào hỏi và động từ sein',
+  lessons: [
+    lesson({
+      id: 'a1-c01-l1',
+      title: 'Động từ sein (thì, là, ở)',
+      goals: ['Chia động từ sein cho mọi đại từ', 'Nói “Tôi là…” và “Bạn là…”', 'Biết động từ chia theo chủ ngữ'],
+      intro: '**sein** là động từ quan trọng nhất tiếng Đức, nghĩa là **là / thì / ở**. Khác tiếng Việt, động từ tiếng Đức **đổi dạng theo chủ ngữ** (gọi là *chia động từ*). **sein** là động từ bất quy tắc: không theo quy luật nào, phải thuộc lòng.',
+      vocab: [
+        w('bin', 'bin', 'là (ich)', { e: '🙋', pos: 'động từ', r: 'bin' }),
+        w('bist', 'bist', 'là (du)', { e: '🫵', pos: 'động từ', r: 'bist' }),
+        w('ist', 'ist', 'là (er/sie/es)', { e: '👤', pos: 'động từ', r: 'ist' }),
+        w('sind', 'sind', 'là (wir/sie/Sie)', { e: '👥', pos: 'động từ', r: 'dinh-t' }),
+        w('seid', 'seid', 'là (ihr)', { e: '🧑‍🤝‍🧑', pos: 'động từ', r: 'dai-t' }),
+        w('freund', 'Freund', 'bạn (nam)', { art: 'der', pl: 'Freunde', e: '👦', r: 'phroi-nt' }),
+        w('freundin', 'Freundin', 'bạn (nữ)', { art: 'die', pl: 'Freundinnen', e: '👧', r: 'phroi-n-đin' }),
+      ],
+      grammar: [
+        table(['Đại từ', 'sein', 'Ví dụ'], ['ich', 'bin', 'Ich bin Anna.'], ['du', 'bist', 'Du bist Tom.'], ['er / sie / es', 'ist', 'Er ist müde.'], ['wir', 'sind', 'Wir sind Freunde.'], ['ihr', 'seid', 'Ihr seid nett.'], ['sie (họ) / Sie', 'sind', 'Sie sind Lehrer.']),
+        T('**Thứ tự câu khẳng định:** Chủ ngữ + động từ + phần còn lại. Động từ **luôn ở vị trí thứ hai**.\n- Ich **bin** Anna.\n- Heute **bin** ich müde. (Đứng đầu là “heute”, động từ vẫn là thành phần thứ 2, chủ ngữ ra sau)'),
+        info('**Câu hỏi Ja/Nein** (có/không): đưa động từ lên **đầu câu**. *Du bist Tom.* → *Bist du Tom?* Trả lời: *Ja, ich bin Tom.* hoặc *Nein, ich bin nicht Tom.*'),
+        warn('Không có “to be” hay “là” thừa như tiếng Việt. Câu “Anna là sinh viên” = **Anna ist Studentin.** (không có mạo từ trước nghề nghiệp).'),
+      ],
+      examples: [ex('Ich bin Anna.', 'Tôi là Anna.'), ex('Bist du Tom?', 'Bạn là Tom phải không?'), ex('Wir sind Freunde.', 'Chúng tôi là bạn.'), ex('Sie ist meine Freundin.', 'Cô ấy là bạn (gái) của tôi.')],
+      ex: [
+        fill('Ich ___ Anna.', 'bin', 'ich → bin.'),
+        fill('Du ___ mein Freund.', 'bist', 'du → bist.'),
+        fill('Er ___ müde.', 'ist', 'er → ist.'),
+        fill('Wir ___ Freunde.', 'sind', 'wir → sind.'),
+        fill('Ihr ___ nett.', 'seid', 'ihr → seid.'),
+        order('Bạn là Tom phải không?', 'Bist du Tom?', 'Câu hỏi Ja/Nein: động từ đứng đầu.'),
+        order('Hôm nay tôi mệt', 'Heute bin ich müde', 'Heute đứng đầu thì động từ vẫn thứ hai.'),
+        mc('Chia sein với “sie” (họ):', ['sind', 'ist', 'bin', 'seid'], 0, 'sie (họ) → sind.'),
+      ],
+      teaches: ['sein-praesens'],
+      review: '- ich **bin**, du **bist**, er/sie/es **ist**, wir **sind**, ihr **seid**, sie/Sie **sind**.\n- Động từ luôn ở vị trí **thứ 2**; câu hỏi Ja/Nein đưa động từ lên đầu.',
+    }),
+    lesson({
+      id: 'a1-c01-l2',
+      title: 'Quốc gia, ngôn ngữ: Woher kommst du?',
+      goals: ['Hỏi và nói quê hương', 'Biết tên một số nước và ngôn ngữ'],
+      intro: 'Khi gặp người mới, câu hỏi phổ biến nhất là **bạn đến từ đâu** và **bạn nói tiếng gì**. Bạn sẽ học thêm động từ **kommen** (đến) và **sprechen** (nói).',
+      vocab: [
+        w('vietnam', 'Vietnam', 'Việt Nam', { e: '🇻🇳', r: 'viết-nam' }),
+        w('deutschland', 'Deutschland', 'nước Đức', { e: '🇩🇪', r: 'đoi-ts-lant' }),
+        w('osterreich', 'Österreich', 'nước Áo', { e: '🇦🇹', r: 'ơ-xtơ-rai-ch' }),
+        w('schweiz', 'Schweiz', 'Thụy Sĩ', { art: 'die', e: '🇨🇭', r: 'svai-ts' }),
+        w('englisch', 'Englisch', 'tiếng Anh', { e: '🇬🇧', r: 'eng-lis' }),
+        w('vietnamesisch', 'Vietnamesisch', 'tiếng Việt', { e: '🗣️', r: 'viết-na-mê-dis' }),
+        w('woher', 'woher', 'từ đâu', { pos: 'từ hỏi', e: '❓', r: 'vô-hê-ơ' }),
+        w('kommen', 'kommen', 'đến, đến từ', { pos: 'động từ', e: '🚶', r: 'kô-mần' }),
+        w('sprechen', 'sprechen', 'nói', { pos: 'động từ', e: '💬', r: 'sờ-pre-khần' }),
+      ],
+      grammar: [
+        T('**W-Fragen** (câu hỏi có từ để hỏi): **W-từ hỏi + động từ + chủ ngữ**.\n- *Woher kommst du?* (Bạn đến từ đâu?)\n- *Wie heißt du?* (Bạn tên là gì?)\n- *Welche Sprachen sprichst du?* (Bạn nói những ngôn ngữ nào?)'),
+        table(['', 'kommen', 'sprechen (bất quy tắc)', 'wohnen'], ['ich', 'komme', 'spreche', 'wohne'], ['du', 'kommst', 'sprichst', 'wohnst'], ['er/sie/es', 'kommt', 'spricht', 'wohnt'], ['wir', 'kommen', 'sprechen', 'wohnen'], ['ihr', 'kommt', 'sprecht', 'wohnt'], ['sie/Sie', 'kommen', 'sprechen', 'wohnen']),
+        T('**Quy tắc chia động từ thường (Präsens):** bỏ đuôi **-en**, thêm đuôi theo người: **-e, -st, -t, -en, -t, -en**.'),
+        warn('**sprechen** đổi nguyên âm **e → i** ở du và er/sie/es: du sprichst, er spricht. Đây là nhóm động từ bất quy tắc. Bạn sẽ gặp thêm: essen (isst), geben (gibt), sehen (sieht).'),
+        info('Nói “từ nước X đến”: **Ich komme aus + nước**. *Ich komme aus Vietnam.* Nói ngôn ngữ: **Ich spreche Vietnamesisch.** (không có giới từ).'),
+        tip('Tên nước hầu hết **không có mạo từ** (Vietnam, Deutschland). Một số ngoại lệ phải có mạo từ: **die Schweiz**, **die USA**, **die Türkei**.'),
+      ],
+      examples: [dlg(['Anna', 'Woher kommst du?', 'Bạn đến từ đâu?'], ['Linh', 'Ich komme aus Vietnam. Und du?', 'Tôi đến từ Việt Nam. Còn bạn?'], ['Anna', 'Ich komme aus Deutschland. Sprichst du Deutsch?', 'Tôi từ Đức. Bạn nói tiếng Đức không?'], ['Linh', 'Ja, ein bisschen.', 'Vâng, một chút.'])],
+      ex: [
+        fill('Ich ___ aus Vietnam. (kommen)', 'komme', 'ich → komme.'),
+        fill('Woher ___ du? (kommen)', 'kommst', 'du → kommst.'),
+        fill('Er ___ Deutsch. (sprechen)', 'spricht', 'sprechen: er → spricht (e→i).'),
+        fill('Du ___ Englisch. (sprechen)', 'sprichst', 'du sprichst (e→i).'),
+        order('Tôi nói tiếng Việt', 'Ich spreche Vietnamesisch'),
+        order('Bạn đến từ đâu?', 'Woher kommst du?'),
+        mc('Câu nào đúng?', ['Wir kommen aus Vietnam', 'Wir kommt aus Vietnam', 'Wir komme aus Vietnam', 'Wir kommst aus Vietnam'], 0, 'wir → kommen.'),
+      ],
+      teaches: ['w-fragen', 'verben-praesens'],
+      review: '- **W-Fragen**: W-từ + động từ + chủ ngữ.\n- Chia động từ thường: **-e, -st, -t, -en, -t, -en**.\n- sprechen: du **sprichst**, er **spricht**.\n- *Woher kommst du?* – *Ich komme aus …*',
+    }),
+  ],
+})
