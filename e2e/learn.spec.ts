@@ -73,7 +73,7 @@ test('luyện tập tự chọn và điểm yếu', async ({ page }) => {
   await login(page)
   await completeLesson(page, 'a0-c01-l1', false) // làm sai để có điểm yếu
   await page.goto('/practice/weak')
-  await page.getByRole('button', { name: 'Luyện 10 câu' }).click()
+  await page.getByRole('button', { name: 'Luyện lại (tối đa 10 câu)' }).click()
   await runAll(page, true)
   await page.goto('/practice/mix')
   await page.getByRole('button', { name: 'Bắt đầu luyện' }).click()
