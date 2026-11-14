@@ -1,3 +1,4 @@
+import type { IllustrationName } from '../src/features/art/illustrationNames'
 import type { Block, Chapter, Exercise, Lesson, LevelId, VocabItem } from '../src/core/content/schema'
 
 // ---------- Block helpers ----------
@@ -6,7 +7,7 @@ export const tip = (md: string): Block => ({ kind: 'callout', tone: 'tip', md })
 export const info = (md: string): Block => ({ kind: 'callout', tone: 'info', md })
 export const warn = (md: string): Block => ({ kind: 'callout', tone: 'warn', md })
 export const table = (head: string[], ...rows: string[][]): Block => ({ kind: 'table', head, rows })
-export const illus = (name: 'mouth-vowels' | 'genders' | 'alphabet'): Block => ({ kind: 'illustration', name })
+export const illus = (name: IllustrationName): Block => ({ kind: 'illustration', name })
 export const ex = (de: string, vi: string): Block => ({ kind: 'example', de, vi })
 const FEMALE = new Set(['Anna', 'Lea', 'Linh', 'Lisa', 'Maria', 'Eva', 'Sara', 'Julia', 'Mia', 'Emma', 'Laura', 'Sophie', 'Hanna', 'Mai', 'Lan', 'Hoa', 'Oma', 'Mutter', 'Mama', 'Schwester', 'Tante', 'Rezeption', 'Kundin', 'Frau'])
 /** Đoán giọng theo tên người nói: tên nữ, 'Frau …', hoặc danh từ nghề đuôi -in (Ärztin, Kellnerin). */
@@ -71,7 +72,7 @@ export const v = (id: string, de: string, vi: string, o: VOpts = {}): VocabItem 
   article: o.art,
   plural: o.pl,
   pos: o.pos ?? (o.art ? 'danh từ' : 'từ'),
-  icon: o.i,
+  icon: o.i ? (o.i.startsWith('Icon') ? o.i : `Icon${o.i}`) : undefined,
   example: o.ex ? { de: o.ex[0], vi: o.ex[1] } : undefined,
   topic: o.t,
   viRespelling: o.r,
@@ -197,6 +198,7 @@ export interface LessonInput {
   auto?: AutoOpts | false
   pool?: VocabItem[]
   review: string
+  reviewBlocks?: Block[]
   teaches?: string[]
 }
 
@@ -220,7 +222,7 @@ export function lesson(i: LessonInput): Lesson {
       grammar: i.grammar ?? [T('Bài này tập trung vào từ vựng và cách dùng, không có quy tắc ngữ pháp mới.')],
       examples: i.examples ?? [],
       practice: [{ kind: 'exercises', exerciseIds: exercises.map((e) => e.id) }],
-      review: [T(i.review)],
+      review: [T(i.review), ...(i.reviewBlocks ?? [])],
     },
   }
 }

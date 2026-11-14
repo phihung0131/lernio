@@ -5,7 +5,7 @@ import { speak, speakSequence, type Voice } from '@/core/audio/player'
 import Md from '@/features/exercises/Md'
 import ExerciseRunner, { type RunnerResult } from '@/features/exercises/ExerciseRunner'
 import Recorder from '@/features/lesson/Recorder'
-import { AlphabetStrip, GenderGallery, MouthVowels } from '@/features/art/Art'
+import { ILLUSTRATIONS } from '@/features/art/Illustrations'
 import VocabIcon from '@/ui/VocabIcon'
 
 const ART = { der: 'text-[var(--der)]', die: 'text-[var(--die)]', das: 'text-[var(--das)]' } as const
@@ -329,7 +329,10 @@ export function BlockView({ b, lesson, onPracticeDone, onPracticeResult }: { b: 
         </ol>
       )
     case 'illustration':
-      return b.name === 'alphabet' ? <AlphabetStrip /> : b.name === 'genders' ? <GenderGallery /> : b.name === 'mouth-vowels' ? <MouthVowels /> : null
+    {
+      const Ill = ILLUSTRATIONS[b.name as keyof typeof ILLUSTRATIONS]
+      return Ill ? <Ill /> : null
+    }
     case 'exercises': {
       const list = b.exerciseIds.map((id) => lesson.exercises.find((e) => e.id === id)!).filter(Boolean)
       return (
