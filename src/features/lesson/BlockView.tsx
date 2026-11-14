@@ -3,7 +3,7 @@ import { AlertTriangle, BookOpen, Check, Eye, EyeOff, Info, Lightbulb, Mic, PenL
 import { Gender, type Block, type Lesson } from '@/core/content/schema'
 import { speak, speakSequence, type Voice } from '@/core/audio/player'
 import Md from '@/features/exercises/Md'
-import ExerciseRunner from '@/features/exercises/ExerciseRunner'
+import ExerciseRunner, { type RunnerResult } from '@/features/exercises/ExerciseRunner'
 import Recorder from '@/features/lesson/Recorder'
 import { AlphabetStrip, GenderGallery, MouthVowels } from '@/features/art/Art'
 import VocabIcon from '@/ui/VocabIcon'
@@ -40,7 +40,7 @@ function Callout({ tone, md }: { tone: 'info' | 'tip' | 'warn'; md: string }) {
   )
 }
 
-function StepQuiz({ quiz }: { quiz: { q: string; options: string[]; answer: number; why: string } }) {
+export function StepQuiz({ quiz }: { quiz: { q: string; options: string[]; answer: number; why: string } }) {
   const [picked, setPicked] = useState<number | null>(null)
   return (
     <div className="mt-3 rounded-xl bg-bg p-3">
@@ -163,7 +163,7 @@ function WritingTask({ b, storageKey }: { b: Extract<Block, { kind: 'writingTask
   )
 }
 
-export function BlockView({ b, lesson, onPracticeDone }: { b: Block; lesson: Lesson; onPracticeDone?: (s: number, t: number) => void }) {
+export function BlockView({ b, lesson, onPracticeDone, onPracticeResult }: { b: Block; lesson: Lesson; onPracticeDone?: (s: number, t: number) => void; onPracticeResult?: (r: RunnerResult) => void }) {
   switch (b.kind) {
     case 'text':
       return <Md text={b.md} />
@@ -332,7 +332,15 @@ export function BlockView({ b, lesson, onPracticeDone }: { b: Block; lesson: Les
       return b.name === 'alphabet' ? <AlphabetStrip /> : b.name === 'genders' ? <GenderGallery /> : b.name === 'mouth-vowels' ? <MouthVowels /> : null
     case 'exercises': {
       const list = b.exerciseIds.map((id) => lesson.exercises.find((e) => e.id === id)!).filter(Boolean)
-      return <ExerciseRunner exercises={list} onFinish={(r) => onPracticeDone?.(r.score, r.total)} />
+      return (
+        <ExerciseRunner
+          exercises={list}
+          onFinish={(r) => {
+            if (onPracticeResult) onPracticeResult(r)
+            else onPracticeDone?.(r.score, r.total)
+          }}
+        />
+      )
     }
   }
 }

@@ -13,10 +13,18 @@ export async function pullAll(userId: string): Promise<boolean> {
     return (data ?? []) as R[]
   }
   try {
-    const [lp, cr, sc, rl, xp, bd] = await Promise.all([
-      get('lesson_progress'), get('chapter_results'), get('srs_cards'), get('review_logs'), get('xp_events'), get('badges'),
+    const [lp, cr, sc, rl, xp, bd, pf] = await Promise.all([
+      get('lesson_progress'), get('chapter_results'), get('srs_cards'), get('review_logs'), get('xp_events'), get('badges'), get('profiles'),
     ])
-    await db.transaction('rw', [db.lessonProgress, db.chapterResults, db.srsCards, db.reviewLogs, db.xpEvents, db.badges], async () => {
+    await db.transaction('rw', [db.lessonProgress, db.chapterResults, db.srsCards, db.reviewLogs, db.xpEvents, db.badges, db.profile], async () => {
+      const p = pf[0]
+      if (p) {
+        const local = await db.profile.get('me')
+        if (!local || (p.updated_at && p.updated_at > local.updatedAt)) {
+          const st = (p.settings ?? {}) as Record<string, unknown>
+          await db.profile.put({ key: 'me', displayName: p.display_name ?? undefined, dailyGoalXp: p.daily_goal_xp ?? 30, newCardsPerDay: (st.newCardsPerDay as number) ?? 20, audioRate: (st.audioRate as number) ?? 1, theme: (st.theme as 'auto') ?? 'auto', updatedAt: p.updated_at ?? new Date(0).toISOString() })
+        }
+      }
       for (const r of lp) {
         const remote = { lessonId: r.lesson_id, status: r.status, bestScore: r.best_score ?? undefined, completedAt: r.completed_at ?? undefined, updatedAt: r.updated_at }
         const local = await db.lessonProgress.get(r.lesson_id)

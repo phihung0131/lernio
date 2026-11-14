@@ -3,6 +3,31 @@ import { Check, Volume2, X } from 'lucide-react'
 import type { Exercise } from '@/core/content/schema'
 import { speak } from '@/core/audio/player'
 import { matchesAny } from './normalize'
+import { FeedbackSheet } from '@/ui/Sheet'
+
+/** Chuỗi đáp án đúng để hiển thị khi trả lời sai. */
+export function correctAnswer(ex: Exercise): string | null {
+  switch (ex.type) {
+    case 'multipleChoice':
+    case 'listenAndChoose':
+      return ex.options[ex.answer]
+    case 'fillBlank':
+    case 'typeAnswer':
+    case 'translate':
+    case 'dictation':
+      return ex.answers[0]
+    case 'wordOrder':
+      return ex.answer.join(' ')
+    case 'articlePick':
+      return `${ex.answer} ${ex.noun}`
+    case 'trueFalse':
+      return ex.answer ? 'Đúng (richtig)' : 'Sai (falsch)'
+    case 'conjugate':
+      return ex.rows.map((r) => `${r.pronoun} ${r.answer}`).join(', ')
+    default:
+      return null
+  }
+}
 
 export interface Result {
   correct: boolean
@@ -46,7 +71,7 @@ function Choices({
     <div className="grid gap-2">
       {options.map((o, i) => {
         const state =
-          locked === null ? '' : i === answer ? 'border-green-600 bg-green-50 dark:bg-green-950' : i === locked ? 'border-red-600 bg-red-50 dark:bg-red-950' : ''
+          locked === null ? '' : i === answer ? 'border-ok bg-ok-bg' : i === locked ? 'border-bad bg-bad-bg' : ''
         return (
           <button
             key={i}
@@ -189,17 +214,24 @@ function ExerciseInner({ ex, onDone, onChecked }: { ex: Exercise; onDone: (r: Re
     else if (ex.type === 'wordOrder') finish(order.join(' ') === ex.answer.join(' '))
   }
 
+  const solution = correctAnswer(ex)
   const feedback = checked !== null && (
-    <div
-      role="status"
-      className={`mt-4 rounded-lg p-3 text-sm ${checked ? 'bg-green-100 text-green-900' : 'bg-red-100 text-red-900'}`}
+    <FeedbackSheet
+      tone={checked ? 'ok' : 'bad'}
+      title={checked ? <><Check size={22} /> Chính xác!</> : <><X size={22} /> Chưa đúng</>}
+      action={
+        <button autoFocus className={`${checked ? 'btn-ok' : 'btn-bad'} w-full`} onClick={() => onDone({ correct: checked })}>
+          Tiếp tục
+        </button>
+      }
     >
-      <p className="flex items-center gap-1 font-semibold">{checked ? <><Check size={18} /> Chính xác!</> : <><X size={18} /> Chưa đúng</>}</p>
+      {!checked && solution && (
+        <p className="mb-1">
+          Đáp án đúng: <strong lang="de">{solution}</strong>
+        </p>
+      )}
       <p>{ex.explanationVi}</p>
-      <button className="btn-primary mt-3 w-full" onClick={() => onDone({ correct: checked })}>
-        Tiếp tục
-      </button>
-    </div>
+    </FeedbackSheet>
   )
 
   switch (ex.type) {
@@ -308,11 +340,6 @@ function ExerciseInner({ ex, onDone, onChecked }: { ex: Exercise; onDone: (r: Re
               </button>
             )}
           </div>
-          {checked === false && (
-            <p className="mt-2 text-sm">
-              Đáp án: <strong>{ex.answers[0]}</strong>
-            </p>
-          )}
           {feedback}
         </div>
       )
@@ -351,11 +378,6 @@ function ExerciseInner({ ex, onDone, onChecked }: { ex: Exercise; onDone: (r: Re
             <button className="btn-primary mt-3" disabled={remaining.length > 0} onClick={check}>
               Kiểm tra
             </button>
-          )}
-          {checked === false && (
-            <p className="mt-2 text-sm">
-              Đáp án: <strong>{ex.answer.join(' ')}</strong>
-            </p>
           )}
           {feedback}
         </div>

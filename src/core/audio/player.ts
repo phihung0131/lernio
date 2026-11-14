@@ -43,11 +43,11 @@ export function speak(text: string, opts: { voice?: Voice; rate?: number } | num
 
 let seqToken = 0
 /** Phát lần lượt nhiều câu (hội thoại). Gọi lại sẽ dừng chuỗi đang phát. */
-export async function speakSequence(items: { text: string; voice?: Voice }[]) {
+export async function speakSequence(items: { text: string; voice?: Voice }[], rate = 1) {
   const token = ++seqToken
   for (const it of items) {
     if (token !== seqToken) return
-    await speak(it.text, { voice: it.voice })
+    await speak(it.text, { voice: it.voice, rate })
     await new Promise((r) => setTimeout(r, 350))
   }
 }
@@ -85,4 +85,10 @@ export function sfx(kind: 'ok' | 'bad' | 'win') {
   } catch {
     /* ignore */
   }
+}
+
+export function stopAudio() {
+  seqToken++
+  current?.pause()
+  if ('speechSynthesis' in window) speechSynthesis.cancel()
 }

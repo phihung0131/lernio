@@ -34,3 +34,22 @@ describe('unlock', () => {
     expect(didPass(0, 0)).toBe(false)
   })
 })
+
+import { chapterProgress, isLevelUnlocked, nextStep } from './unlock'
+describe('nextStep & progress', () => {
+  const chs = [{ ...mk('c1', ['l1', 'l2']), levelId: 'A0' }, { ...mk('c2', ['l3']), levelId: 'A1' }] as Chapter[]
+  it('first unfinished lesson', () => {
+    expect(nextStep(chs, { lessons: {}, chaptersPassed: {} })).toEqual({ kind: 'lesson', chapterIdx: 0, lessonIdx: 0 })
+    expect(nextStep(chs, { lessons: { l1: 'completed' }, chaptersPassed: {} })).toEqual({ kind: 'lesson', chapterIdx: 0, lessonIdx: 1 })
+  })
+  it('test when all lessons done, then next chapter', () => {
+    const p = { lessons: { l1: 'completed' as const, l2: 'completed' as const }, chaptersPassed: {} }
+    expect(nextStep(chs, p)).toEqual({ kind: 'test', chapterIdx: 0 })
+    expect(nextStep(chs, { ...p, chaptersPassed: { c1: true } })).toEqual({ kind: 'lesson', chapterIdx: 1, lessonIdx: 0 })
+  })
+  it('chapter progress and level unlock', () => {
+    expect(chapterProgress(chs[0], { lessons: { l1: 'completed' }, chaptersPassed: {} })).toBeCloseTo(1 / 3)
+    expect(isLevelUnlocked(chs, 'A1', { lessons: {}, chaptersPassed: {} })).toBe(false)
+    expect(isLevelUnlocked(chs, 'A1', { lessons: {}, chaptersPassed: { c1: true } })).toBe(true)
+  })
+})
