@@ -24,7 +24,8 @@ export function useStats(): Stats | undefined {
       db.srsCards.count(),
       db.lessonProgress.where('status').equals('completed').count(),
       db.chapterResults.filter((c) => c.passed).count(),
-      db.mistakes.filter((m) => m.count > 0).count(),
+      // Đếm như trang Điểm yếu: bỏ tag lesson: (chỉ là nhãn bài, không phải chủ điểm cần luyện).
+      db.mistakes.filter((m) => m.count > 0 && !m.tag.startsWith('lesson:')).count(),
     ])
     const today = dayKey()
     return {

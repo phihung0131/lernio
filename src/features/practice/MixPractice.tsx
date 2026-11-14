@@ -30,7 +30,8 @@ export default function MixPractice() {
   )
   if (!chapters || !progress) return <p className="p-6 text-center text-muted">Đang tải…</p>
   const levelChapters = open.filter((c) => c.levelId === level)
-  const pool = exercisePool(open, { levels: [level], chapterIds: chapterId === 'all' ? undefined : [chapterId], skills })
+  // Chỉ lấy câu của bài đã học xong: không đưa kiến thức chưa học vào luyện tập.
+  const pool = exercisePool(open, { levels: [level], chapterIds: chapterId === 'all' ? undefined : [chapterId], skills }).filter((p) => progress.lessons[p.lessonId] === 'completed')
 
   if (run)
     return (
@@ -88,7 +89,7 @@ export default function MixPractice() {
           ))}
         </div>
       </fieldset>
-      <p className="text-sm text-muted">Có {pool.length} câu phù hợp.</p>
+      <p className="text-sm text-muted">{pool.length ? `Có ${pool.length} câu từ các bài đã học xong.` : 'Chưa có câu nào: hãy học xong ít nhất một bài ở cấp độ này.'}</p>
       <button className="btn-primary w-full" disabled={pool.length === 0} onClick={() => setRun(sample(pool.map((p) => p.ex), count))}>
         Bắt đầu luyện
       </button>

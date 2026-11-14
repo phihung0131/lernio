@@ -57,7 +57,7 @@ export default function WeakPage() {
       ) : (
         <>
           <button className="btn-primary mb-4 flex w-full items-center justify-center gap-2" onClick={start}>
-            <Target size={20} /> Luyện 10 câu
+            <Target size={20} /> Luyện lại (tối đa 10 câu)
           </button>
           <ul className="card divide-y divide-line">
             {focus.map((m) => (
