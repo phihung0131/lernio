@@ -7,6 +7,19 @@ import { BlockView } from '@/features/lesson/BlockView'
 import Md from '@/features/exercises/Md'
 import { useChapters, useProgress } from '@/features/roadmap/useCurriculum'
 
+// Văn bản để tìm kiếm: tên bài, mục tiêu, chủ điểm, tiêu đề và nội dung các bước, ô bảng.
+const searchText = (l: { title: string; objectives: string[]; teaches: string[]; sections: { grammar: Block[] } }) =>
+  [
+    l.title,
+    ...l.objectives,
+    ...l.teaches,
+    ...l.sections.grammar.flatMap((b) =>
+      b.kind === 'steps' ? b.items.flatMap((s) => [s.title, s.md]) : b.kind === 'table' ? [...b.head, ...b.rows.flat()] : b.kind === 'text' || b.kind === 'callout' ? [b.md] : [],
+    ),
+  ]
+    .join(' ')
+    .toLowerCase()
+
 const hasGrammar = (blocks: Block[]) => blocks.some((b) => b.kind !== 'text' || !b.md.startsWith('Bài này tập trung'))
 
 export default function GrammarPage() {
@@ -16,7 +29,7 @@ export default function GrammarPage() {
   if (!chapters || !progress) return <p className="p-6 text-center text-muted">Đang tải…</p>
   const items = chapters
     .flatMap((c, ci) => c.lessons.filter((l) => hasGrammar(l.sections.grammar)).map((l) => ({ c, l, open: isChapterUnlocked(chapters, ci, progress) })))
-    .filter(({ l }) => !q || `${l.title} ${l.objectives.join(' ')}`.toLowerCase().includes(q.toLowerCase()))
+    .filter(({ l }) => !q || searchText(l).includes(q.trim().toLowerCase()))
 
   return (
     <div>
@@ -26,6 +39,7 @@ export default function GrammarPage() {
         <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
         <input className="field w-full !pl-10" placeholder="Tìm chủ điểm (ví dụ: Dativ, Perfekt)…" aria-label="Tìm chủ đề ngữ pháp" value={q} onChange={(e) => setQ(e.target.value)} />
       </label>
+      {q && <p className="mb-3 text-sm text-muted">{items.length ? `${items.length} bài có “${q.trim()}”` : `Không tìm thấy “${q.trim()}”. Thử từ khác, ví dụ: Akkusativ, Perfekt, weil.`}</p>}
       {LEVELS.map((lv) => {
         const list = items.filter((x) => x.c.levelId === lv.id)
         if (!list.length) return null
