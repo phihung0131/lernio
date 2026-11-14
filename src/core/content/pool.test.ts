@@ -20,4 +20,13 @@ describe('pool', () => {
     const ids = buildMock(chapters, 'A1').flatMap((s) => s.exercises.map((e) => e.id))
     expect(ids).not.toContain('4')
   })
+  it('thi thử: câu nghe hội thoại chỉ phát audio và không trùng giữa các phần', () => {
+    const listenLesson = { id: 'g-l3', title: 'Luyện nghe kiểu thi A1', exercises: [ex('m1', 'multipleChoice'), ex('m2', 'multipleChoice')] }
+    const g = { id: 'g', levelId: 'A1', lessons: [listenLesson] } as unknown as Chapter
+    const secs = buildMock([...chapters, g], 'A1')
+    const hoeren = secs.find((s) => s.id === 'hoeren')!.exercises
+    expect(hoeren.filter((e) => e.tags.includes('mode:listen')).map((e) => e.id).sort()).toEqual(['m1', 'm2'])
+    const ids = secs.flatMap((s) => s.exercises.map((e) => e.id))
+    expect(new Set(ids).size).toBe(ids.length)
+  })
 })

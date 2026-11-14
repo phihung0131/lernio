@@ -8,6 +8,7 @@ import { speak } from '@/core/audio/player'
 import { db, type SrsCardRow } from '@/core/db/db'
 import { useChapters, useProgress } from '@/features/roadmap/useCurriculum'
 import VocabIcon from '@/ui/VocabIcon'
+import { canonVocabId } from '@/generated/vocabCanon'
 
 type Row = VocabItem & { level: string; chapter: string; chapterId: string }
 const full = (v: VocabItem) => (v.article ? `${v.article} ${v.de}` : v.de)
@@ -41,8 +42,8 @@ export default function VocabularyPage() {
       if (!isChapterUnlocked(chapters, i, progress)) return
       for (const l of c.lessons)
         for (const v of l.vocab)
-          if (!seen.has(v.id)) {
-            seen.add(v.id)
+          if (!seen.has(canonVocabId(v.id))) {
+            seen.add(canonVocabId(v.id))
             out.push({ ...v, level: c.levelId, chapter: c.title, chapterId: c.id })
           }
     })

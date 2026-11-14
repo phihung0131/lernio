@@ -15,15 +15,17 @@ export async function loadLevel(level: LevelId): Promise<Chapter[]> {
   const hit = cache.get(level)
   if (hit) return hit
   const entries = Object.entries(files).filter(([p]) => p.startsWith(`/content/${level}/`))
-  const chapters = await Promise.all(entries.map(async ([, f]) => Chapter.parse(await f())))
+  // JSON đã được Zod kiểm tra và điền mặc định lúc build (scripts/build-content.ts):
+  // chỉ parse lại ở dev để bắt lỗi sớm, bản build bỏ qua cho nhanh trên điện thoại.
+  const chapters = await Promise.all(
+    entries.map(async ([, f]) => (import.meta.env.DEV ? Chapter.parse(await f()) : ((await f()) as Chapter))),
+  )
   chapters.sort((a, b) => a.order - b.order)
   cache.set(level, chapters)
   return chapters
 }
 
 export async function loadAllChapters(): Promise<Chapter[]> {
-  const out: Chapter[] = []
-  for (const l of LEVELS) out.push(...(await loadLevel(l.id)))
-  return out
+  return (await Promise.all(LEVELS.map((l) => loadLevel(l.id)))).flat()
 }
 

@@ -95,7 +95,21 @@ test('cài đặt: mục tiêu XP và giao diện tối được lưu', async ({
   await page.goto('/settings')
   await page.getByRole('button', { name: '50 XP' }).click()
   await page.getByRole('button', { name: 'Tối' }).click()
+  // Đợi giá trị đã lưu vào IndexedDB (giao diện đọc lại qua liveQuery) rồi mới tải lại.
+  await expect(page.getByRole('button', { name: '50 XP' })).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   await page.reload()
   await expect(page.getByRole('button', { name: '50 XP' })).toHaveAttribute('aria-pressed', 'true')
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+})
+
+test('mobile 390px: các trang chính không tràn ngang', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await login(page)
+  for (const path of ['/', '/path', '/review', '/practice', '/vocabulary', '/grammar', '/listening', '/profile', '/settings', '/mock', '/lesson/a0-c01-l1']) {
+    await page.goto(path)
+    await page.waitForLoadState('networkidle')
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
+    expect(overflow, `tràn ngang ở ${path}`).toBeLessThanOrEqual(1)
+  }
 })

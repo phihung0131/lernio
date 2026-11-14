@@ -4,6 +4,7 @@ import type { Exercise } from '@/core/content/schema'
 import { speak } from '@/core/audio/player'
 import { matchesAny } from './normalize'
 import { FeedbackSheet } from '@/ui/Sheet'
+import PassageHint from './PassageHint'
 
 /** Chuỗi đáp án đúng để hiển thị khi trả lời sai. */
 export function correctAnswer(ex: Exercise): string | null {
@@ -193,6 +194,8 @@ function ExerciseInner({ ex, onDone, onChecked }: { ex: Exercise; onDone: (r: Re
   const [checked, setChecked] = useState<boolean | null>(null)
   const [order, setOrder] = useState<string[]>([])
   const shuffledWords = useMemo(() => (ex.type === 'wordOrder' ? shuffle(ex.words) : []), [ex])
+  // Xáo thứ tự lựa chọn mỗi lần hiển thị để vị trí đáp án đúng không đoán được.
+  const optOrder = useMemo(() => (ex.type === 'multipleChoice' || ex.type === 'listenAndChoose' ? shuffle(ex.options.map((_, i) => i)) : []), [ex])
   const [matchState, setMatchState] = useState<{ left: string | null; done: Set<string>; wrong: number }>({
     left: null,
     done: new Set(),
@@ -247,12 +250,12 @@ function ExerciseInner({ ex, onDone, onChecked }: { ex: Exercise; onDone: (r: Re
             </button>
           )}
           <Choices
-            options={ex.options}
-            answer={ex.answer}
+            options={optOrder.map((i) => ex.options[i])}
+            answer={optOrder.indexOf(ex.answer)}
             locked={picked}
             onPick={(i) => {
               setPicked(i)
-              finish(i === ex.answer)
+              finish(optOrder[i] === ex.answer)
             }}
           />
           {feedback}
@@ -437,6 +440,7 @@ function ExerciseInner({ ex, onDone, onChecked }: { ex: Exercise; onDone: (r: Re
 export default function ExerciseView(props: { ex: Exercise; onDone: (r: Result) => void; onChecked?: (correct: boolean) => void }) {
   return (
     <div data-exercise-id={props.ex.id}>
+      <PassageHint ex={props.ex} />
       <ExerciseInner {...props} />
     </div>
   )
