@@ -14,11 +14,11 @@ export default chapter({
       intro:
         '**Umlaut** là hai dấu chấm trên nguyên âm: **ä, ö, ü**. Chúng là những chữ cái **riêng**, đọc khác a, o, u. Đây là phần nhiều người Việt thấy lạ nhất, nhưng chỉ cần luyện vài lần là quen.',
       vocab: [
-        v('bar', 'Bär', 'con gấu', { art: 'der', e: '🐻', r: 'be-ơ' }),
-        v('kase', 'Käse', 'pho mát', { art: 'der', e: '🧀', r: 'kê-dơ' }),
-        v('schon', 'schön', 'đẹp', { e: '✨', r: 'sơn (miệng tròn)', pos: 'tính từ' }),
-        v('ol', 'Öl', 'dầu ăn', { art: 'das', e: '🫒', r: 'ơ-l' }),
-        v('offnen', 'öffnen', 'mở', { e: '🔓', r: 'ơ-phờ-nần', pos: 'động từ' }),
+        v('bar', 'Bär', 'con gấu', { art: 'der', r: 'be-ơ' }),
+        v('kase', 'Käse', 'pho mát', { art: 'der', r: 'kê-dơ' }),
+        v('schon', 'schön', 'đẹp', { r: 'sơn (miệng tròn)', pos: 'tính từ' }),
+        v('ol', 'Öl', 'dầu ăn', { art: 'das', r: 'ơ-l' }),
+        v('offnen', 'öffnen', 'mở', { r: 'ơ-phờ-nần', pos: 'động từ' }),
       ],
       grammar: [
         pron('Ä ä', 'ê (mở)', 'Đọc như “e” mở, gần “e” trong “bè”, miệng mở hơn ê thường.', ['Bär', 'Käse', 'Mädchen (bé gái)'], 'Ä'),
@@ -42,11 +42,11 @@ export default chapter({
       goals: ['Đọc ü', 'Biết ß là “ss” và khi nào dùng'],
       intro: '**Ü** là âm khó nhất với người Việt. May là bạn có sẵn âm “i”, chỉ cần tròn môi.',
       vocab: [
-        v('uber', 'über', 'trên, qua', { e: '⬆️', r: 'uy-bơ', pos: 'giới từ' }),
-        v('fruhstuck', 'Frühstück', 'bữa sáng', { art: 'das', e: '🥐', r: 'phruy-stúyc' }),
-        v('tur', 'Tür', 'cánh cửa', { art: 'die', e: '🚪', r: 'tuy-ơ' }),
-        v('strasse', 'Straße', 'con đường', { art: 'die', e: '🛣️', r: 'sờ-tra-xơ' }),
-        v('gruss', 'Gruß', 'lời chào', { art: 'der', e: '👋', r: 'gru-x' }),
+        v('uber', 'über', 'trên, qua', { r: 'uy-bơ', pos: 'giới từ' }),
+        v('fruhstuck', 'Frühstück', 'bữa sáng', { art: 'das', r: 'phruy-stúyc' }),
+        v('tur', 'Tür', 'cánh cửa', { art: 'die', r: 'tuy-ơ' }),
+        v('strasse', 'Straße', 'con đường', { art: 'die', r: 'sờ-tra-xơ' }),
+        v('gruss', 'Gruß', 'lời chào', { art: 'der', r: 'gru-x' }),
       ],
       grammar: [
         pron('Ü ü', 'uy (môi tròn)', 'Nói “i” và **tròn môi** như “u” cùng lúc. Nghe như “uy” kéo dài, không phải “ui”.', ['Tür', 'über', 'Frühstück'], 'Ü'),

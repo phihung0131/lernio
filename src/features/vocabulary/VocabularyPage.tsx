@@ -5,6 +5,7 @@ import type { VocabItem } from '@/core/content/schema'
 import { speak } from '@/core/audio/player'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '@/core/db/db'
+import VocabIcon from '@/ui/VocabIcon'
 
 export default function VocabularyPage() {
   const [all, setAll] = useState<(VocabItem & { level: string })[]>([])
@@ -27,7 +28,7 @@ export default function VocabularyPage() {
       <ul className="divide-y divide-line rounded-xl border border-line bg-surface">
         {shown.map((v) => (
           <li key={v.id} className="flex items-center gap-3 p-3">
-            <span className="text-2xl">{v.emoji ?? '🔤'}</span>
+            <VocabIcon icon={v.icon} word={v.de} article={v.article} size={40} />
             <div className="flex-1">
               <p className="font-semibold">{v.article} {v.de}</p>
               <p className="text-sm text-muted">{v.vi} · {v.level}</p>

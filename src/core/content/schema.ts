@@ -15,8 +15,10 @@ export const VocabItem = z.object({
   ipa: z.string().optional(),
   viRespelling: z.string().optional(),
   audio: z.string().optional(),
-  emoji: z.string().optional(),
-  svg: z.string().optional(),
+  /** Tên icon trong @tabler/icons-react, ví dụ 'IconApple'. Không dùng emoji. */
+  icon: z.string().optional(),
+  example: z.object({ de: z.string(), vi: z.string() }).optional(),
+  topic: z.string().optional(),
   tags: z.array(z.string()).default([]),
 })
 export type VocabItem = z.infer<typeof VocabItem>
@@ -78,6 +80,33 @@ export const Exercise = z.discriminatedUnion('type', [
     noun: z.string(),
     answer: Gender,
   }),
+  z.object({
+    ...base,
+    type: z.literal('trueFalse'),
+    statement: z.string(),
+    context: z.string().optional(),
+    answer: z.boolean(),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('conjugate'),
+    verb: z.string(),
+    vi: z.string(),
+    rows: z.array(z.object({ pronoun: z.string(), answer: z.string() })).min(2),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('categorize'),
+    prompt: z.string(),
+    categories: z.array(z.string()).min(2),
+    items: z.array(z.object({ text: z.string(), category: z.number().int() })).min(2),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('translate'),
+    vi: z.string(),
+    answers: z.array(z.string()).min(1),
+  }),
 ])
 export type Exercise = z.infer<typeof Exercise>
 
@@ -102,9 +131,47 @@ export const Block = z.discriminatedUnion('kind', [
   }),
   z.object({
     kind: z.literal('dialogue'),
+    title: z.string().optional(),
     lines: z.array(
-      z.object({ speaker: z.string(), de: z.string(), vi: z.string(), audio: z.string().optional() }),
+      z.object({ speaker: z.string(), de: z.string(), vi: z.string(), voice: z.enum(['m', 'f']).default('m') }),
     ),
+  }),
+  z.object({
+    kind: z.literal('reading'),
+    title: z.string(),
+    de: z.string(),
+    vi: z.string(),
+    glossary: z.array(z.object({ de: z.string(), vi: z.string() })).default([]),
+  }),
+  z.object({
+    kind: z.literal('writingTask'),
+    prompt: z.string(),
+    hints: z.array(z.string()).default([]),
+    model: z.string(),
+    modelVi: z.string().optional(),
+    checklist: z.array(z.string()).default([]),
+  }),
+  z.object({
+    kind: z.literal('speakingTask'),
+    prompt: z.string(),
+    model: z.array(z.object({ de: z.string(), vi: z.string() })).min(1),
+  }),
+  z.object({
+    kind: z.literal('conjugation'),
+    verb: z.string(),
+    vi: z.string(),
+    forms: z.array(z.string()).length(6),
+    note: z.string().optional(),
+  }),
+  z.object({
+    kind: z.literal('steps'),
+    items: z.array(
+      z.object({
+        title: z.string(),
+        md: z.string(),
+        quiz: z.object({ q: z.string(), options: z.array(z.string()).min(2), answer: z.number().int(), why: z.string() }).optional(),
+      }),
+    ).min(1),
   }),
   z.object({
     kind: z.literal('pronunciation'),
@@ -114,7 +181,7 @@ export const Block = z.discriminatedUnion('kind', [
     audio: z.string().optional(),
     examples: z.array(z.string()).default([]),
   }),
-  z.object({ kind: z.literal('illustration'), name: z.enum(['mouth-vowels', 'genders', 'alphabet']) }),
+  z.object({ kind: z.literal('illustration'), name: z.string() }),
   z.object({ kind: z.literal('exercises'), exerciseIds: z.array(z.string()) }),
 ])
 export type Block = z.infer<typeof Block>
@@ -158,6 +225,8 @@ export const Chapter = z.object({
   id: z.string(),
   levelId: LevelId,
   order: z.number().int(),
+  /** 2 = nội dung chuẩn toàn diện (validator áp ngưỡng số lượng). */
+  version: z.number().int().default(1),
   title: z.string(),
   titleVi: z.string(),
   lessons: z.array(Lesson).min(1),

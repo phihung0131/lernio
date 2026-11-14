@@ -13,11 +13,11 @@ export default chapter({
       intro:
         'Chào mừng bạn đến với Lernio. Bạn **không cần biết gì** về tiếng Đức hay tiếng Anh. Mọi thứ đều được giải thích bằng tiếng Việt, từng bước một.\n\nTiếng Đức (**Deutsch**) là ngôn ngữ chính thức của Đức, Áo và Thụy Sĩ (cùng với các ngôn ngữ khác ở Thụy Sĩ), và Liechtenstein. Hơn 100 triệu người dùng nó làm tiếng mẹ đẻ. Học tiếng Đức giúp bạn đi du học, làm việc và sống ở các nước này.',
       vocab: [
-        v('hallo', 'Hallo', 'xin chào', { e: '👋', r: 'ha-lô', pos: 'lời chào' }),
-        v('ja', 'ja', 'vâng, có', { e: '✅', r: 'da', pos: 'từ' }),
-        v('nein', 'nein', 'không', { e: '❌', r: 'nai-n', pos: 'từ' }),
-        v('deutsch', 'Deutsch', 'tiếng Đức', { e: '🇩🇪', r: 'đoi-ts', pos: 'danh từ' }),
-        v('danke', 'danke', 'cảm ơn', { e: '🙏', r: 'đan-kờ', pos: 'từ' }),
+        v('hallo', 'Hallo', 'xin chào', { r: 'ha-lô', pos: 'lời chào' }),
+        v('ja', 'ja', 'vâng, có', { r: 'da', pos: 'từ' }),
+        v('nein', 'nein', 'không', { r: 'nai-n', pos: 'từ' }),
+        v('deutsch', 'Deutsch', 'tiếng Đức', { r: 'đoi-ts', pos: 'danh từ' }),
+        v('danke', 'danke', 'cảm ơn', { r: 'đan-kờ', pos: 'từ' }),
       ],
       grammar: [
         T('Tiếng Đức dùng **bảng chữ cái Latinh** giống tiếng Việt, nên bạn đã biết đọc hầu hết các chữ cái. Điểm khác nhau quan trọng:'),

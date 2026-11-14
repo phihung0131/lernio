@@ -9,12 +9,15 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run",
-    "build:content": "tsx scripts/build-content.ts",
+    "build:content": "tsx scripts/build-content.ts && tsx scripts/gen-icons.ts",
     "audio": "tsx scripts/collect-audio.ts",
-    "validate:content": "tsx scripts/validate-content.ts"
+    "validate:content": "tsx scripts/validate-content.ts",
+    "dev:mock": "VITE_DEV_MOCK_AUTH=1 vite --port 5174 --strictPort"
   },
   "dependencies": {
+    "@fontsource/be-vietnam-pro": "^5.3.0",
     "@supabase/supabase-js": "^2.119.0",
+    "@tabler/icons-react": "^3.52.0",
     "clsx": "^2.1.1",
     "dexie": "^4.4.7",
     "dexie-react-hooks": "^4.4.0",

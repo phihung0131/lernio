@@ -8,9 +8,41 @@ export const warn = (md: string): Block => ({ kind: 'callout', tone: 'warn', md 
 export const table = (head: string[], ...rows: string[][]): Block => ({ kind: 'table', head, rows })
 export const illus = (name: 'mouth-vowels' | 'genders' | 'alphabet'): Block => ({ kind: 'illustration', name })
 export const ex = (de: string, vi: string): Block => ({ kind: 'example', de, vi })
-export const dlg = (...lines: [string, string, string][]): Block => ({
+const FEMALE = new Set(['Anna', 'Lea', 'Linh', 'Lisa', 'Maria', 'Eva', 'Sara', 'Julia', 'Mia', 'Emma', 'Laura', 'Sophie', 'Hanna', 'Mai', 'Lan', 'Hoa', 'Oma', 'Mutter', 'Mama', 'Schwester', 'Tante', 'Rezeption', 'Kundin', 'Frau'])
+/** Đoán giọng theo tên người nói: tên nữ, 'Frau …', hoặc danh từ nghề đuôi -in (Ärztin, Kellnerin). */
+export function voiceOf(speaker: string): 'm' | 'f' {
+  const s = speaker.trim()
+  const first = s.split(' ')[0]
+  if (FEMALE.has(first) || s.startsWith('Frau ')) return 'f'
+  if (/in$/.test(first) && first[0] === first[0].toUpperCase() && first.length > 4 && !['Martin', 'Kevin', 'Benjamin', 'Justin'].includes(first)) return 'f'
+  return 'm'
+}
+type Line = [string, string, string] | [string, string, string, 'm' | 'f']
+export const dlg = (...lines: Line[]): Block => ({
   kind: 'dialogue',
-  lines: lines.map(([speaker, de, vi]) => ({ speaker, de, vi })),
+  lines: lines.map(([speaker, de, vi, voice]) => ({ speaker, de, vi, voice: voice ?? voiceOf(speaker) })),
+})
+export const dlgT = (title: string, ...lines: Line[]): Block => ({
+  ...(dlg(...lines) as Extract<Block, { kind: 'dialogue' }>),
+  title,
+})
+export const reading = (title: string, de: string, vi: string, glossary: [string, string][] = []): Block => ({
+  kind: 'reading', title, de, vi, glossary: glossary.map(([d, g]) => ({ de: d, vi: g })),
+})
+export const writing = (prompt: string, model: string, o: { hints?: string[]; checklist?: string[]; modelVi?: string } = {}): Block => ({
+  kind: 'writingTask', prompt, model, hints: o.hints ?? [], checklist: o.checklist ?? [], modelVi: o.modelVi,
+})
+export const speaking = (prompt: string, ...model: [string, string][]): Block => ({
+  kind: 'speakingTask', prompt, model: model.map(([de, vi]) => ({ de, vi })),
+})
+/** Bảng chia: forms theo thứ tự ich, du, er/sie/es, wir, ihr, sie/Sie, phân cách bằng dấu phẩy. */
+export const conj = (verb: string, vi: string, forms: string, note?: string): Block => ({
+  kind: 'conjugation', verb, vi, forms: forms.split(/\s*,\s*/), note,
+})
+export interface Step { title: string; md: string; quiz?: { q: string; options: string[]; answer: number; why: string } }
+export const steps = (...items: Step[]): Block => ({ kind: 'steps', items })
+export const step = (title: string, md: string, quiz?: [string, string[], number, string]): Step => ({
+  title, md, quiz: quiz ? { q: quiz[0], options: quiz[1], answer: quiz[2], why: quiz[3] } : undefined,
 })
 export const pron = (letter: string, viRespelling: string, note?: string, examples: string[] = [], audio?: string): Block => ({
   kind: 'pronunciation',
@@ -26,7 +58,9 @@ export interface VOpts {
   art?: 'der' | 'die' | 'das'
   pl?: string
   pos?: string
-  e?: string // emoji
+  i?: string // tên icon @tabler/icons-react, ví dụ 'IconApple'
+  ex?: [string, string] // câu ví dụ [de, vi]
+  t?: string // chủ đề
   r?: string // phiên âm tiếng Việt
   ipa?: string
 }
@@ -37,7 +71,9 @@ export const v = (id: string, de: string, vi: string, o: VOpts = {}): VocabItem 
   article: o.art,
   plural: o.pl,
   pos: o.pos ?? (o.art ? 'danh từ' : 'từ'),
-  emoji: o.e,
+  icon: o.i,
+  example: o.ex ? { de: o.ex[0], vi: o.ex[1] } : undefined,
+  topic: o.t,
   viRespelling: o.r,
   ipa: o.ipa,
   tags: [],
@@ -70,6 +106,25 @@ export const dict = (text: string, expl?: string): Ex => ({
 export const listen = (text: string, options: string[], answer: number, expl?: string): Ex => ({
   type: 'listenAndChoose', audio: text, options, answer, ...base(expl ?? `Bạn nghe: ${text}`),
 })
+export const tf = (statement: string, answer: boolean, expl: string, context?: string): Ex => ({
+  type: 'trueFalse', statement, answer, context, ...base(expl),
+})
+/** Bài chia động từ: rows dạng 'ich:bin, du:bist'. */
+export const conjEx = (verb: string, vi: string, rows: string, expl?: string): Ex => ({
+  type: 'conjugate', verb, vi,
+  rows: rows.split(/\s*,\s*/).map((r) => {
+    const [pronoun, answer] = r.split(':')
+    return { pronoun: pronoun.trim(), answer: answer.trim() }
+  }),
+  ...base(expl ?? `Chia động từ ${verb}.`),
+})
+export const sortEx = (prompt: string, categories: string[], items: [string, number][], expl: string): Ex => ({
+  type: 'categorize', prompt, categories, items: items.map(([text, category]) => ({ text, category })), ...base(expl),
+})
+export const tr = (vi: string, answers: string | string[], expl?: string): Ex => {
+  const a = [answers].flat()
+  return { type: 'translate', vi, answers: a, ...base(expl ?? `Đáp án: ${a[0]}`) }
+}
 export const match = (expl: string, ...pairs: [string, string][]): Ex => ({
   type: 'matchPairs', pairs: pairs.map(([left, right]) => ({ left, right })), ...base(expl),
 })
@@ -170,6 +225,7 @@ export function lesson(i: LessonInput): Lesson {
 }
 
 export function chapter(o: {
+  version?: number
   level: LevelId
   order: number
   title: string
@@ -185,9 +241,10 @@ export function chapter(o: {
     id,
     levelId: o.level,
     order: o.order,
+    version: o.version ?? 1,
     title: o.title,
     titleVi: o.titleVi,
     lessons: o.lessons,
-    test: { id: `${id}-test`, passScore: 0.8, questionCount: Math.min(10, questions.length), questions },
+    test: { id: `${id}-test`, passScore: 0.8, questionCount: Math.min((o.version ?? 1) >= 2 ? 20 : 10, questions.length), questions },
   }
 }

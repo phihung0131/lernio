@@ -14,7 +14,7 @@ export default chapter({
       goals: ['Tạo Plusquamperfekt', 'Diễn đạt “trước một sự kiện quá khứ khác”'],
       intro: '**Plusquamperfekt** nói về điều **đã xảy ra trước** một sự kiện quá khứ khác. Cấu trúc: **hatte/war + Partizip II**.',
       vocab: [
-        w('vorher', 'vorher', 'trước đó', { pos: 'trạng từ', e: '⏪', r: 'phô-he' }), w('nachher', 'nachher', 'sau đó', { pos: 'trạng từ', e: '⏩', r: 'na-khe' }), w('inzwischen', 'inzwischen', 'trong lúc đó', { pos: 'trạng từ', e: '⏳', r: 'in-tsvi-sần' }), w('schon', 'schon', 'đã', { pos: 'trạng từ', e: '✅', r: 'sôn' }), w('noch-nicht', 'noch nicht', 'chưa', { e: '❌', r: 'nôkh nít' }),
+        w('vorher', 'vorher', 'trước đó', { pos: 'trạng từ', r: 'phô-he' }), w('nachher', 'nachher', 'sau đó', { pos: 'trạng từ', r: 'na-khe' }), w('inzwischen', 'inzwischen', 'trong lúc đó', { pos: 'trạng từ', r: 'in-tsvi-sần' }), w('schon', 'schon', 'đã', { pos: 'trạng từ', r: 'sôn' }), w('noch-nicht', 'noch nicht', 'chưa', { r: 'nôkh nít' }),
       ],
       grammar: [
         table(['', 'haben-Verben', 'sein-Verben'], ['ich', 'hatte gemacht', 'war gegangen'], ['du', 'hattest gemacht', 'warst gegangen'], ['er/sie/es', 'hatte gemacht', 'war gegangen'], ['wir', 'hatten gemacht', 'waren gegangen'], ['ihr', 'hattet gemacht', 'wart gegangen'], ['sie/Sie', 'hatten gemacht', 'waren gegangen']),
@@ -39,7 +39,7 @@ export default chapter({
       goals: ['Dùng 4 liên từ phụ chỉ thời gian', 'Chọn đúng thì sau nachdem'],
       intro: 'Các liên từ này nối **hai sự kiện theo thời gian**. Chúng là **liên từ phụ**: động từ chia ở **cuối câu phụ**.',
       vocab: [
-        w('nachdem', 'nachdem', 'sau khi', { pos: 'liên từ phụ', e: '➡️', r: 'nakh-đêm' }), w('bevor', 'bevor', 'trước khi', { pos: 'liên từ phụ', e: '⬅️', r: 'bờ-phô-ơ' }), w('wahrend', 'während', 'trong khi', { pos: 'liên từ phụ', e: '↔️', r: 'vê-rần-t' }), w('seitdem', 'seitdem', 'từ khi', { pos: 'liên từ phụ', e: '📅', r: 'dai-t-đêm' }), w('sobald', 'sobald', 'ngay khi', { pos: 'liên từ phụ', e: '⚡', r: 'dô-balt' }), w('bis', 'bis', 'cho đến khi', { pos: 'liên từ phụ', e: '🏁', r: 'bis' }),
+        w('nachdem', 'nachdem', 'sau khi', { pos: 'liên từ phụ', r: 'nakh-đêm' }), w('bevor', 'bevor', 'trước khi', { pos: 'liên từ phụ', r: 'bờ-phô-ơ' }), w('wahrend', 'während', 'trong khi', { pos: 'liên từ phụ', r: 'vê-rần-t' }), w('seitdem', 'seitdem', 'từ khi', { pos: 'liên từ phụ', r: 'dai-t-đêm' }), w('sobald', 'sobald', 'ngay khi', { pos: 'liên từ phụ', r: 'dô-balt' }), w('bis', 'bis', 'cho đến khi', { pos: 'liên từ phụ', r: 'bis' }),
       ],
       grammar: [
         table(['Liên từ', 'Nghĩa', 'Quy tắc thì', 'Ví dụ'], ['**nachdem**', 'sau khi', 'vế nachdem **xảy ra trước**: vế chính Präsens → vế nachdem **Perfekt**; vế chính Präteritum → vế nachdem **Plusquamperfekt**', 'Nachdem ich gegessen **hatte**, **ging** ich spazieren.'], ['**bevor**', 'trước khi', 'thường cùng thì', 'Ich dusche, bevor ich zur Arbeit gehe.'], ['**während**', 'trong khi', 'hai việc đồng thời', 'Während ich koche, hört er Musik.'], ['**seitdem**', 'từ khi (đến giờ)', 'Präsens/Perfekt', 'Seitdem ich hier wohne, habe ich viele Freunde.'], ['**sobald**', 'ngay khi', '', 'Ich rufe an, sobald ich ankomme.'], ['**bis**', 'cho đến khi', '', 'Ich warte, bis du kommst.']),

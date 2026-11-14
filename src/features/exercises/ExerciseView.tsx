@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Volume2 } from 'lucide-react'
+import { Check, Volume2, X } from 'lucide-react'
 import type { Exercise } from '@/core/content/schema'
 import { speak } from '@/core/audio/player'
 import { matchesAny } from './normalize'
@@ -63,7 +63,106 @@ function Choices({
 }
 
 /** Hiển thị một bài tập. Gọi onDone(correct) khi người học đã trả lời và xem phản hồi. */
-function ExerciseInner({ ex, onDone }: { ex: Exercise; onDone: (r: Result) => void }) {
+function TrueFalse({ ex, checked, finish }: { ex: Extract<Exercise, { type: 'trueFalse' }>; checked: boolean | null; finish: (c: boolean) => void }) {
+  const [pick, setPick] = useState<boolean | null>(null)
+  return (
+    <div>
+      {ex.context && <p className="mb-2 rounded-lg bg-bg p-2 text-sm" lang="de">{ex.context}</p>}
+      <p className="mb-3 text-lg font-semibold" lang="de">{ex.statement}</p>
+      <div className="grid grid-cols-2 gap-2">
+        {[true, false].map((v) => (
+          <button
+            key={String(v)}
+            type="button"
+            disabled={checked !== null}
+            onClick={() => {
+              setPick(v)
+              finish(v === ex.answer)
+            }}
+            className={`btn-secondary ${pick === v ? (v === ex.answer ? 'border-emerald-500' : 'border-rose-500') : ''}`}
+          >
+            {v ? 'Đúng (richtig)' : 'Sai (falsch)'}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function Conjugate({ ex, checked, finish }: { ex: Extract<Exercise, { type: 'conjugate' }>; checked: boolean | null; finish: (c: boolean) => void }) {
+  const [vals, setVals] = useState<string[]>(() => ex.rows.map(() => ''))
+  const ok = ex.rows.map((r, i) => matchesAny(vals[i], [r.answer]))
+  return (
+    <div>
+      <p className="mb-3 text-lg font-semibold">
+        Chia động từ <span lang="de" className="text-brand">{ex.verb}</span> <span className="text-sm text-muted">({ex.vi})</span>
+      </p>
+      <div className="grid gap-2">
+        {ex.rows.map((r, i) => (
+          <label key={i} className="flex items-center gap-3">
+            <span className="w-24 text-right text-muted" lang="de">{r.pronoun}</span>
+            <input
+              className={`field flex-1 ${checked !== null ? (ok[i] ? 'border-emerald-500' : 'border-rose-500') : ''}`}
+              lang="de"
+              autoCapitalize="off"
+              autoCorrect="off"
+              spellCheck={false}
+              aria-label={`Dạng của ${r.pronoun}`}
+              disabled={checked !== null}
+              value={vals[i]}
+              onChange={(e) => setVals(vals.map((v, j) => (j === i ? e.target.value : v)))}
+            />
+            {checked !== null && !ok[i] && <span className="text-sm font-semibold text-emerald-600" lang="de">{r.answer}</span>}
+          </label>
+        ))}
+      </div>
+      {checked === null && (
+        <button className="btn-primary mt-3" type="button" disabled={vals.some((v) => !v.trim())} onClick={() => finish(ok.every(Boolean))}>
+          Kiểm tra
+        </button>
+      )}
+    </div>
+  )
+}
+
+function Categorize({ ex, checked, finish }: { ex: Extract<Exercise, { type: 'categorize' }>; checked: boolean | null; finish: (c: boolean) => void }) {
+  const [assign, setAssign] = useState<(number | null)[]>(() => ex.items.map(() => null))
+  return (
+    <div>
+      <p className="mb-3 text-lg font-semibold">{ex.prompt}</p>
+      <ul className="grid gap-2">
+        {ex.items.map((it, i) => {
+          const right = assign[i] === it.category
+          return (
+            <li key={i} className="flex flex-wrap items-center gap-2 rounded-xl border border-line bg-surface p-2">
+              <span className="min-w-24 flex-1 font-medium" lang="de">{it.text}</span>
+              {ex.categories.map((c, ci) => (
+                <button
+                  key={ci}
+                  type="button"
+                  disabled={checked !== null}
+                  aria-pressed={assign[i] === ci}
+                  onClick={() => setAssign(assign.map((a, j) => (j === i ? ci : a)))}
+                  className={`rounded-lg border px-3 py-1 text-sm ${assign[i] === ci ? 'border-brand bg-brand text-white' : 'border-line'} ${checked !== null && assign[i] === ci ? (right ? '!border-emerald-600 !bg-emerald-600' : '!border-rose-600 !bg-rose-600') : ''}`}
+                >
+                  {c}
+                </button>
+              ))}
+              {checked !== null && !right && <span className="text-xs text-emerald-600">→ {ex.categories[it.category]}</span>}
+            </li>
+          )
+        })}
+      </ul>
+      {checked === null && (
+        <button className="btn-primary mt-3" type="button" disabled={assign.some((a) => a === null)} onClick={() => finish(assign.every((a, i) => a === ex.items[i].category))}>
+          Kiểm tra
+        </button>
+      )}
+    </div>
+  )
+}
+
+function ExerciseInner({ ex, onDone, onChecked }: { ex: Exercise; onDone: (r: Result) => void; onChecked?: (correct: boolean) => void }) {
   const [picked, setPicked] = useState<number | null>(null)
   const [text, setText] = useState('')
   const [checked, setChecked] = useState<boolean | null>(null)
@@ -79,10 +178,13 @@ function ExerciseInner({ ex, onDone }: { ex: Exercise; onDone: (r: Result) => vo
     [ex],
   )
 
-  const finish = (correct: boolean) => setChecked(correct)
+  const finish = (correct: boolean) => {
+    setChecked(correct)
+    onChecked?.(correct)
+  }
 
   function check() {
-    if (ex.type === 'fillBlank' || ex.type === 'typeAnswer' || ex.type === 'dictation')
+    if (ex.type === 'fillBlank' || ex.type === 'typeAnswer' || ex.type === 'dictation' || ex.type === 'translate')
       finish(matchesAny(text, ex.answers))
     else if (ex.type === 'wordOrder') finish(order.join(' ') === ex.answer.join(' '))
   }
@@ -92,7 +194,7 @@ function ExerciseInner({ ex, onDone }: { ex: Exercise; onDone: (r: Result) => vo
       role="status"
       className={`mt-4 rounded-lg p-3 text-sm ${checked ? 'bg-green-100 text-green-900' : 'bg-red-100 text-red-900'}`}
     >
-      <p className="font-semibold">{checked ? '✓ Chính xác!' : '✗ Chưa đúng'}</p>
+      <p className="flex items-center gap-1 font-semibold">{checked ? <><Check size={18} /> Chính xác!</> : <><X size={18} /> Chưa đúng</>}</p>
       <p>{ex.explanationVi}</p>
       <button className="btn-primary mt-3 w-full" onClick={() => onDone({ correct: checked })}>
         Tiếp tục
@@ -146,11 +248,33 @@ function ExerciseInner({ ex, onDone }: { ex: Exercise; onDone: (r: Result) => vo
           {feedback}
         </div>
       )
+    case 'trueFalse':
+      return (
+        <div>
+          <TrueFalse ex={ex} checked={checked} finish={finish} />
+          {feedback}
+        </div>
+      )
+    case 'conjugate':
+      return (
+        <div>
+          <Conjugate ex={ex} checked={checked} finish={finish} />
+          {feedback}
+        </div>
+      )
+    case 'categorize':
+      return (
+        <div>
+          <Categorize ex={ex} checked={checked} finish={finish} />
+          {feedback}
+        </div>
+      )
     case 'fillBlank':
     case 'typeAnswer':
+    case 'translate':
     case 'dictation': {
       const prompt =
-        ex.type === 'dictation' ? 'Nghe và gõ lại những gì bạn nghe' : ex.prompt
+        ex.type === 'dictation' ? 'Nghe và gõ lại những gì bạn nghe' : ex.type === 'translate' ? `Dịch sang tiếng Đức: “${ex.vi}”` : ex.prompt
       return (
         <div>
           <p className="mb-3 text-lg font-semibold">{prompt}</p>
@@ -288,7 +412,7 @@ function ExerciseInner({ ex, onDone }: { ex: Exercise; onDone: (r: Result) => vo
   }
 }
 
-export default function ExerciseView(props: { ex: Exercise; onDone: (r: Result) => void }) {
+export default function ExerciseView(props: { ex: Exercise; onDone: (r: Result) => void; onChecked?: (correct: boolean) => void }) {
   return (
     <div data-exercise-id={props.ex.id}>
       <ExerciseInner {...props} />

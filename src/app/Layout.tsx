@@ -1,4 +1,5 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import ErrorBoundary from './ErrorBoundary'
 import { BarChart3, BookOpen, GraduationCap, Headphones, Map, Repeat, Settings } from 'lucide-react'
 
 const NAV = [
@@ -12,6 +13,7 @@ const NAV = [
 ]
 
 export default function Layout() {
+  const loc = useLocation()
   return (
     <div className="min-h-dvh md:grid md:grid-cols-[14rem_1fr]">
       <nav
@@ -34,7 +36,9 @@ export default function Layout() {
         ))}
       </nav>
       <main className="mx-auto w-full max-w-3xl px-4 pb-24 pt-6 md:pb-6">
-        <Outlet />
+        <ErrorBoundary resetKey={loc.pathname}>
+          <Outlet />
+        </ErrorBoundary>
       </main>
     </div>
   )

@@ -1,13 +1,13 @@
 import { chapter, dict, dlg, ex, fill, info, lesson, listen, mc, order, table, T, tip, typ, v, warn } from '../lib'
 
 const greet = [
-  v('hallo-informal', 'Hallo', 'xin chào (thân mật)', { e: '👋', r: 'ha-lô' }),
-  v('guten-morgen', 'Guten Morgen', 'chào buổi sáng', { e: '🌅', r: 'gu-tần mo-gần' }),
-  v('guten-tag', 'Guten Tag', 'chào (ban ngày)', { e: '☀️', r: 'gu-tần ta-k' }),
-  v('guten-abend', 'Guten Abend', 'chào buổi tối', { e: '🌆', r: 'gu-tần a-bần-t' }),
-  v('gute-nacht', 'Gute Nacht', 'chúc ngủ ngon', { e: '🌙', r: 'gu-tờ na-kht' }),
-  v('tschuss', 'Tschüss', 'tạm biệt (thân mật)', { e: '👋', r: 'chuýt-x' }),
-  v('auf-wiedersehen', 'Auf Wiedersehen', 'tạm biệt (lịch sự)', { e: '🤝', r: 'ao-phờ vi-đơ-dê-hần' }),
+  v('hallo-informal', 'Hallo', 'xin chào (thân mật)', { r: 'ha-lô' }),
+  v('guten-morgen', 'Guten Morgen', 'chào buổi sáng', { r: 'gu-tần mo-gần' }),
+  v('guten-tag', 'Guten Tag', 'chào (ban ngày)', { r: 'gu-tần ta-k' }),
+  v('guten-abend', 'Guten Abend', 'chào buổi tối', { r: 'gu-tần a-bần-t' }),
+  v('gute-nacht', 'Gute Nacht', 'chúc ngủ ngon', { r: 'gu-tờ na-kht' }),
+  v('tschuss', 'Tschüss', 'tạm biệt (thân mật)', { r: 'chuýt-x' }),
+  v('auf-wiedersehen', 'Auf Wiedersehen', 'tạm biệt (lịch sự)', { r: 'ao-phờ vi-đơ-dê-hần' }),
 ]
 
 export default chapter({
@@ -51,16 +51,16 @@ export default chapter({
       goals: ['Hỏi “Bạn khỏe không?” và trả lời'],
       intro: 'Sau khi chào, người Đức thường hỏi thăm. Bạn sẽ học cách hỏi và trả lời bằng ba mức: tốt, bình thường, không tốt.',
       vocab: [
-        v('wie-gehts', 'Wie geht’s?', 'Bạn khỏe không?', { e: '❓', r: 'vi gê-ts' }),
-        v('gut', 'gut', 'tốt', { e: '😀', r: 'gu-t', pos: 'tính từ' }),
-        v('sehr-gut', 'sehr gut', 'rất tốt', { e: '😄', r: 'dê-r gu-t' }),
-        v('es-geht', 'es geht', 'tạm được', { e: '😐', r: 'ét gê-t' }),
-        v('schlecht', 'schlecht', 'tệ', { e: '😞', r: 'slếch-t', pos: 'tính từ' }),
-        v('und-dir', 'Und dir?', 'Còn bạn?', { e: '🔁', r: 'un-t đi-ơ' }),
+        v('wie-gehts', 'Wie geht’s?', 'Bạn khỏe không?', { r: 'vi gê-ts' }),
+        v('gut', 'gut', 'tốt', { r: 'gu-t', pos: 'tính từ' }),
+        v('sehr-gut', 'sehr gut', 'rất tốt', { r: 'dê-r gu-t' }),
+        v('es-geht', 'es geht', 'tạm được', { r: 'ét gê-t' }),
+        v('schlecht', 'schlecht', 'tệ', { r: 'slếch-t', pos: 'tính từ' }),
+        v('und-dir', 'Und dir?', 'Còn bạn?', { r: 'un-t đi-ơ' }),
       ],
       grammar: [
         T('**Hỏi:** *Wie geht’s?* (thân mật) hoặc *Wie geht es Ihnen?* (lịch sự).\n\n**Trả lời:** *Gut, danke!* (Tốt, cảm ơn!) rồi hỏi lại: *Und dir?* (Còn bạn?).'),
-        table(['Mức', 'Tiếng Đức', 'Nghĩa'], ['😄', 'Sehr gut!', 'Rất tốt'], ['😀', 'Gut, danke.', 'Tốt, cảm ơn'], ['😐', 'Es geht.', 'Tạm được'], ['😞', 'Nicht so gut. / Schlecht.', 'Không tốt lắm / Tệ']),
+        table(['Mức', 'Tiếng Đức', 'Nghĩa'], ['Rất tốt', 'Sehr gut!', 'Rất tốt'], ['Tốt', 'Gut, danke.', 'Tốt, cảm ơn'], ['Bình thường', 'Es geht.', 'Tạm được'], ['Không tốt', 'Nicht so gut. / Schlecht.', 'Không tốt lắm / Tệ']),
         tip('Người Đức thường trả lời thật lòng. “Es geht” (tạm được) rất phổ biến, và không bị coi là bất lịch sự.'),
       ],
       examples: [dlg(['Anna', 'Hallo! Wie geht’s?', 'Chào! Bạn khỏe không?'], ['Tom', 'Gut, danke. Und dir?', 'Tốt, cảm ơn. Còn bạn?'], ['Anna', 'Es geht.', 'Tạm được.'])],

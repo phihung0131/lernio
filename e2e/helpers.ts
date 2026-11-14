@@ -75,6 +75,28 @@ export async function answerExercise(page: Page, correct: boolean) {
       await root.getByRole('button', { name: 'Kiểm tra' }).click()
       break
     }
+    case 'translate':
+      await root.getByLabel('Đáp án').fill(correct ? q.answers[0] : 'zzz')
+      await root.getByRole('button', { name: 'Kiểm tra' }).click()
+      break
+    case 'trueFalse': {
+      const v = correct ? q.answer : !q.answer
+      await root.getByRole('button', { name: v ? /^Đúng/ : /^Sai/ }).click()
+      break
+    }
+    case 'conjugate':
+      for (const r of q.rows) await root.getByLabel(`Dạng của ${r.pronoun}`).fill(correct ? r.answer : 'zzz')
+      await root.getByRole('button', { name: 'Kiểm tra' }).click()
+      break
+    case 'categorize': {
+      const items = root.getByRole('listitem')
+      for (let i = 0; i < q.items.length; i++) {
+        const cat = correct ? q.items[i].category : (q.items[i].category + 1) % q.categories.length
+        await items.nth(i).getByRole('button', { name: q.categories[cat], exact: true }).click()
+      }
+      await root.getByRole('button', { name: 'Kiểm tra' }).click()
+      break
+    }
     case 'matchPairs':
       for (const p of q.pairs) {
         await root.getByRole('button', { name: p.left, exact: true }).click()

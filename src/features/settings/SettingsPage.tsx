@@ -1,13 +1,12 @@
 import { useRef, useState } from 'react'
 import { db } from '@/core/db/db'
-import { supabase } from '@/core/sync/supabase'
 import { setMuted } from '@/core/audio/player'
 import { useAuth } from '@/features/auth/AuthProvider'
 
 const TABLES = ['lessonProgress', 'chapterResults', 'srsCards', 'reviewLogs', 'xpEvents', 'badges'] as const
 
 export default function SettingsPage() {
-  const { session } = useAuth()
+  const { session, signOut } = useAuth()
   const fileRef = useRef<HTMLInputElement>(null)
   const [muted, setM] = useState(() => localStorage.getItem('muted') === '1')
   const [msg, setMsg] = useState('')
@@ -47,7 +46,7 @@ export default function SettingsPage() {
         <input ref={fileRef} type="file" accept="application/json" hidden onChange={(e) => e.target.files?.[0] && void importData(e.target.files[0])} />
       </div>
       {msg && <p role="status" className="text-sm">{msg}</p>}
-      <button className="btn-secondary" onClick={() => void supabase.auth.signOut()}>Đăng xuất</button>
+      <button className="btn-secondary" onClick={() => void signOut()}>Đăng xuất</button>
     </section>
   )
 }

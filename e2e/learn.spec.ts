@@ -75,3 +75,12 @@ test('ôn tập: thẻ xuất hiện sau khi học và chấm FSRS', async ({ pa
   await page.getByRole('button', { name: 'Tốt' }).click()
   await expect(page.getByRole('heading', { name: 'Ôn tập hôm nay' }).or(page.getByRole('heading', { name: 'Hôm nay đã ôn xong!' }))).toBeVisible()
 })
+
+test('các trang chính không crash', async ({ page }) => {
+  await login(page)
+  for (const path of ['/progress', '/review', '/vocabulary', '/grammar', '/listening', '/settings']) {
+    await page.goto(path)
+    await expect(page.getByRole('alert')).toHaveCount(0)
+    await expect(page.locator('main h1').first()).toBeVisible()
+  }
+})
