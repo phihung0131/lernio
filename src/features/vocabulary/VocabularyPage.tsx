@@ -115,7 +115,17 @@ export default function VocabularyPage() {
             </li>
           )
         })}
-        {shown.length === 0 && <li className="card p-5 text-center text-muted">Không có từ nào phù hợp.</li>}
+        {shown.length === 0 && (
+          <li className="card p-5 text-center text-muted">
+            {q || level !== 'all' || gender !== 'all'
+              ? 'Không có từ nào phù hợp với bộ lọc.'
+              : scope === 'learned'
+                ? 'Chưa có từ nào. Hoàn thành một bài học để từ vựng của bài được thêm vào đây, hoặc chọn “Tất cả đã mở”.'
+                : scope === 'stars'
+                  ? 'Chưa đánh dấu sao từ nào. Bấm biểu tượng ngôi sao ở một từ để lưu vào đây.'
+                  : 'Không có từ nào phù hợp.'}
+          </li>
+        )}
       </ul>
 
       {detail && (
