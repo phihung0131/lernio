@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 import type { Session } from '@supabase/supabase-js'
 import { supabase } from '@/core/sync/supabase'
 import { pushOutbox } from '@/core/sync/push'
+import { pullAll } from '@/core/sync/pull'
 
 interface AuthCtx {
   session: Session | null
@@ -25,7 +26,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!session) return
-    const flush = () => void pushOutbox(session.user.id)
+    // Luôn kéo và hợp nhất trước khi đẩy để không ghi đè tiến độ từ thiết bị khác.
+    const flush = () => void pullAll(session.user.id).then((ok) => (ok ? pushOutbox(session.user.id) : 0))
     flush()
     window.addEventListener('online', flush)
     document.addEventListener('visibilitychange', flush)

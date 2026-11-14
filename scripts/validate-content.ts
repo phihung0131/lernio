@@ -15,6 +15,7 @@ const fail = (m: string) => {
   errors++
 }
 const ids = new Set<string>()
+const vocabSeen = new Map<string, string>()
 const dup = (id: string, where: string) => {
   if (ids.has(id)) fail(`id trùng "${id}" (${where})`)
   ids.add(id)
@@ -33,7 +34,12 @@ for (const file of walk('content')) {
     const exIds = new Set(l.exercises.map((e) => e.id))
     const vIds = new Set(l.vocab.map((v) => v.id))
     for (const e of l.exercises) dup(e.id, file)
-    for (const v of l.vocab) dup(v.id, file)
+    for (const v of l.vocab) {
+      const sig = `${v.article ?? ''}|${v.de}|${v.vi}`
+      const prev = vocabSeen.get(v.id)
+      if (prev && prev !== sig) fail(`vocab id "${v.id}" trùng nhưng khác nội dung (${file})`)
+      vocabSeen.set(v.id, sig)
+    }
     for (const blocks of Object.values(l.sections))
       for (const b of blocks) {
         if (b.kind === 'exercises')
