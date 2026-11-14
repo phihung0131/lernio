@@ -27,6 +27,8 @@ test('lộ trình: học bài, khóa bài, kiểm tra chapter', async ({ page })
   await page.goto('/test/a0-c01')
   await expect(page).toHaveURL(/\/path/)
   await completeLesson(page, 'a0-c01-l2')
+  await completeLesson(page, 'a0-c01-l3')
+  await completeLesson(page, 'a0-c01-l4')
 
   // Trượt: chapter 2 vẫn khóa
   await takeTest(page, 'a0-c01', false)
@@ -38,7 +40,7 @@ test('lộ trình: học bài, khóa bài, kiểm tra chapter', async ({ page })
   await takeTest(page, 'a0-c01', true)
   await expect(page.getByText('Bạn đã vượt qua!')).toBeVisible()
   await page.goto('/lesson/a0-c02-l1')
-  await expect(page.getByRole('heading', { name: 'Chữ cái A đến M' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Chữ cái A đến I' })).toBeVisible()
 })
 
 test('trình học: lưu vị trí và học tiếp đúng chỗ', async ({ page }) => {

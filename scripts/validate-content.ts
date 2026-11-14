@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { Chapter } from '../src/core/content/schema'
+import { ILLUSTRATION_NAMES } from '../src/features/art/illustrationNames'
 
 function walk(dir: string): string[] {
   return readdirSync(dir).flatMap((f) => {
@@ -63,6 +64,7 @@ for (const file of walk('content')) {
     }
     for (const blocks of Object.values(l.sections))
       for (const b of blocks) {
+        if (b.kind === 'illustration' && !(ILLUSTRATION_NAMES as readonly string[]).includes(b.name)) fail(`${l.id}: hình minh họa "${b.name}" không tồn tại`)
         if (b.kind === 'exercises')
           for (const id of b.exerciseIds) if (!exIds.has(id)) fail(`${l.id}: exercise "${id}" không tồn tại`)
         if (b.kind === 'vocabList')
