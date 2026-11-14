@@ -43,7 +43,7 @@ export default function LessonPage() {
   const { lesson, chapter } = found
   const key = SECTION_KEYS[step]
   const blocks = lesson.sections[key]
-  const hasPractice = blocks.some((b) => b.kind === 'exercises')
+  const hasPractice = blocks.some((b) => b.kind === 'exercises' && b.exerciseIds.length > 0)
   const last = step === SECTION_KEYS.length - 1
   const needsPractice = key === 'practice' && hasPractice && !practice
 
