@@ -6,3 +6,4 @@ dist
 .audio-manifest.json
 test-results
 playwright-report
+dist-e2e

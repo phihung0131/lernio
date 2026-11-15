@@ -66,10 +66,15 @@ export default function AudioDownload() {
     void cachedCount(keys).then((n) => setHave((h) => ({ ...h, [level]: n })))
   }
 
+  // Service worker đã điều khiển trang = mọi trang và bài học đã được lưu để mở khi mất mạng.
+  const appReady = typeof navigator !== 'undefined' && !!navigator.serviceWorker?.controller
   if (!lists) return <p className="py-3 text-sm text-muted">Không đọc được danh sách audio (cần kết nối mạng).</p>
   return (
     <div className="py-2">
-      <p className="mb-2 text-sm text-muted">Tải trước giọng đọc để học khi không có mạng. Mỗi cấp độ khoảng 10–25 MB.</p>
+      <p className={`mb-2 flex items-center gap-1 text-sm font-bold ${appReady ? 'text-ok' : 'text-muted'}`}>
+        {appReady ? <><CheckCircle2 size={16} aria-hidden /> Bài học đã sẵn sàng dùng offline.</> : 'Bài học sẽ dùng được offline sau khi mở lại ứng dụng một lần khi có mạng.'}
+      </p>
+      <p className="mb-2 text-sm text-muted">Tải trước giọng đọc để nghe được khi không có mạng. Mỗi cấp độ khoảng 10–25 MB.</p>
       <ul className="grid gap-2">
         {LEVELS.map((lv) => {
           const total = lists[lv.id]?.length ?? 0
