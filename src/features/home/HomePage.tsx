@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom'
 import { BookMarked, GraduationCap, Headphones, Repeat, Target, Trophy } from 'lucide-react'
 import { LEVELS } from '@/core/content/loader'
 import { chapterProgress, nextStep } from '@/core/content/unlock'
-import { useChapters, useProgress } from '@/features/roadmap/useCurriculum'
+import { useProgress } from '@/features/roadmap/useCurriculum'
+import { OUTLINE } from '@/core/content/outline'
 import { LevelBadge, Mascot, StreakFlame } from '@/features/art/Art'
 import { ProgressBar, ProgressRing } from '@/ui/Progress'
 import { useStats } from './useStats'
@@ -16,7 +17,7 @@ function greeting() {
 }
 
 export default function HomePage() {
-  const chapters = useChapters()
+  const chapters = OUTLINE
   const progress = useProgress()
   const stats = useStats()
   const { session } = useAuth()

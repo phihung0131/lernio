@@ -6,7 +6,8 @@ import { saveChapterResult } from '@/core/db/repo'
 import { awardXp } from '@/core/db/xp'
 import { sfx } from '@/core/audio/player'
 import ExerciseRunner, { type RunnerResult } from '@/features/exercises/ExerciseRunner'
-import { useChapters, useProgress } from '@/features/roadmap/useCurriculum'
+import { useProgress } from '@/features/roadmap/useCurriculum'
+import { OUTLINE, useChapter } from '@/core/content/outline'
 import { Chest, Mascot } from '@/features/art/Art'
 import { checkBadges } from '@/features/progress/checkBadges'
 import { useToast } from '@/ui/Toast'
@@ -22,9 +23,15 @@ function shuffle<T>(a: T[]): T[] {
   return r
 }
 
+/** key theo id: đổi sang bài khác qua URL thì dựng lại từ đầu (không giữ trạng thái/kết quả khóa của bài trước). */
 export default function TestPage() {
   const { chapterId } = useParams()
-  const chapters = useChapters()
+  return <TestPageInner key={chapterId} />
+}
+
+function TestPageInner() {
+  const { chapterId } = useParams()
+  const chapters = OUTLINE
   const progress = useProgress()
   const toast = useToast()
   const [result, setResult] = useState<RunnerResult | null>(null)
@@ -32,15 +39,15 @@ export default function TestPage() {
   const [started, setStarted] = useState(false)
   const unlockedAtStart = useRef<boolean | null>(null)
 
-  const idx = chapters?.findIndex((c) => c.id === chapterId) ?? -1
-  const chapter = chapters?.[idx]
+  const idx = chapters.findIndex((c) => c.id === chapterId)
+  const chapter = useChapter(chapterId)
   const questions = useMemo(
     () => (chapter ? shuffle(chapter.test.questions).slice(0, chapter.test.questionCount) : []),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [chapter, attempt],
   )
 
-  if (!chapters || !progress) return <p className="p-8 text-center text-muted">Đang tải…</p>
+  if (!progress || chapter === undefined) return <p className="p-8 text-center text-muted">Đang tải…</p>
   if (unlockedAtStart.current === null && chapter) unlockedAtStart.current = isTestUnlocked(chapters, idx, progress)
   if (!chapter || !unlockedAtStart.current) return <Navigate to="/path" replace />
   const back = `/path?level=${chapter.levelId}`

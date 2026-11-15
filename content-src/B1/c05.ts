@@ -88,7 +88,7 @@ export default chapter({
         fill('Wenn ich fliegen ___, würde ich nach Hause fliegen. (können)', 'könnte', 'könnte.'),
         fill('Wenn es nicht regnen würde, ___ wir spazieren gehen.', 'würden', 'wir würden.'),
         order('Nếu tôi là bạn, tôi sẽ không làm thế', 'Wenn ich du wäre, würde ich das nicht machen'),
-        tr('Nếu tôi có nhiều tiền hơn, tôi sẽ mua một ngôi nhà.', ['Wenn ich mehr Geld hätte, würde ich ein Haus kaufen'], 'Wenn ich mehr Geld hätte, würde ich ein Haus kaufen.'),
+        tr('Nếu tôi có nhiều tiền hơn, tôi sẽ mua một ngôi nhà.', ['Wenn ich mehr Geld hätte, würde ich ein Haus kaufen', 'Ich würde ein Haus kaufen, wenn ich mehr Geld hätte'], 'Wenn ich mehr Geld hätte, würde ich ein Haus kaufen.'),
       ],
       teaches: ['irreale-bedingung'],
       review: '- *Wenn ich … hätte/wäre/könnte, würde ich …* (trái thực tế).\n- So với *Wenn ich … habe, …* (có thể xảy ra).',

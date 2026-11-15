@@ -109,7 +109,7 @@ export default chapter({
         order('Làm ơn nói chậm', 'Langsam, bitte'),
         mc('Hỏi “Cái này nghĩa là gì?”', ['Was bedeutet das?', 'Wie heißt du?', 'Wo ist das?'], 0, 'bedeuten = có nghĩa.'),
         fill('Noch ___, bitte. (một lần nữa)', 'einmal', 'noch einmal.'),
-        tr('Tôi nói một chút tiếng Đức.', ['Ich spreche ein bisschen Deutsch'], 'Ich spreche ein bisschen Deutsch.'),
+        tr('Tôi nói một chút tiếng Đức.', ['Ich spreche ein bisschen Deutsch', 'Ich spreche ein wenig Deutsch', 'Ich kann ein bisschen Deutsch'], 'Ich spreche ein bisschen Deutsch.'),
         dict('Können Sie das wiederholen?'),
       ],
       review: '- **Ich verstehe (das) nicht.** – **Langsam, bitte.** – **Noch einmal, bitte.**\n- **Was bedeutet …?** – **Wie sagt man … auf Deutsch?**',

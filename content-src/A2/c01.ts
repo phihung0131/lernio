@@ -211,7 +211,7 @@ export default chapter({
         mc('“Ich schicke ___ die Adresse.” (cho bạn)', ['dich', 'dir'], 1, 'Người nhận → Dat.'),
         mc('Thay “den Brief” và “meiner Oma” bằng đại từ:', ['Ich schreibe ihn ihr.', 'Ich schreibe ihr ihn.'], 0, 'Hai đại từ: Akk → Dat.'),
         tr('Chúc bạn may mắn!', ['Ich wünsche dir viel Glück', 'Viel Glück'], 'Ich wünsche dir viel Glück!'),
-        tr('Ông chỉ đường cho tôi được không?', ['Können Sie mir den Weg zeigen?'], 'Können Sie mir den Weg zeigen?'),
+        tr('Ông chỉ đường cho tôi được không?', ['Können Sie mir den Weg zeigen?', 'Können Sie mir bitte den Weg zeigen?', 'Könnten Sie mir den Weg zeigen?'], 'Können Sie mir den Weg zeigen?'),
       ],
       teaches: ['dativ-akkusativ-stellung'],
       review: '- 2 danh từ: **Dat → Akk**. 2 đại từ: **Akk → Dat**. Đại từ luôn trước danh từ.\n- *Ich wünsche dir viel Glück / Erfolg!*',

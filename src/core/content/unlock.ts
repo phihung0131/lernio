@@ -1,4 +1,5 @@
-import type { Chapter } from './schema'
+/** Chỉ cần cấu trúc (id chapter, id bài): dùng được cho cả Chapter đầy đủ và ChapterOutline. */
+type Chapter = { id: string; levelId: string; lessons: { id: string }[] }
 
 export type LessonStatus = 'not_started' | 'in_progress' | 'completed'
 export type NodeState = 'locked' | 'current' | 'completed' | 'available'

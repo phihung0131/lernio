@@ -110,7 +110,7 @@ export default chapter({
         fill('Wir ___ Freunde.', 'sind', 'wir sind.'),
         fill('___ ihr müde? (sein)', 'Seid', 'ihr seid.'),
         mc('“Sie sind Lehrer.” (S viết hoa giữa câu) nghĩa là?', ['Họ là giáo viên', 'Ông/bà là giáo viên', 'Cô ấy là giáo viên'], 1, 'Sie hoa = lịch sự.'),
-        tr('Chúng tôi là bạn.', ['Wir sind Freunde'], 'Wir sind Freunde.'),
+        tr('Chúng tôi là bạn.', ['Wir sind Freunde', 'Wir sind Freundinnen'], 'Wir sind Freunde.'),
       ],
       review: '- **ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind**.\n- sie (cô ấy, ist) / sie (họ, sind) / Sie (lịch sự, viết hoa).',
       reviewBlocks: [speaking('Đọc to bảng chia sein 3 lần, nhanh dần.', ['ich bin, du bist, er ist, wir sind, ihr seid, sie sind', 'bảng chia sein'])],

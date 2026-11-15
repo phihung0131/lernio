@@ -88,7 +88,7 @@ export default chapter({
         tf('Linh isst am liebsten Pho.', true, 'Đúng.', 'Hội thoại về sở thích ăn uống'),
         tf('Tom mag scharfes Essen.', false, 'Nein, gar nicht!', 'Hội thoại về sở thích ăn uống'),
         order('Tôi thích uống trà hơn', 'Ich trinke lieber Tee'),
-        tr('Tôi đói.', ['Ich habe Hunger'], 'Ich habe Hunger.'),
+        tr('Tôi đói.', ['Ich habe Hunger', 'Ich bin hungrig'], 'Ich habe Hunger.'),
       ],
       teaches: ['moegen-gern'],
       review: '- **mögen + danh từ** (mag, magst, mag…); **động từ + gern**.\n- gern › lieber › am liebsten.\n- Hunger/Durst **haben**.',

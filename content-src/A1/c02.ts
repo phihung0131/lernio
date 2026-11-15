@@ -45,7 +45,7 @@ export default chapter({
         fill('Wo ___ du? (wohnen)', 'wohnst', 'du wohnst.'),
         fill('Er ___ Tom. (heißen)', 'heißt', 'er heißt.'),
         fill('Ihr ___ gut. (tanzen)', 'tanzt', 'ihr tanzt.'),
-        tr('Tôi thích nấu ăn.', ['Ich koche gern'], 'Ich koche gern.'),
+        tr('Tôi thích nấu ăn.', ['Ich koche gern', 'Ich koche gerne', 'Ich mag kochen'], 'Ich koche gern.'),
         mc('Câu nào đúng?', ['Du findest das gut.', 'Du findst das gut.', 'Du finden das gut.'], 0, 'Gốc find- kết thúc bằng d → thêm e: findest.'),
         tr('Anh ấy làm việc nhiều.', ['Er arbeitet viel'], 'Er arbeitet viel.'),
       ],

@@ -128,7 +128,7 @@ export default chapter({
         fill('Ich möchte mich ___ den Service beschweren.', 'über', 'sich beschweren über.'),
         fill('Das Paket ___ beschädigt geliefert. (Passiv Präteritum)', 'wurde', 'wurde.'),
         sortEx('Phần nào của thư khiếu nại?', ['sự việc', 'yêu cầu'], [['Am 3. Mai habe ich bestellt.', 0], ['Bitte erstatten Sie mir den Betrag zurück.', 1], ['Das Gerät funktioniert nicht.', 0], ['Bitte antworten Sie bis Freitag.', 1]], 'Theo cấu trúc.'),
-        tr('Tôi rất thất vọng về điều đó.', ['Ich bin darüber sehr enttäuscht'], 'Ich bin darüber sehr enttäuscht.'),
+        tr('Tôi rất thất vọng về điều đó.', ['Ich bin darüber sehr enttäuscht', 'Ich bin sehr enttäuscht darüber'], 'Ich bin darüber sehr enttäuscht.'),
       ],
       teaches: ['beschwerde'],
       review: '- Khiếu nại: sự việc (ngày, đơn) → vấn đề → cảm xúc vừa phải → yêu cầu → thời hạn.\n- sich beschweren über, zurückerstatten, umtauschen, Ich erwarte …',
