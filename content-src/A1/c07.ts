@@ -203,7 +203,7 @@ export default chapter({
       examples: [dlgT('Gọi điện đặt hẹn bác sĩ', ['Praxis', 'Praxis Dr. Weber, guten Tag.', 'Phòng khám bác sĩ Weber, xin chào.'], ['Linh', 'Guten Tag, hier ist Linh Nguyen. Ich möchte einen Termin vereinbaren.', 'Xin chào, tôi là Linh Nguyễn. Tôi muốn đặt một cuộc hẹn.'], ['Praxis', 'Passt Ihnen Dienstag um halb zehn?', 'Thứ Ba lúc chín rưỡi có tiện cho chị không?'], ['Linh', 'Leider nicht. Ich arbeite vormittags. Geht es am Nachmittag?', 'Tiếc là không. Buổi sáng tôi đi làm. Buổi chiều được không?'], ['Praxis', 'Am Donnerstag um sechzehn Uhr ist noch etwas frei.', 'Thứ Năm lúc 16 giờ vẫn còn trống.'], ['Linh', 'Perfekt, danke! Auf Wiederhören.', 'Tuyệt, cảm ơn! Chào tạm biệt.'])],
       ex: [
         tf('Linh nimmt den Termin am Dienstag.', false, 'Am Donnerstag um 16 Uhr.', 'Cuộc gọi đặt hẹn'),
-        tf('Linh arbeitet vormittags.', true, 'Đúng.', 'Cuộc gọi đặt hẹn'),
+        tf('Linh arbeitet vormittags.', true, 'Đúng. Linh nói: “Ich arbeite vormittags. Geht es am Nachmittag?” (Tôi làm buổi sáng.)', 'Cuộc gọi đặt hẹn'),
         mc('Lịch hẹn cuối cùng?', ['Do., 16:00', 'Di., 9:30', 'Do., 9:30'], 0, 'Donnerstag um sechzehn Uhr.'),
         order('Tôi muốn đặt một cuộc hẹn', 'Ich möchte einen Termin vereinbaren'),
         order('Thứ Ba lúc mười giờ ông có thời gian không?', 'Haben Sie am Dienstag um zehn Uhr Zeit?'),

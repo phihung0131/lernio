@@ -80,7 +80,7 @@ export default chapter({
       examples: [dlgT('Ở cửa hàng quần áo', ['Verkäuferin', 'Kann ich Ihnen helfen?', 'Tôi giúp gì được cho anh?'], ['Kunde', 'Ja, ich suche einen Pullover. Größe M.', 'Vâng, tôi tìm một áo len. Cỡ M.'], ['Verkäuferin', 'Wie finden Sie den grauen hier?', 'Anh thấy cái màu xám này thế nào?'], ['Kunde', 'Schön! Haben Sie den auch in Blau? Kann ich ihn anprobieren?', 'Đẹp! Chị có màu xanh dương không? Tôi thử được không?'], ['Verkäuferin', 'Natürlich. Die Kabine ist dort.', 'Tất nhiên. Phòng thử ở đằng kia.'], ['Kunde', 'Er passt gut. Ich nehme ihn.', 'Vừa lắm. Tôi lấy cái này.'])],
       ex: [
         tf('Der Kunde sucht eine Jacke.', false, 'einen Pullover.', 'Hội thoại ở cửa hàng'),
-        tf('Er möchte Größe M.', true, 'Đúng.', 'Hội thoại ở cửa hàng'),
+        tf('Er möchte Größe M.', true, 'Đúng. Khách nói: “Ich suche einen Pullover. Größe M.”', 'Hội thoại ở cửa hàng'),
         fill('Die Banane ist ___. (vàng)', 'gelb', 'gelb.'),
         fill('Der Himmel ist ___. (xanh dương)', 'blau', 'blau.'),
         order('Tôi thử được không?', 'Kann ich das anprobieren?'),

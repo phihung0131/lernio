@@ -185,7 +185,7 @@ export default chapter({
         w('studium', 'Studium', 'việc học đại học', { art: 'das', r: 'sh-tu-đi-um', i: 'School', ex: ['Mein Studium ist fertig.', 'Tôi đã học xong đại học.'] }),
         w('job', 'Job', 'công việc', { art: 'der', pl: 'Jobs', r: 'gióp', i: 'Briefcase', ex: ['Ich suche einen Job.', 'Tôi đang tìm việc.'] }),
         w('suchen', 'suchen', 'tìm', { pos: 'động từ', r: 'du-khần', i: 'Search', ex: ['Wir suchen eine Köchin.', 'Chúng tôi tìm một đầu bếp nữ.'] }),
-        w('stark', 'stark', 'mạnh', { pos: 'tính từ', r: 'sh-tác', i: 'Barbell', ex: ['Meine Stärken: Teamarbeit', 'Điểm mạnh của tôi: làm việc nhóm'] }),
+        w('stark', 'stark', 'mạnh', { pos: 'tính từ', r: 'sh-tác', i: 'Barbell', ex: ['Er ist groß und stark.', 'Anh ấy cao và khỏe.'] }),
         w('teamarbeit', 'Teamarbeit', 'làm việc nhóm', { art: 'die', r: 'tim-ar-bai-t', i: 'Users', ex: ['Teamarbeit ist wichtig.', 'Làm việc nhóm quan trọng.'] }),
         w('zuverlaessig', 'zuverlässig', 'đáng tin cậy', { pos: 'tính từ', r: 'tsu-phe-lét-xích', i: 'ShieldCheck', ex: ['Ich bin zuverlässig.', 'Tôi đáng tin cậy.'] }),
         w('kenntnisse', 'Kenntnisse', 'kiến thức, kỹ năng', { pos: 'danh từ số nhiều', r: 'kent-ni-xờ', i: 'Bulb', ex: ['gute Deutschkenntnisse', 'kiến thức tiếng Đức tốt'] }),

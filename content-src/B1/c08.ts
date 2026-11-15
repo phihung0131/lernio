@@ -81,7 +81,7 @@ export default chapter({
       examples: [reading('Anfrage: Sprachreise', 'Betreff: Anfrage Sprachreise nach Wien\n\nSehr geehrte Frau Hofer,\nich habe in Ihrer Broschüre gelesen, dass Sie im Juli eine Sprachreise nach Wien anbieten.\nKönnten Sie mir bitte mitteilen, wie lange die Reise dauert und was im Preis enthalten ist? Außerdem würde ich gern wissen, ob es eine Ermäßigung für Studenten gibt und bis wann die Anmeldung möglich ist.\nVielen Dank im Voraus.\n\nMit freundlichen Grüßen\nTuan Le', 'Tiêu đề: Hỏi về chuyến du học ngôn ngữ ở Viên\n\nKính gửi bà Hofer,\ntôi đọc trong tờ giới thiệu rằng quý vị tổ chức chuyến du học ngôn ngữ đến Viên vào tháng Bảy.\nBà có thể cho tôi biết chuyến đi kéo dài bao lâu và giá đã bao gồm những gì không? Ngoài ra tôi muốn biết có giảm giá cho sinh viên không và hạn đăng ký đến khi nào.\nXin cảm ơn trước.\n\nTrân trọng\nTuấn Lê', [['Broschüre', 'tờ giới thiệu'], ['enthalten', 'bao gồm'], ['anbieten', 'cung cấp, tổ chức']])],
       ex: [
         tf('Die Sprachreise ist im August.', false, 'im Juli.', 'Thư hỏi chuyến du học'),
-        tf('Tuan fragt nach einer Ermäßigung.', true, 'Đúng.', 'Thư hỏi chuyến du học'),
+        tf('Tuan fragt nach einer Ermäßigung.', true, 'Đúng. Trong thư: “… ob es eine Ermäßigung für Studenten gibt …”', 'Thư hỏi chuyến du học'),
         mc('Tuấn KHÔNG hỏi điều gì?', ['khách sạn ở đâu', 'chuyến đi bao lâu', 'hạn đăng ký'], 0, 'Không hỏi khách sạn.'),
         fill('Ich möchte wissen, ___ es noch Plätze gibt.', 'ob', 'Ja/Nein → ob.'),
         fill('Können Sie mir sagen, wann der Kurs ___? (beginnen)', 'beginnt', 'Động từ cuối.'),
@@ -191,7 +191,7 @@ export default chapter({
         w('selbststaendig2', 'selbstständig arbeiten', 'làm việc độc lập', { pos: 'cụm động từ', r: 'dên-px-sh-ten-đích', i: 'User', ex: ['Ich arbeite gern selbstständig.', 'Tôi thích làm việc độc lập.'] }),
         w('herausforderung', 'Herausforderung', 'thử thách', { art: 'die', pl: 'Herausforderungen', r: 'he-rao-x-phóc-đơ-rung', i: 'Mountain', ex: ['Ich suche eine neue Herausforderung.', 'Tôi tìm thử thách mới.'] }),
         w('einladung2', 'Einladung zum Vorstellungsgespräch', 'lời mời phỏng vấn', { art: 'die', r: 'ai-n-la-đung', i: 'Mail', ex: ['Über eine Einladung zum Vorstellungsgespräch freue ich mich.', 'Tôi rất vui nếu được mời phỏng vấn.'] }),
-        w('eintrittstermin', 'frühestmöglicher Eintrittstermin', 'ngày sớm nhất có thể bắt đầu', { art: 'der', r: 'phruy-ét-xt-mớk-lích-ơ ai-n-trít-x-téc-min', i: 'CalendarEvent', ex: ['Mein frühestmöglicher Eintrittstermin ist der 1. Mai.', 'Ngày sớm nhất tôi bắt đầu được là 1/5.'] }),
+        w('eintrittstermin', 'frühestmögliche Eintrittstermin', 'ngày sớm nhất có thể bắt đầu', { art: 'der', r: 'phruy-ét-xt-mớk-lích-ơ ai-n-trít-x-téc-min', i: 'CalendarEvent', ex: ['Mein frühestmöglicher Eintrittstermin ist der 1. Mai.', 'Ngày sớm nhất tôi bắt đầu được là 1/5.'] }),
         w('ueberzeugen', 'überzeugen', 'thuyết phục', { pos: 'động từ', r: 'uy-bơ-tsoi-gần', i: 'ThumbUp', ex: ['Ich möchte Sie von mir überzeugen.', 'Tôi muốn thuyết phục quý vị về bản thân.'] }),
       ],
       grammar: [

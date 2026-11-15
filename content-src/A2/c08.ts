@@ -124,7 +124,7 @@ export default chapter({
       examples: [dlgT('Ở Bürgeramt', ['Beamtin', 'Guten Tag. Was kann ich für Sie tun?', 'Chào anh. Tôi giúp gì được?'], ['Minh', 'Ich möchte mich anmelden. Ich bin letzte Woche nach Leipzig gezogen.', 'Tôi muốn đăng ký cư trú. Tuần trước tôi chuyển đến Leipzig.'], ['Beamtin', 'Haben Sie Ihren Pass und die Wohnungsgeberbestätigung?', 'Anh có hộ chiếu và giấy xác nhận của chủ nhà không?'], ['Minh', 'Ja, hier, bitte.', 'Có, đây ạ.'], ['Beamtin', 'Gut. Füllen Sie bitte dieses Formular aus. Dann bekommen Sie die Meldebescheinigung.', 'Được. Anh điền mẫu này. Sau đó anh nhận giấy chứng nhận cư trú.'])],
       ex: [
         tf('Minh ist vor einem Monat nach Leipzig gezogen.', false, 'letzte Woche.', 'Ở Bürgeramt'),
-        tf('Er muss ein Formular ausfüllen.', true, 'Đúng.', 'Ở Bürgeramt'),
+        tf('Er muss ein Formular ausfüllen.', true, 'Đúng. Nhân viên nói: “Füllen Sie bitte dieses Formular aus.”', 'Ở Bürgeramt'),
         match('Nối nơi với việc.', ['Post', 'Paket schicken'], ['Bank', 'Konto eröffnen'], ['Bibliothek', 'Bücher ausleihen'], ['Bürgeramt', 'sich anmelden']),
         fill('Ich fülle das Formular ___.', 'aus', 'ausfüllen tách.'),
         fill('Ich gehe ___ Post. (đến)', 'zur', 'zu der.'),

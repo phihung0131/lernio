@@ -81,7 +81,7 @@ export default chapter({
       examples: [reading('Speisekarte – Restaurant Hanoi', 'Vorspeisen\n– Frische Sommerrollen mit scharfer Erdnusssoße – 6,50 €\n– Knuspriger Tofu mit süßer Chilisoße – 5,90 €\nHauptgerichte\n– Traditionelle Pho mit zartem Rindfleisch – 13,90 €\n– Gebratener Reis mit frischem Gemüse und Ei – 11,50 €\nDesserts\n– Hausgemachter Kokoskuchen – 4,50 €\nGetränke\n– Vietnamesischer Kaffee mit gesüßter Kondensmilch – 3,90 €', 'Món khai vị\n– Gỏi cuốn tươi với sốt lạc cay – 6,50 €\n– Đậu phụ giòn với tương ớt ngọt – 5,90 €\nMón chính\n– Phở truyền thống với thịt bò mềm – 13,90 €\n– Cơm rang với rau tươi và trứng – 11,50 €\nTráng miệng\n– Bánh dừa nhà làm – 4,50 €\nĐồ uống\n– Cà phê Việt Nam với sữa đặc – 3,90 €', [['knusprig', 'giòn'], ['zart', 'mềm'], ['gebraten', 'rang, chiên']])],
       ex: [
         tf('Die Pho kostet 11,50 Euro.', false, '13,90 €.', 'Thực đơn nhà hàng Hà Nội'),
-        tf('Der Kokoskuchen ist hausgemacht.', true, 'Đúng.', 'Thực đơn nhà hàng Hà Nội'),
+        tf('Der Kokoskuchen ist hausgemacht.', true, 'Đúng. Thực đơn ghi: “Hausgemachter Kokoskuchen – 4,50 €”.', 'Thực đơn nhà hàng Hà Nội'),
         fill('Frisch___ Brot (das)', 'es', 'das → -es.'),
         fill('mit scharf___ Soße (die, Dat)', 'er', 'Dat cái → -er.'),
         fill('Erfahren___ Koch gesucht! (der)', 'er', 'Nom đực → -er.'),
@@ -101,7 +101,7 @@ export default chapter({
       vocab: [
         w('schlafend', 'schlafend', 'đang ngủ', { pos: 'Partizip I', r: 'sla-phần-t', i: 'Bed', ex: ['das schlafende Baby', 'em bé đang ngủ'] }),
         w('laechelnd', 'lächelnd', 'đang mỉm cười', { pos: 'Partizip I', r: 'le-chồn-t', i: 'MoodSmile', ex: ['Sie kam lächelnd herein.', 'Cô ấy mỉm cười bước vào.'] }),
-        w('wachsend', 'wachsend', 'đang tăng', { pos: 'Partizip I', r: 'vắc-xần-t', i: 'TrendingUp', ex: ['die wachsende Stadt', 'thành phố đang phát triển'] }),
+        w('wachsend', 'wachsend', 'đang lớn lên, phát triển', { pos: 'Partizip I', r: 'vắc-xần-t', i: 'TrendingUp', ex: ['die wachsende Stadt', 'thành phố đang phát triển'] }),
         w('fliessend', 'fließend', 'trôi chảy; đang chảy', { pos: 'Partizip I', r: 'phli-xần-t', i: 'Ripple', ex: ['Sie spricht fließend Deutsch.', 'Cô ấy nói tiếng Đức trôi chảy.'] }),
         w('spannend', 'spannend', 'hấp dẫn', { pos: 'Partizip I', r: 'sh-pa-nần-t', i: 'Star', ex: ['ein spannender Film', 'một bộ phim hấp dẫn'] }),
         w('gekocht', 'gekocht', 'đã nấu, luộc', { pos: 'Partizip II', r: 'gờ-kôkht', i: 'Egg', ex: ['ein gekochtes Ei', 'một quả trứng luộc'] }),

@@ -86,7 +86,7 @@ export default chapter({
       intro: 'Người mới học sẽ thường xuyên không hiểu. Điều đó **hoàn toàn bình thường**. Bài này cho bạn “cứu cánh” để cuộc hội thoại tiếp tục.',
       vocab: [
         w('verstehen', 'verstehen', 'hiểu', { pos: 'động từ', r: 'phe-sh-tê-ần', i: 'Bulb', ex: ['Ich verstehe das.', 'Tôi hiểu điều đó.'] }),
-        w('nicht', 'nicht', 'không', { pos: 'từ phủ định', r: 'nícht', i: 'X', ex: ['Ich verstehe nicht.', 'Tôi không hiểu.'] }),
+        w('nicht', 'nicht', 'không (phủ định)', { pos: 'từ phủ định', r: 'nícht', i: 'X', ex: ['Ich verstehe nicht.', 'Tôi không hiểu.'] }),
         w('langsam', 'langsam', 'chậm', { pos: 'tính từ', r: 'lang-dam', i: 'Clock', ex: ['Bitte sprechen Sie langsam.', 'Làm ơn nói chậm.'] }),
         w('noch-einmal', 'noch einmal', 'lặp lại một lần nữa', { pos: 'cụm từ', r: 'nôkh ai-n-mal', i: 'Repeat', ex: ['Noch einmal, bitte.', 'Làm ơn nhắc lại.'] }),
         w('bedeuten', 'bedeuten', 'có nghĩa là', { pos: 'động từ', r: 'bờ-đoi-tần', i: 'Book', ex: ['Was bedeutet das?', 'Cái đó nghĩa là gì?'] }),
