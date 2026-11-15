@@ -45,7 +45,7 @@ export default chapter({
         fill('___ ihr pünktlich?', 'Seid', 'ihr seid.'),
         fill('Mein Kollege ___ krank.', 'ist', 'er ist.'),
         mc('Câu nào đúng?', ['Ich müde.', 'Ich bin müde.', 'Ich bin müder.'], 1, 'Cần động từ sein, tính từ giữ nguyên.'),
-        tr('Chúng tôi ở nhà.', ['Wir sind zu Hause'], 'Wir sind zu Hause.'),
+        tr('Chúng tôi ở nhà.', ['Wir sind zu Hause', 'Wir sind daheim'], 'Wir sind zu Hause.'),
       ],
       teaches: ['sein-praesens'],
       review: '- **bin, bist, ist, sind, seid, sind**.\n- sein + tên / nghề / tính từ / nơi / tuổi.\n- Luôn có động từ: **Ich bin müde**.',
@@ -221,6 +221,6 @@ export default chapter({
     mc('Phản bác “Bist du nicht Student?” (bạn là sinh viên)', ['Doch!', 'Ja!', 'Nein!'], 0, 'doch.'),
     mc('“aus ___ Türkei”', ['die', 'der', 'den'], 1, 'aus der Türkei.'),
     mc('“du ___” (sprechen)', ['sprichst', 'sprechst', 'spricht'], 0, 'du sprichst.'),
-    tr('Tôi nói một chút tiếng Đức.', ['Ich spreche ein bisschen Deutsch'], 'Ich spreche ein bisschen Deutsch.'),
+    tr('Tôi nói một chút tiếng Đức.', ['Ich spreche ein bisschen Deutsch', 'Ich spreche ein wenig Deutsch', 'Ich kann ein bisschen Deutsch'], 'Ich spreche ein bisschen Deutsch.'),
   ],
 })

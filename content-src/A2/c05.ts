@@ -128,7 +128,7 @@ export default chapter({
         order('Nếu trời mưa, tôi ở nhà', 'Wenn es regnet, bleibe ich zu Hause'),
         fill('Wenn ich Feierabend habe, ___ ich ins Fitnessstudio. (gehen)', 'gehe', 'Động từ ngay sau dấu phẩy.'),
         sortEx('wenn hay wann?', ['wenn', 'wann'], [['___ kommst du?', 1], ['___ ich Zeit habe, …', 0], ['Weißt du, ___ der Zug fährt?', 1], ['___ es regnet, …', 0]], 'wann = khi nào (hỏi).'),
-        tr('Khi xong việc tôi sẽ gọi bạn.', ['Wenn ich fertig bin, rufe ich dich an'], 'Wenn ich fertig bin, rufe ich dich an.'),
+        tr('Khi xong việc tôi sẽ gọi bạn.', ['Wenn ich fertig bin, rufe ich dich an', 'Ich rufe dich an, wenn ich fertig bin'], 'Wenn ich fertig bin, rufe ich dich an.'),
       ],
       teaches: ['wenn-satz'],
       review: '- **wenn** + động từ cuối. Câu wenn trước → **động từ, động từ**.\n- wann = khi nào (hỏi).',

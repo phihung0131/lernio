@@ -10,7 +10,8 @@ import { sfx } from '@/core/audio/player'
 import { seedCards } from '@/core/srs/cards'
 import Md from '@/features/exercises/Md'
 import ExerciseRunner, { type RunnerResult } from '@/features/exercises/ExerciseRunner'
-import { useChapters, useProgress } from '@/features/roadmap/useCurriculum'
+import { useProgress } from '@/features/roadmap/useCurriculum'
+import { OUTLINE, useChapter } from '@/core/content/outline'
 import { LessonHero, Mascot } from '@/features/art/Art'
 import { checkBadges } from '@/features/progress/checkBadges'
 import { useToast } from '@/ui/Toast'
@@ -79,9 +80,15 @@ function Results({ done, onRetry, onClose }: { done: Done; onRetry: () => void; 
   )
 }
 
+/** key theo id: đổi sang bài khác qua URL thì dựng lại từ đầu (không giữ trạng thái/kết quả khóa của bài trước). */
 export default function LessonPlayer() {
   const { lessonId } = useParams()
-  const chapters = useChapters()
+  return <LessonPlayerInner key={lessonId} />
+}
+
+function LessonPlayerInner() {
+  const { lessonId } = useParams()
+  const chapters = OUTLINE
   const progress = useProgress()
   const nav = useNavigate()
   const toast = useToast()
@@ -92,14 +99,20 @@ export default function LessonPlayer() {
   const [finishing, setFinishing] = useState(false)
   const started = useRef(Date.now())
 
-  const found = useMemo(() => {
-    if (!chapters) return null
+  // Vị trí trong mục lục (để khóa/mở); chỉ tải nội dung của level chứa bài.
+  const pos = useMemo(() => {
     for (let ci = 0; ci < chapters.length; ci++) {
       const li = chapters[ci].lessons.findIndex((l) => l.id === lessonId)
-      if (li >= 0) return { ci, li, lesson: chapters[ci].lessons[li], chapter: chapters[ci] }
+      if (li >= 0) return { ci, li }
     }
     return undefined
   }, [chapters, lessonId])
+  const full = useChapter(pos ? chapters[pos.ci].id : undefined)
+  const found = useMemo(() => {
+    if (!pos) return undefined
+    if (!full) return null
+    return { ...pos, lesson: full.lessons[pos.li], chapter: full }
+  }, [pos, full])
   const pages = useMemo(() => (found ? buildPages(found.lesson) : []), [found])
 
   // Khôi phục vị trí đang học.
@@ -118,7 +131,7 @@ export default function LessonPlayer() {
     if (found && page !== null) void db.lessonState.put({ lessonId: found.lesson.id, step: page, sub: 0, updatedAt: new Date().toISOString() })
   }, [found, page])
 
-  if (!chapters || !progress || found === null || (found && page === null)) return <p className="p-8 text-center text-muted">Đang tải…</p>
+  if (!progress || found === null || (found && page === null)) return <p className="p-8 text-center text-muted">Đang tải…</p>
   if (!found) return <Navigate to="/path" replace />
   if (lessonState(chapters, found.ci, found.li, progress) === 'locked') return <Navigate to="/path" replace />
 

@@ -217,7 +217,7 @@ export default chapter({
         mc('Nên tránh gì trước khi ngủ?', ['điện thoại', 'trà', 'đi dạo'], 0, 'das Handy.'),
         fill('Der Arzt sagt, ich ___ viel trinken. (sollen)', 'soll', 'Chuyển lời khuyên.'),
         fill('Haben Sie ein Mittel ___ Kopfschmerzen?', 'gegen', 'Mittel gegen.'),
-        tr('Bác sĩ bảo tôi nên ngủ nhiều hơn.', ['Der Arzt sagt, ich soll mehr schlafen'], 'Der Arzt sagt, ich soll mehr schlafen.'),
+        tr('Bác sĩ bảo tôi nên ngủ nhiều hơn.', ['Der Arzt sagt, ich soll mehr schlafen', 'Der Arzt sagt, dass ich mehr schlafen soll', 'Die Ärztin sagt, ich soll mehr schlafen'], 'Der Arzt sagt, ich soll mehr schlafen.'),
       ],
       review: '- *Ein Mittel gegen …, rezeptfrei, Nebenwirkungen.*\n- Chuyển lời: *Der Arzt sagt, ich soll …*\n- Lời khuyên: Imperativ, sollen.',
       reviewBlocks: [writing('Viết 5 mẹo sống khỏe cho bạn bè (dạng ihr hoặc du).', 'Schlaft genug! Esst viel Obst und Gemüse! Macht regelmäßig Sport! Trinkt viel Wasser! Trefft oft Freunde!', { checklist: ['5 câu Imperativ cùng một dạng', 'Từ vựng sức khỏe', 'Có trạng từ (genug, regelmäßig, viel)'] })],

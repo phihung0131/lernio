@@ -125,7 +125,7 @@ export default chapter({
         fill('Der Pullover ist schön. Ich nehme ___.', 'ihn', 'der → ihn.'),
         fill('Die Jacke ist reduziert. Ich nehme ___.', 'sie', 'die → sie.'),
         order('Tôi muốn đổi cái này', 'Ich möchte das umtauschen'),
-        tr('Với tôi cái này đắt quá.', ['Das ist mir zu teuer'], 'Das ist mir zu teuer.'),
+        tr('Với tôi cái này đắt quá.', ['Das ist mir zu teuer', 'Das ist zu teuer für mich'], 'Das ist mir zu teuer.'),
       ],
       teaches: ['einkaufen-dialog'],
       review: '- *Was kostet …? / Was kosten …?*\n- *Das ist mir zu teuer. Ich überlege noch.*\n- Đổi trả: *umtauschen, zurückgeben, Kassenbon*.\n- ihn/sie/es thay danh từ Akkusativ.',

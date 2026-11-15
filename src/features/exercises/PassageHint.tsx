@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react'
 import { BookOpen, ChevronDown, ChevronUp, Headphones, Play } from 'lucide-react'
 import type { Block, Exercise, Lesson } from '@/core/content/schema'
-import { loadAllChapters } from '@/core/content/loader'
+import { loadLevel } from '@/core/content/loader'
+import { OUTLINE } from '@/core/content/outline'
 import { speakSequence, type Voice } from '@/core/audio/player'
 
-let lessons: Map<string, Lesson> | null = null
-async function lessonById(id: string) {
-  if (!lessons) {
-    const m = new Map<string, Lesson>()
-    for (const c of await loadAllChapters()) for (const l of c.lessons) m.set(l.id, l)
-    lessons = m
-  }
-  return lessons.get(id)
+/** Chỉ tải level chứa bài (không tải toàn bộ nội dung). */
+async function lessonById(id: string): Promise<Lesson | undefined> {
+  const level = OUTLINE.find((c) => c.lessons.some((l) => l.id === id))?.levelId
+  if (!level) return undefined
+  for (const c of await loadLevel(level)) for (const l of c.lessons) if (l.id === id) return l
 }
 
 const isPassage = (b: Block) => b.kind === 'reading' || b.kind === 'dialogue'

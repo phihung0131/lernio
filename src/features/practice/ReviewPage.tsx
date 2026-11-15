@@ -6,7 +6,8 @@ import { Rating, reviewCard, type Grade } from '@/core/srs/fsrs'
 import { speak, sfx } from '@/core/audio/player'
 import { awardXp, dayKey } from '@/core/db/xp'
 import { db, type SrsCardRow } from '@/core/db/db'
-import { loadAllChapters } from '@/core/content/loader'
+import { loadLevel } from '@/core/content/loader'
+import { OUTLINE } from '@/core/content/outline'
 import type { Exercise, Lesson, VocabItem } from '@/core/content/schema'
 import { recordResult } from '@/core/db/mistakes'
 import { matchesAny } from '@/features/exercises/normalize'
@@ -154,7 +155,13 @@ export default function ReviewPage() {
   }, [doneCount])
 
   useEffect(() => {
-    loadAllChapters().then((cs) => {
+    // Thẻ chỉ sinh từ bài đã học: chỉ tải các level có bài đã hoàn thành.
+    void (async () => {
+      const done = new Set((await db.lessonProgress.toArray()).filter((r) => r.status === 'completed').map((r) => r.lessonId))
+      // Từ trùng được gộp về lần xuất hiện đầu (level thấp hơn) nên tải mọi level tới level cao nhất đã học.
+      const last = OUTLINE.findLastIndex((c) => c.lessons.some((l) => done.has(l.id)))
+      const levels = [...new Set(OUTLINE.slice(0, last + 1).map((c) => c.levelId))]
+      const cs = (await Promise.all(levels.map(loadLevel))).flat()
       const vocab = new Map<string, VocabItem>()
       const grammar = new Map<string, { lesson: Lesson; summary: string; exercises: Exercise[] }>()
       for (const c of cs)
@@ -163,7 +170,7 @@ export default function ReviewPage() {
           for (const g of l.teaches) grammar.set(`grammar:${g}`, { lesson: l, summary: grammarSummary(l), exercises: l.exercises.filter((e) => e.tags.includes(`grammar:${g}`)) })
         }
       setContent({ vocab, grammar })
-    })
+    })()
   }, [])
 
   const pool = useMemo(() => (content ? [...content.vocab.values()] : []), [content])

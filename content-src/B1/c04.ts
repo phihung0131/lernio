@@ -172,7 +172,7 @@ export default chapter({
         fill('Hier ___ ein neues Hotel gebaut. (đang)', 'wird', 'Vorgangspassiv.'),
         fill('Hier spricht ___ Deutsch.', 'man', 'man.'),
         mc('“Ihr Konto ist gesperrt” nghĩa là?', ['Tài khoản đang bị khóa', 'Tài khoản đang được khóa', 'Tài khoản sẽ bị khóa'], 0, 'Trạng thái.'),
-        tr('Bàn đã được đặt trước.', ['Der Tisch ist reserviert'], 'Der Tisch ist reserviert.'),
+        tr('Bàn đã được đặt trước.', ['Der Tisch ist reserviert', 'Der Tisch wurde reserviert'], 'Der Tisch ist reserviert.'),
       ],
       teaches: ['zustandspassiv'],
       review: '- **wird** + P II = quá trình. **ist** + P II = trạng thái/kết quả.\n- man = văn nói; Passiv = trang trọng.',

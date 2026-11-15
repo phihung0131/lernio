@@ -2,14 +2,15 @@ import { Link } from 'react-router-dom'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { ClipboardCheck, Lock } from 'lucide-react'
 import { db } from '@/core/db/db'
-import { useChapters, useProgress } from '@/features/roadmap/useCurriculum'
+import { useProgress } from '@/features/roadmap/useCurriculum'
+import { OUTLINE } from '@/core/content/outline'
 import { LevelBadge } from '@/features/art/Art'
 import type { LevelId } from '@/core/content/schema'
 
 export const MOCK_LEVELS: LevelId[] = ['A1', 'A2', 'B1']
 
 export default function MockList() {
-  const chapters = useChapters()
+  const chapters = OUTLINE
   const progress = useProgress()
   const history = useLiveQuery(() => db.mockResults.orderBy('at').reverse().toArray(), [])
   if (!chapters || !progress || !history) return <p className="p-6 text-center text-muted">Đang tải…</p>

@@ -1,4 +1,4 @@
-import { Chapter, type LevelId } from './schema'
+import type { Chapter, LevelId } from './schema'
 
 const files = import.meta.glob('/content/*/chapters/*.json', { import: 'default' })
 
@@ -18,7 +18,7 @@ export async function loadLevel(level: LevelId): Promise<Chapter[]> {
   // JSON đã được Zod kiểm tra và điền mặc định lúc build (scripts/build-content.ts):
   // chỉ parse lại ở dev để bắt lỗi sớm, bản build bỏ qua cho nhanh trên điện thoại.
   const chapters = await Promise.all(
-    entries.map(async ([, f]) => (import.meta.env.DEV ? Chapter.parse(await f()) : ((await f()) as Chapter))),
+    entries.map(async ([, f]) => (import.meta.env.DEV ? (await import('./schema')).Chapter.parse(await f()) : ((await f()) as Chapter))),
   )
   chapters.sort((a, b) => a.order - b.order)
   cache.set(level, chapters)

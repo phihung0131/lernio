@@ -2,11 +2,13 @@ import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Check, Lock, Star, X } from 'lucide-react'
 import { LEVELS } from '@/core/content/loader'
-import type { Chapter, LevelId } from '@/core/content/schema'
+import type { LevelId } from '@/core/content/schema'
+import type { ChapterOutline as Chapter } from '@/core/content/outline'
 import { chapterProgress, isChapterUnlocked, isLevelUnlocked, isTestUnlocked, lessonState, nextStep, type NodeState, type Progress } from '@/core/content/unlock'
 import { Chest, LevelBadge, Mascot } from '@/features/art/Art'
 import { ProgressBar } from '@/ui/Progress'
-import { useChapters, useProgress } from './useCurriculum'
+import { useProgress } from './useCurriculum'
+import { OUTLINE } from '@/core/content/outline'
 
 const UNIT_COLORS = ['#2f6bff', '#19a55d', '#e5484d', '#8b5cf6', '#f59e0b', '#06b6d4', '#ec4899', '#14b8a6']
 const OFFSETS = [0, 52, 84, 52, 0, -52, -84, -52]
@@ -132,7 +134,7 @@ function Unit({ ch, idx, chapters, progress, color, currentKey }: { ch: Chapter;
 }
 
 export default function PathMap() {
-  const chapters = useChapters()
+  const chapters = OUTLINE
   const progress = useProgress()
   const [params, setParams] = useSearchParams()
 

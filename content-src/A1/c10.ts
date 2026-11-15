@@ -42,7 +42,7 @@ export default chapter({
         sortEx('Đồ vật ở phòng nào?', ['Küche', 'Schlafzimmer', 'Wohnzimmer'], [['Kühlschrank', 0], ['Bett', 1], ['Sofa', 2], ['Herd', 0], ['Schrank', 1]], 'Theo chức năng phòng.'),
         art('Schrank', 'der'),
         art('Regal', 'das'),
-        tr('Phòng khách rộng và sáng.', ['Das Wohnzimmer ist groß und hell'], 'Das Wohnzimmer ist groß und hell.'),
+        tr('Phòng khách rộng và sáng.', ['Das Wohnzimmer ist groß und hell', 'Das Wohnzimmer ist hell und groß'], 'Das Wohnzimmer ist groß und hell.'),
       ],
       teaches: ['zimmer-moebel'],
       review: '- Phòng: Wohnzimmer, Schlafzimmer, Küche, Bad, Flur, Balkon.\n- Đồ đạc: Sofa, Tisch, Stuhl, Bett, Schrank, Lampe, Regal, Kühlschrank.\n- Tính từ: groß, klein, hell, dunkel, ruhig, laut, gemütlich.',
