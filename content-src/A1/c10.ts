@@ -82,7 +82,7 @@ export default chapter({
         fill('Es gibt ___ Parkplatz. (kein)', 'keinen', 'der Parkplatz → keinen.'),
         mc('Câu đúng?', ['Es gibt zwei Bäder.', 'Es geben zwei Bäder.'], 0, 'Luôn gibt.'),
         tf('Es gibt einen Aufzug.', false, 'Leider nicht.', 'Hội thoại hỏi về căn hộ'),
-        tf('Die Waschmaschine ist im Keller.', true, 'Đúng.', 'Hội thoại hỏi về căn hộ'),
+        tf('Die Waschmaschine ist im Keller.', true, 'Đúng. Chủ nhà nói: “Nein, aber es gibt eine im Keller.” (Không, nhưng có một cái ở tầng hầm.)', 'Hội thoại hỏi về căn hộ'),
         order('Có internet không?', 'Gibt es Internet?'),
       ],
       teaches: ['es-gibt'],

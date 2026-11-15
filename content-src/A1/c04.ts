@@ -207,7 +207,7 @@ export default chapter({
       ex: [
         tf('Pauls Vater ist Lehrer.', false, 'Er ist Ingenieur.', 'Bài đọc “Familie Becker”'),
         tf('Paul hat keinen Bruder.', true, 'Đúng.', 'Bài đọc “Familie Becker”'),
-        tf('Lisa ist 16.', true, 'Đúng.', 'Bài đọc “Familie Becker”'),
+        tf('Lisa ist 16.', true, 'Đúng. Trong bài: “Meine Schwester heißt Lisa. Sie ist 16 und ruhig.”', 'Bài đọc “Familie Becker”'),
         tf('Die Oma wohnt in der Stadt.', false, 'Sie wohnt in einem Dorf.', 'Bài đọc “Familie Becker”'),
         mc('Con chó tên gì?', ['Max', 'Paul', 'Thomas'], 0, 'Er heißt Max.'),
         fill('Am Wochenende ___ wir unsere Oma. (besuchen)', 'besuchen', 'wir besuchen.'),

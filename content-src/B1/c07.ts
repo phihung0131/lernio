@@ -79,7 +79,7 @@ export default chapter({
       ],
       examples: [dlgT('Thảo luận: đồng phục ở trường', ['Lena', 'Ich finde, Schuluniformen sind eine gute Idee. Dann gibt es keinen Druck wegen Markenkleidung.', 'Mình thấy đồng phục là ý hay. Như vậy không có áp lực về quần áo hàng hiệu.'], ['Tom', 'Das stimmt zwar, aber die Schüler können ihre Persönlichkeit nicht zeigen.', 'Đúng là vậy, nhưng học sinh không thể thể hiện cá tính.'], ['Lena', 'Darf ich kurz unterbrechen? Persönlichkeit zeigt man doch nicht nur mit Kleidung!', 'Cho mình ngắt lời chút? Cá tính đâu chỉ thể hiện qua quần áo!'], ['Tom', 'Lass mich bitte ausreden. Ich wollte sagen: Uniformen kosten für Familien auch Geld.', 'Để mình nói hết đã. Mình định nói: đồng phục cũng tốn tiền cho gia đình.'], ['Mai', 'Da stimme ich Tom teilweise zu. In Vietnam sind Uniformen normal und das finde ich praktisch.', 'Mình đồng ý một phần với Tom. Ở Việt Nam đồng phục là bình thường và mình thấy tiện.'])],
       ex: [
-        tf('Lena ist für Schuluniformen.', true, 'Đúng.', 'Thảo luận đồng phục'),
+        tf('Lena ist für Schuluniformen.', true, 'Đúng. Lena nói: “Ich finde, Schuluniformen sind eine gute Idee.”', 'Thảo luận đồng phục'),
         tf('Tom findet, Uniformen kosten nichts.', false, 'Sie kosten auch Geld.', 'Thảo luận đồng phục'),
         sortEx('Đồng ý hay phản đối?', ['đồng ý', 'phản đối'], [['Das sehe ich genauso.', 0], ['Das sehe ich anders.', 1], ['Da hast du recht.', 0], ['Da muss ich widersprechen.', 1], ['Genau!', 0]], 'Theo bảng.'),
         fill('Das ist ___ teuer, aber es lohnt sich.', 'zwar', 'zwar … aber.'),

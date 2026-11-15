@@ -141,7 +141,7 @@ export default chapter({
       grammar: [info('Bài thi rút ngẫu nhiên 20 câu từ toàn bộ chapter. Chưa đạt? Xem **Điểm yếu** trong mục Luyện tập.')],
       examples: [dlgT('Nói kiểu thi A2: lên kế hoạch cùng nhau', ['Prüferin', 'Sie möchten zusammen einen Geburtstag für eine Freundin organisieren. Planen Sie.', 'Hai bạn muốn cùng tổ chức sinh nhật cho một người bạn. Hãy lên kế hoạch.'], ['A', 'Wann wollen wir feiern? Passt dir Samstag?', 'Mình tổ chức khi nào? Thứ Bảy bạn tiện không?'], ['B', 'Samstag geht leider nicht, da arbeite ich. Wie wäre es mit Sonntag?', 'Thứ Bảy mình không được, hôm đó mình đi làm. Chủ nhật thì sao?'], ['A', 'Gut. Ich schlage vor, wir kochen zusammen. Kaufst du die Getränke?', 'Được. Mình đề nghị mình cùng nấu. Bạn mua đồ uống nhé?'], ['B', 'Klar! Und ich backe einen Kuchen, weil sie Schokolade so liebt.', 'Được! Và mình nướng bánh, vì bạn ấy rất thích sô-cô-la.'])],
       ex: [
-        tf('Person B arbeitet am Samstag.', true, 'Đúng.', 'Lên kế hoạch sinh nhật'),
+        tf('Person B arbeitet am Samstag.', true, 'Đúng. B nói: “Samstag geht leider nicht, da arbeite ich.”', 'Lên kế hoạch sinh nhật'),
         tf('Sie gehen ins Restaurant.', false, 'Sie kochen zusammen.', 'Lên kế hoạch sinh nhật'),
         fill('Ich schenke ___ Freundin Blumen. (meine)', 'meiner', 'Dativ.'),
         fill('Gestern ___ ich lange geschlafen.', 'habe', 'Perfekt.'),

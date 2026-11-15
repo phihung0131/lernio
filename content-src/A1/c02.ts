@@ -168,7 +168,7 @@ export default chapter({
       ex: [
         mc('“Nachname” là?', ['họ', 'tên', 'biệt danh'], 0, 'Nachname = họ.'),
         mc('“PLZ” là viết tắt của?', ['Postleitzahl', 'Platz', 'Personalausweis'], 0, 'PLZ = mã bưu chính.'),
-        tf('Linh wohnt in der Goethestraße.', true, 'Đúng.', 'Hội thoại ở văn phòng'),
+        tf('Linh wohnt in der Goethestraße.', true, 'Đúng. Linh nói địa chỉ: “Goethestraße zwölf, 04109 Leipzig.”', 'Hội thoại ở văn phòng'),
         tf('Linh wohnt in Berlin.', false, '04109 Leipzig.', 'Hội thoại ở văn phòng'),
         order('Địa chỉ của ông là gì?', 'Wie ist Ihre Adresse?'),
         tr('Vui lòng điền tờ khai.', ['Bitte füllen Sie das Formular aus', 'Füllen Sie bitte das Formular aus'], 'Bitte füllen Sie das Formular aus.'),

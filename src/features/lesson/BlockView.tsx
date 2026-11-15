@@ -214,16 +214,16 @@ export function BlockView({ b, lesson, onPracticeDone, onPracticeResult }: { b: 
                   <p className="text-sm">{v.vi}</p>
                   {v.viRespelling && <p className="text-xs text-muted">đọc gần đúng: {v.viRespelling}</p>}
                   {v.example && (
-                    <p className="mt-1 text-sm">
-                      <span lang="de" className="italic">{v.example.de}</span>
-                      <span className="text-muted"> — {v.example.vi}</span>
-                    </p>
+                    <div className="mt-1 flex items-start gap-1 rounded-xl bg-surface-2 py-1 pl-2 text-sm">
+                      <p className="min-w-0 flex-1 py-1">
+                        <span lang="de" className="italic">{v.example.de}</span>
+                        <span className="text-muted"> — {v.example.vi}</span>
+                      </p>
+                      <Speak text={v.example.de} label={`Nghe câu ví dụ: ${v.example.de}`} />
+                    </div>
                   )}
                 </div>
-                <div className="flex flex-col">
-                  <Speak text={said} />
-                  {v.example && <Speak text={v.example.de} label={`Nghe câu ví dụ: ${v.example.de}`} />}
-                </div>
+                <Speak text={said} />
               </li>
             )
           })}

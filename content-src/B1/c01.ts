@@ -16,7 +16,7 @@ export default chapter({
       intro: 'Ở A2 bạn đã dùng **war, hatte** và modal ở Präteritum. Ở B1, bạn cần **đọc và viết** Präteritum cho mọi động từ, vì đây là thì của **văn viết**: truyện, báo, tiểu sử. Động từ yếu thêm **-te-**: *ich mach**te**, wir mach**ten***.',
       vocab: [
         w('machte', 'machen – machte', 'làm – đã làm', { pos: 'động từ', r: 'makh-tờ', i: 'Check', ex: ['Damals machte ich viel Sport.', 'Hồi đó tôi tập thể thao nhiều.'] }),
-        w('wohnte', 'wohnen – wohnte', 'sống – đã sống', { pos: 'động từ', r: 'vôn-tờ', i: 'Home', ex: ['Er wohnte zehn Jahre in Hamburg.', 'Anh ấy sống ở Hamburg mười năm.'] }),
+        w('wohnte', 'wohnen – wohnte', 'ở, cư trú – đã ở', { pos: 'động từ', r: 'vôn-tờ', i: 'Home', ex: ['Er wohnte zehn Jahre in Hamburg.', 'Anh ấy sống ở Hamburg mười năm.'] }),
         w('arbeitete', 'arbeiten – arbeitete', 'làm việc – đã làm việc', { pos: 'động từ', r: 'ar-bai-tê-tờ', i: 'Briefcase', ex: ['Sie arbeitete als Krankenschwester.', 'Bà ấy làm y tá.'] }),
         w('lernte', 'lernen – lernte', 'học – đã học', { pos: 'động từ', r: 'léc-n-tờ', i: 'Book', ex: ['Ich lernte ihn im Urlaub kennen.', 'Tôi quen anh ấy trong kỳ nghỉ.'] }),
         w('spielte', 'spielen – spielte', 'chơi – đã chơi', { pos: 'động từ', r: 'sh-pin-tờ', i: 'BallFootball', ex: ['Als Kind spielte ich Klavier.', 'Hồi nhỏ tôi chơi piano.'] }),

@@ -51,8 +51,8 @@ export default function HomePage() {
               <p className="text-xs font-bold uppercase tracking-wider opacity-80">
                 {level?.title} · Chapter {ch.order}
               </p>
-              <h2 className="truncate text-xl font-extrabold">{next.kind === 'test' ? `Kiểm tra: ${ch.title}` : lesson!.title}</h2>
-              <p className="truncate text-sm opacity-90">{ch.titleVi}</p>
+              <h2 className="line-clamp-2 text-xl font-extrabold leading-tight">{next.kind === 'test' ? `Kiểm tra: ${ch.title}` : lesson!.title}</h2>
+              <p className="line-clamp-2 text-sm opacity-90">{ch.titleVi}</p>
             </div>
             <ProgressRing value={chapterProgress(ch, progress)} size={60} color="#fff" label="Tiến độ chapter">
               <span className="text-white">{Math.round(chapterProgress(ch, progress) * 100)}%</span>

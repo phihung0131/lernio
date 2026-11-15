@@ -39,7 +39,7 @@ export default chapter({
       examples: [dlg(['Lea', 'Was würdest du machen, wenn du eine Million Euro hättest?', 'Bạn sẽ làm gì nếu có một triệu euro?'], ['Minh', 'Ich würde zuerst meinen Eltern ein Haus kaufen. Dann würde ich eine Weltreise machen.', 'Đầu tiên mình sẽ mua cho bố mẹ một căn nhà. Rồi mình sẽ đi vòng quanh thế giới.'], ['Lea', 'Und würdest du weiterarbeiten?', 'Thế bạn có tiếp tục đi làm không?'], ['Minh', 'Ja, aber nur Teilzeit. Das wäre perfekt!', 'Có, nhưng chỉ bán thời gian. Thế thì hoàn hảo!'])],
       ex: [
         tf('Minh würde zuerst eine Weltreise machen.', false, 'Zuerst ein Haus für die Eltern.', 'Hội thoại một triệu euro'),
-        tf('Minh würde Teilzeit weiterarbeiten.', true, 'Đúng.', 'Hội thoại một triệu euro'),
+        tf('Minh würde Teilzeit weiterarbeiten.', true, 'Đúng. Lea hỏi “Und würdest du weiterarbeiten?”, Minh đáp: “Ja, aber nur Teilzeit.”', 'Hội thoại một triệu euro'),
         conjEx('haben (Konjunktiv II)', 'sẽ có', 'ich:hätte, du:hättest, er:hätte, wir:hätten'),
         fill('Das ___ toll! (sein, K II)', 'wäre', 'sein → wäre.'),
         fill('Ich ___ gern mehr Zeit. (haben, K II)', 'hätte', 'haben → hätte.'),

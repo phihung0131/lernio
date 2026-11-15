@@ -54,7 +54,7 @@ export default chapter({
       goals: ['Chọn đúng nicht hay kein', 'Đặt nicht đúng vị trí'],
       intro: 'Tiếng Đức có hai cách phủ định: **kein** (cho danh từ) và **nicht** (cho các trường hợp còn lại). Chọn đúng là một trong những điểm hay bị chấm trong thi A1.',
       vocab: [
-        w('nicht', 'nicht', 'không', { pos: 'từ phủ định', r: 'nícht', i: 'X', ex: ['Ich schwimme nicht.', 'Tôi không bơi.'] }),
+        w('nicht', 'nicht', 'không (phủ định)', { pos: 'từ phủ định', r: 'nícht', i: 'X', ex: ['Ich schwimme nicht.', 'Tôi không bơi.'] }),
         w('kein', 'kein', 'không (một/chút nào)', { pos: 'mạo từ phủ định', r: 'kai-n', i: 'X', ex: ['Ich habe kein Auto.', 'Tôi không có ô tô.'] }),
         w('zeit', 'Zeit', 'thời gian', { art: 'die', r: 'tsai-t', i: 'Hourglass', ex: ['Ich habe keine Zeit.', 'Tôi không có thời gian.'] }),
         w('lust', 'Lust', 'hứng thú', { art: 'die', r: 'lút-x', i: 'MoodHappy', ex: ['Ich habe keine Lust.', 'Tôi không có hứng.'] }),
@@ -149,7 +149,7 @@ export default chapter({
         w('hausaufgaben', 'Hausaufgaben', 'bài tập về nhà', { pos: 'danh từ số nhiều', r: 'hao-x-ao-f-ga-bần', i: 'Notebook', ex: ['Ich muss Hausaufgaben machen.', 'Tôi phải làm bài tập.'] }),
         w('man', 'man', 'người ta', { pos: 'đại từ', r: 'man', i: 'Users', ex: ['Hier kann man gut essen.', 'Ở đây người ta ăn ngon.'] }),
         w('verboten', 'verboten', 'bị cấm', { pos: 'tính từ', r: 'phe-bô-tần', i: 'Ban', ex: ['Rauchen ist verboten.', 'Cấm hút thuốc.'] }),
-        w('erlaubt', 'erlaubt', 'được phép', { pos: 'tính từ', r: 'e-lao-pt', i: 'Check', ex: ['Hunde sind erlaubt.', 'Được mang chó vào.'] }),
+        w('erlaubt', 'erlaubt', 'được cho phép (tính từ)', { pos: 'tính từ', r: 'e-lao-pt', i: 'Check', ex: ['Hunde sind erlaubt.', 'Được mang chó vào.'] }),
         w('arzt2', 'Arzt', 'bác sĩ', { art: 'der', pl: 'Ärzte', r: 'a-tst', i: 'Stethoscope', ex: ['Der Arzt sagt, ich soll viel trinken.', 'Bác sĩ bảo tôi nên uống nhiều nước.'] }),
       ],
       grammar: [
@@ -205,7 +205,7 @@ export default chapter({
       examples: [dlgT('Rủ đi xem hòa nhạc', ['Anna', 'Hallo Minh! Ich habe zwei Karten für ein Konzert am Freitag. Hast du Lust?', 'Chào Minh! Mình có hai vé hòa nhạc vào thứ Sáu. Bạn có hứng không?'], ['Minh', 'Am Freitag? Leider kann ich nicht, ich muss bis neun arbeiten.', 'Thứ Sáu à? Tiếc là mình không đi được, mình phải làm đến chín giờ.'], ['Anna', 'Schade! Das Konzert beginnt um halb zehn.', 'Tiếc quá! Buổi hòa nhạc bắt đầu lúc chín rưỡi.'], ['Minh', 'Halb zehn? Dann geht es! Wo treffen wir uns?', 'Chín rưỡi à? Vậy được! Mình gặp nhau ở đâu?'], ['Anna', 'Um Viertel nach neun vor dem Konzerthaus.', 'Lúc chín giờ mười lăm trước nhà hát.'], ['Minh', 'Abgemacht! Bis Freitag!', 'Quyết vậy nhé! Hẹn thứ Sáu!'])],
       ex: [
         tf('Das Konzert ist am Samstag.', false, 'am Freitag.', 'Rủ đi hòa nhạc'),
-        tf('Minh arbeitet bis neun Uhr.', true, 'Đúng.', 'Rủ đi hòa nhạc'),
+        tf('Minh arbeitet bis neun Uhr.', true, 'Đúng. Minh nói: “Leider kann ich nicht, ich muss bis neun arbeiten.”', 'Rủ đi hòa nhạc'),
         mc('Họ gặp nhau lúc mấy giờ?', ['9:15', '9:30', '9:00'], 0, 'Viertel nach neun = 9:15.'),
         order('Bạn có hứng đi xem phim không?', 'Hast du Lust auf Kino?'),
         order('Mình gặp nhau ở đâu?', 'Wo treffen wir uns?'),

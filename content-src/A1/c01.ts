@@ -100,9 +100,9 @@ export default chapter({
       intro: 'Câu hỏi có/không rất dễ: chỉ cần **đưa động từ lên đầu**. Tiếng Đức còn có từ **doch** đặc biệt để phản bác câu hỏi phủ định.',
       vocab: [
         w('ja', 'ja', 'vâng, có', { pos: 'từ', r: 'da', i: 'Check', ex: ['Ja, ich bin Lehrer.', 'Vâng, tôi là giáo viên.'] }),
-        w('nein', 'nein', 'không', { pos: 'từ', r: 'nai-n', i: 'X', ex: ['Nein, ich bin Arzt.', 'Không, tôi là bác sĩ.'] }),
+        w('nein', 'nein', 'không (câu trả lời)', { pos: 'từ', r: 'nai-n', i: 'X', ex: ['Nein, ich bin Arzt.', 'Không, tôi là bác sĩ.'] }),
         w('doch', 'doch', 'có chứ (phản bác)', { pos: 'từ', r: 'đokh', i: 'ArrowBackUp', ex: ['Bist du nicht müde? – Doch!', 'Bạn không mệt à? – Có chứ!'] }),
-        w('nicht', 'nicht', 'không', { pos: 'từ phủ định', r: 'nícht', i: 'X', ex: ['Ich bin nicht müde.', 'Tôi không mệt.'] }),
+        w('nicht', 'nicht', 'không (phủ định)', { pos: 'từ phủ định', r: 'nícht', i: 'X', ex: ['Ich bin nicht müde.', 'Tôi không mệt.'] }),
         w('verheiratet', 'verheiratet', 'đã kết hôn', { pos: 'tính từ', r: 'phe-hai-ra-tết', i: 'Heart', ex: ['Bist du verheiratet?', 'Bạn đã kết hôn chưa?'] }),
         w('ledig', 'ledig', 'độc thân', { pos: 'tính từ', r: 'lê-đích', i: 'User', ex: ['Nein, ich bin ledig.', 'Không, tôi độc thân.'] }),
         w('neu', 'neu', 'mới', { pos: 'tính từ', r: 'noi', i: 'Sparkles', ex: ['Bist du neu hier?', 'Bạn mới đến đây à?'] }),

@@ -190,6 +190,7 @@ export default function LessonPlayer() {
                 disabled={!reachable || isPractice}
                 onClick={() => setPage(idx)}
                 aria-current={active ? 'step' : undefined}
+                ref={active ? (el) => el?.scrollIntoView({ block: 'nearest', inline: 'center' }) : undefined}
                 className={`whitespace-nowrap rounded-full px-3 py-1 text-xs font-bold ${active ? 'bg-brand text-white' : reachable ? 'bg-surface-2 text-text' : 'text-muted'}`}
               >
                 {TITLES[s]}

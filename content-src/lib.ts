@@ -161,23 +161,45 @@ function autoExercises(vocab: VocabItem[], extraPool: VocabItem[], o: AutoOpts):
   const fulls = pool.map(full)
   const nMc = Math.min(o.mc ?? 3, vocab.length)
   const nListen = Math.min(o.listen ?? 2, vocab.length)
+  // Từ đồng nghĩa (cùng nghĩa tiếng Việt) không được làm phương án nhiễu, và đều được chấp nhận khi gõ.
+  const viKey = (x: VocabItem) => x.vi.trim().toLowerCase()
+  const syns = (x: VocabItem) => [x, ...pool.filter((y) => full(y) !== full(x) && viKey(y) === viKey(x))]
+  const others = (x: VocabItem) => {
+    const s = new Set(syns(x).map(full))
+    return fulls.filter((f) => f === full(x) || !s.has(f))
+  }
   vocab.slice(0, nMc).forEach((x, i) => {
-    const w = pick(fulls, Math.min(3, fulls.length - 1), i + 1, full(x))
+    const fs = others(x)
+    const w = pick(fs, Math.min(3, fs.length - 1), i + 1, full(x))
     const { options, answer } = place(full(x), w, i)
     out.push(mc(`“${x.vi}” trong tiếng Đức là gì?`, options, answer, `${x.vi} = ${full(x)}.`, [`vocab:${x.id}`]))
   })
   vocab.slice(-nListen).forEach((x, i) => {
-    const w = pick(fulls, Math.min(3, fulls.length - 1), i + 5, full(x))
+    const fs = others(x)
+    const w = pick(fs, Math.min(3, fs.length - 1), i + 5, full(x))
     const { options, answer } = place(full(x), w, i + 1)
     out.push({ ...listen(full(x), options, answer, `Từ bạn nghe là ${full(x)} (${x.vi}).`), tags: [`vocab:${x.id}`] })
   })
   const nouns = vocab.filter((x) => x.article)
   nouns.slice(0, o.article ?? 3).forEach((x) => out.push({ ...art(x.de, x.article!), tags: [`vocab:${x.id}`] }))
   if (o.match !== false && vocab.length >= 3)
-    out.push(match('Ghép từ tiếng Đức với nghĩa tiếng Việt.', ...vocab.slice(0, 5).map((x) => [full(x), x.vi] as [string, string])))
+    out.push(
+      match(
+        'Ghép từ tiếng Đức với nghĩa tiếng Việt.',
+        ...vocab
+          .filter((x, i, a) => a.findIndex((y) => viKey(y) === viKey(x) || full(y) === full(x)) === i)
+          .slice(0, 5)
+          .map((x) => [full(x), x.vi] as [string, string]),
+      ),
+    )
   vocab.slice(1, 1 + (o.type ?? 2)).forEach((x) =>
     out.push({
-      ...typ(`Gõ từ tiếng Đức có nghĩa “${x.vi}”`, x.article ? [full(x), x.de] : [x.de], `${x.vi} = ${full(x)}.`),
+      ...typ(
+        `Gõ từ tiếng Đức có nghĩa “${x.vi}”`,
+        // "Großvater / Opa": chấp nhận từng dạng riêng lẻ.
+        [...new Set(syns(x).flatMap((y) => [y.de, ...y.de.split(' / ')].flatMap((d) => (y.article ? [`${y.article} ${d}`, d] : [d]))))],
+        syns(x).length > 1 ? `${x.vi} = ${syns(x).map(full).join(' hoặc ')}.` : `${x.vi} = ${full(x)}.`,
+      ),
       tags: [`vocab:${x.id}`],
     }),
   )
@@ -202,9 +224,156 @@ export interface LessonInput {
   teaches?: string[]
 }
 
+
+// ---------- Giải thích đúng/sai: trích câu căn cứ trong bài đọc/hội thoại ----------
+type Src = { de: string; vi?: string; who?: string; next?: Src }
+const STOP = new Set('der die das den dem des ein eine einen einem einer und oder aber ist sind war hat haben ich du er sie es wir ihr man nicht kein keine mit von zu für auf in im am an bei nach aus auch sehr so wie was wer dass weil wenn noch schon mein meine sein seine ihre'.split(' '))
+const words = (t: string) =>
+  t.toLowerCase().replace(/[.,!?;:„“”"()–-]/g, ' ').split(/\s+/).filter((w) => (w.length >= 3 || /\d/.test(w)) && !STOP.has(w))
+function sources(blocks: Block[]): Src[] {
+  const out: Src[] = []
+  for (const b of blocks) {
+    if (b.kind === 'dialogue') {
+      const ls: Src[] = b.lines.map((l) => ({ de: l.de, vi: l.vi, who: l.speaker }))
+      ls.forEach((l, k) => out.push({ ...l, next: ls[k + 1] }))
+    }
+    if (b.kind === 'example') out.push({ de: b.de, vi: b.vi })
+    // Không cắt sau số thứ tự (“im 2. Stock”, “am 1. Mai”).
+    if (b.kind === 'reading') for (const s of b.de.split(/(?<=[^\d\s][.!?])\s+|\n+/)) if (s.trim()) out.push({ de: s.trim() })
+  }
+  return out
+}
+function enrichTrueFalse(e: Ex, src: Src[]): Ex {
+  if (e.type !== 'trueFalse' || e.explanationVi.trim().length >= 12 || !src.length) return e
+  // Trọng số theo độ hiếm: từ xuất hiện ở nhiều câu (tên nhân vật…) ít giá trị phân biệt.
+  const sets = src.map((s) => new Set(words(s.de)))
+  const df = (w: string) => sets.filter((x) => x.has(w)).length
+  // Ghi chú ngắn gốc (“um elf.”, “Nur bar.”) là từ khóa của đáp án: tính gấp đôi.
+  const note = new Set(words(e.explanationVi))
+  const q = [...new Set([...words(e.statement), ...note])]
+  let best: Src | undefined
+  let score = 0
+  let hits = 0
+  src.forEach((s, k) => {
+    const m = q.filter((w) => sets[k].has(w))
+    const n = m.reduce((a, w) => a + (note.has(w) ? 2 : 1) / df(w), 0)
+    if (n > score) [best, score, hits] = [s, n, m.length + m.filter((w) => note.has(w)).length]
+  })
+  if (!best || hits < 2) return e
+  const b = best as Src
+  const fmt = (x: Src) => `${x.who ? `${x.who}: ` : ''}“${x.de}”${x.vi ? ` (${x.vi})` : ''}`
+  // Câu hỏi trong hội thoại: căn cứ thật nằm ở câu trả lời ngay sau.
+  const lastQ = b.de.trim().split(/(?<=[.!])\s+/).pop() ?? ''
+  const asks = lastQ.endsWith('?') && words(lastQ).some((w) => q.includes(w))
+  const quote = asks && b.next ? `${fmt(b)} – ${fmt(b.next)}` : fmt(b)
+  return { ...e, explanationVi: `${e.answer ? 'Đúng' : 'Sai'}. Trong bài: ${quote}` }
+}
+
+
+// ---------- Giải thích ngắn (chỉ lặp đáp án) → bổ sung quy tắc ----------
+const RULES: Record<string, string> = {
+  ob: '“ob” (liệu… không) mở câu hỏi gián tiếp dạng có/không; động từ chia đứng cuối câu.',
+  als: '“als” có hai cách dùng: sau so sánh hơn (größer als = lớn hơn) và mở mệnh đề cho một sự việc xảy ra một lần trong quá khứ (khi…, động từ đứng cuối).',
+  wenn: '“wenn” dùng cho việc lặp lại (mỗi khi) hoặc ở hiện tại/tương lai, hay điều kiện (nếu); động từ đứng cuối.',
+  dass: '“dass” (rằng) mở mệnh đề phụ; động từ chia đứng cuối câu.',
+  weil: '“weil” (vì) nêu lý do; động từ chia đứng cuối câu.',
+  damit: '“damit” (để mà) nêu mục đích khi hai vế có chủ ngữ khác nhau (hoặc nhấn mạnh chủ ngữ); động từ đứng cuối.',
+  um: '“um … zu + nguyên mẫu” nêu mục đích khi hai vế cùng chủ ngữ.',
+  zu: 'Sau các cụm như Lust haben, versuchen, vergessen, um … dùng “zu + động từ nguyên mẫu” ở cuối câu.',
+  obwohl: '“obwohl” (mặc dù) mở mệnh đề phụ; động từ đứng cuối.',
+  trotzdem: '“trotzdem” (tuy vậy) là trạng từ đứng vị trí 1, nên động từ đứng ngay sau (vị trí 2).',
+  während: '“während” (trong khi) mở mệnh đề phụ chỉ hai việc diễn ra cùng lúc; động từ đứng cuối.',
+  bevor: '“bevor” (trước khi) mở mệnh đề phụ; động từ đứng cuối.',
+  bis: '“bis” (cho đến khi) mở mệnh đề phụ; động từ đứng cuối.',
+  nachdem: '“nachdem” (sau khi): mệnh đề phụ thường ở Plusquamperfekt, mệnh đề chính ở Präteritum/Perfekt.',
+  seit: '“seit” + Dativ: việc bắt đầu trong quá khứ và vẫn còn tiếp diễn (từ … đến nay).',
+  vor: '“vor” + Dativ chỉ thời gian: cách đây (vor zwei Jahren = cách đây hai năm).',
+  des: 'Genitiv giống đực/trung: des + danh từ thêm -s/-es. Các giới từ wegen, trotz, während đi với Genitiv.',
+  denen: 'Đại từ quan hệ số nhiều ở Dativ là “denen” (mit + Dativ).',
+  wird: 'werden chia với er/sie/es là “wird”: Futur I (wird + nguyên mẫu), Passiv (wird + Partizip II) hoặc nghĩa “trở nên”.',
+  wurde: 'Passiv Präteritum: wurde (số ít) / wurden (số nhiều) + Partizip II cuối câu.',
+  wurden: 'Passiv Präteritum: wurde (số ít) / wurden (số nhiều) + Partizip II cuối câu.',
+  worden: 'Passiv Perfekt: sein + Partizip II + “worden” (không dùng “geworden”).',
+  hätte: 'Konjunktiv II của haben: ich/er hätte, du hättest… dùng cho điều không có thật hoặc mong ước.',
+  wäre: 'Konjunktiv II của sein: ich/er wäre, du wärst… dùng cho điều không có thật (Wenn ich du wäre…).',
+  könnte: 'Konjunktiv II của können: könnte – dùng cho khả năng giả định hoặc lời đề nghị lịch sự.',
+  könntest: 'Konjunktiv II của können với du: könntest – lời gợi ý nhẹ nhàng (bạn có thể…).',
+  solltest: 'Konjunktiv II của sollen với du: solltest – lời khuyên (bạn nên…).',
+  man: '“man” (người ta) là chủ ngữ chung, động từ chia như er/sie/es.',
+  sich: 'Động từ phản thân: đại từ phản thân ngôi thứ ba (er/sie/es/sie/Sie) luôn là “sich”.',
+  durch: '“durch” + Akkusativ: xuyên qua.',
+  auf: '“warten auf” + Akkusativ: chờ đợi ai/cái gì. Giới từ đi kèm động từ cần học thuộc theo cụm.',
+  woran: 'Hỏi về vật với động từ có giới từ “an”: wo(r) + an → woran (người: an wen).',
+  herrn: '“Herr” thuộc n-Deklination: ngoài Nominativ đều thêm -n (den/dem/des Herrn).',
+  ging: 'gehen là động từ mạnh: Präteritum ging (ich/er ging, du gingst).',
+  kam: 'kommen là động từ mạnh: Präteritum kam (ich/er kam, du kamst).',
+  fuhr: 'fahren là động từ mạnh: Präteritum fuhr (ich/er fuhr).',
+  dachte: 'denken là động từ hỗn hợp: đổi gốc và thêm -te → dachte.',
+  durfte: 'Động từ khuyết thiếu ở Präteritum bỏ Umlaut và thêm -te: dürfen → durfte.',
+  wohnte: 'Động từ yếu ở Präteritum: gốc + -te (ich/er wohnte, wir wohnten).',
+  warteten: 'Gốc tận cùng -t/-d thêm -ete để dễ đọc: warten → wartete, wir warteten.',
+  arbeitete: 'Gốc tận cùng -t/-d thêm -ete để dễ đọc: arbeiten → arbeitete.',
+  gilt: 'gelten đổi nguyên âm e → i ở du/er: du giltst, er gilt.',
+  n: 'n-Deklination: danh từ giống đực tận cùng -e (der Kunde, der Junge…) thêm -n ở mọi cách trừ Nominativ.',
+  weitergegeben: 'Passiv với động từ khuyết thiếu: Modal + Partizip II + werden. weitergeben là động từ tách → weiter-ge-geben.',
+  gewöhnt: 'Perfekt của động từ yếu: ge- + gốc + -t → gewöhnt (sich gewöhnen an + Akk).',
+}
+const EXPAND: Record<string, string> = {
+  'e → i.': 'Động từ mạnh đổi e → i ở du và er/sie/es (essen → er isst, sprechen → er spricht).',
+  'a→ä.': 'Động từ mạnh đổi a → ä ở du và er/sie/es (tragen → er trägt, fahren → er fährt).',
+  'e→i giữ.': 'Imperativ với du: động từ đổi e → i vẫn giữ i và bỏ đuôi -st (du nimmst → Nimm!).',
+  'a→ä bỏ.': 'Imperativ với du: động từ đổi a → ä thì bỏ Umlaut (du schläfst → Schlaf!).',
+  'Sie-Form.': 'Imperativ lịch sự: động từ nguyên mẫu đứng đầu + Sie (Trinken Sie …!).',
+  'Dat cái.': 'Đại từ quan hệ giống cái ở Dativ là “der” (helfen + Dativ).',
+  'Gen cái.': 'Genitiv giống cái: die → der (trotz/wegen + Genitiv: trotz der Hitze).',
+  'Nom đực.': 'Đại từ quan hệ giống đực làm chủ ngữ (Nominativ) là “der”.',
+  'Số nhiều.': 'Danh từ liên quan ở số nhiều nên dùng dạng số nhiều.',
+  'Lệch thì.': 'nachdem + Plusquamperfekt (hatte/war + Partizip II) khi mệnh đề chính ở Präteritum.',
+  'Không in.': 'Năm đứng một mình không dùng “in”: “1990 kam er …” hoặc “im Jahr 1990”.',
+  'Đảo ngữ.': 'Động từ chia luôn ở vị trí 2: khi một thành phần khác (kể cả mệnh đề phụ) đứng đầu câu, chủ ngữ đứng sau động từ.',
+  'Akk đực.': 'Giống đực ở Akkusativ: der → den, ein → einen; đuôi tính từ là -en.',
+  'Dativ.': 'Động từ/giới từ này đi với Dativ (mir, dir, ihm, ihr, Ihnen; einem, einer, meiner…).',
+  'Dat.': 'Cần Dativ: giới từ chỉ vị trí (Wo?) và các động từ như helfen đi với Dativ (dem, der, einer…; đuôi tính từ sau einer là -en).',
+  'Lịch sự.': 'Konjunktiv II (Könnten Sie …? / Würden Sie …?) là cách nhờ vả lịch sự.',
+  'Xin phép.': '“Dürfte ich …?” là cách xin phép rất lịch sự (Konjunktiv II của dürfen).',
+  'Kết quả.': '“sodass” nêu kết quả (đến nỗi, vì vậy); động từ đứng cuối mệnh đề.',
+  'Đuôi -s.': 'Genitiv giống đực/trung: meines Vaters – danh từ thêm -s.',
+  'Bị động.': 'Partizip II làm tính từ mang nghĩa bị động: das reparierte Auto = das Auto, das repariert wurde.',
+  'zu-Inf.': 'Sau “Es ist üblich, …” dùng zu + nguyên mẫu; động từ tách chèn zu vào giữa: mitzubringen.',
+  'KM + NK.': 'Warmmiete = Kaltmiete (tiền thuê) + Nebenkosten (phí phụ: nước, sưởi, rác…).',
+  'MfG.': '“Mit freundlichen Grüßen” là lời kết chuẩn của thư trang trọng.',
+  'Ghép từ.': 'Danh từ ghép viết liền: Zahn + Schmerzen → Zahnschmerzen.',
+  'Umlaut.': 'Tính từ ngắn một âm tiết thường thêm Umlaut ở Komparativ: alt → älter, groß → größer.',
+  'so … wie.': 'So sánh bằng: so + tính từ + wie (so groß wie ich).',
+  'am …sten.': 'Superlativ dùng như trạng từ: am + tính từ + -sten (am schnellsten).',
+  'Perfekt.': 'Perfekt: haben/sein chia ở vị trí 2 + Partizip II cuối câu.',
+  'Đề xuất.': '“Wie wäre es mit …?” là cách đề xuất lịch sự.',
+  'Cuối câu.': 'Trong câu có động từ khuyết thiếu, động từ nguyên mẫu đứng cuối câu.',
+  'K II.': 'Konjunktiv II (hätte, wäre, würde + nguyên mẫu) dùng cho điều không có thật hoặc lời nói lịch sự.',
+  'Gợi ý.': 'Lời gợi ý nhẹ nhàng dùng Konjunktiv II: du könntest … (bạn có thể …).',
+  'Ước.': '“Ich wünschte, …” + Konjunktiv II diễn tả điều ước không có thật: ich hätte, ich wäre.',
+  'Gen.': 'wegen/trotz/während + Genitiv: giống đực/trung dùng des, danh từ thêm -s/-es.',
+  'P II.': 'Động từ (Partizip II) đứng cuối câu, sau đó là trợ động từ nếu có.',
+  'Lý do.': '“weil” (vì) nêu lý do; động từ chia đứng cuối mệnh đề.',
+  'Số ít.': 'Passiv Präsens: chủ ngữ số ít → wird + Partizip II cuối câu.',
+  'Akk.': 'Đại từ quan hệ giống đực ở Akkusativ là “den” (tân ngữ của động từ trong mệnh đề quan hệ).',
+}
+const short = (x: string) => x.trim().length < 10
+function enrichShort(e: Ex): Ex {
+  if (!short(e.explanationVi) || e.type === 'trueFalse' || e.type === 'matchPairs') return e
+  const full = EXPAND[e.explanationVi.trim()]
+  if (full) return { ...e, explanationVi: full }
+  const ans = 'answers' in e ? e.answers[0] : 'options' in e && 'answer' in e && typeof e.answer === 'number' ? e.options[e.answer] : undefined
+  if (!ans) return e
+  const key = ans.toLowerCase().replace(/[.!?]/g, '').trim().split(' ')[0]
+  const rule = RULES[key]
+  return rule ? { ...e, explanationVi: rule } : e
+}
+
 export function lesson(i: LessonInput): Lesson {
   const vocab = i.vocab ?? []
-  const all: Ex[] = [...(i.auto === false ? [] : autoExercises(vocab, i.pool ?? [], i.auto ?? {})), ...(i.ex ?? [])]
+  const src = sources(i.examples ?? [])
+  const all: Ex[] = [...(i.auto === false ? [] : autoExercises(vocab, i.pool ?? [], i.auto ?? {})), ...(i.ex ?? []).map((e) => enrichShort(enrichTrueFalse(e, src)))]
   const auto = [...(i.teaches ?? []).map((g) => `grammar:${g}`), `lesson:${i.id}`]
   const exercises = all.map((e, n) => ({ ...e, id: `${i.id}-e${n + 1}`, tags: [...new Set([...(e.tags ?? []), ...auto])] }) as Exercise)
   return {
@@ -238,7 +407,7 @@ export function chapter(o: {
 }): Chapter {
   const id = `${o.level.toLowerCase()}-c${String(o.order).padStart(2, '0')}`
   const pool = o.lessons.flatMap((l) => l.exercises).filter((e) => e.type !== 'matchPairs')
-  const extra = (o.testExtra ?? []).map((e, n) => ({ ...e, id: `${id}-tx${n + 1}` }) as Exercise)
+  const extra = (o.testExtra ?? []).map((e, n) => ({ ...enrichShort(e), id: `${id}-tx${n + 1}` }) as Exercise)
   const questions = [...pool, ...extra].map((q) => ({ ...q, id: `${id}-t-${q.id}` }) as Exercise)
   return {
     id,
