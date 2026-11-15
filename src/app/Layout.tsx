@@ -1,6 +1,8 @@
-import { Suspense } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { Dumbbell, Flame, Home, Map, Repeat, Star, UserRound } from 'lucide-react'
+import { Dumbbell, Flame, Home, Map, Moon, Repeat, Star, Sun, UserRound } from 'lucide-react'
+import { applyTheme } from '@/ui/theme'
+import { saveProfile } from '@/core/db/profile'
 import ErrorBoundary from './ErrorBoundary'
 import { Mascot } from '@/features/art/Art'
 import { useStats } from '@/features/home/useStats'
@@ -13,6 +15,45 @@ const NAV = [
   { to: '/profile', label: 'Hồ sơ', icon: UserRound },
 ]
 
+const isDark = () => {
+  const t = document.documentElement.getAttribute('data-theme')
+  return t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches
+}
+
+/** Đổi nhanh sáng/tối ngay trên thanh trên cùng (Cài đặt vẫn có thêm lựa chọn “Theo hệ thống”). */
+function ThemeToggle() {
+  const [dark, setDark] = useState(isDark)
+  // Đồng bộ biểu tượng khi đổi giao diện ở Cài đặt hoặc theo hệ thống.
+  useEffect(() => {
+    const sync = () => setDark(isDark())
+    const mo = new MutationObserver(sync)
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    mq.addEventListener('change', sync)
+    return () => {
+      mo.disconnect()
+      mq.removeEventListener('change', sync)
+    }
+  }, [])
+  const toggle = () => {
+    const next = dark ? 'light' : 'dark'
+    applyTheme(next)
+    void saveProfile({ theme: next })
+    setDark(!dark)
+  }
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={dark ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'}
+      title={dark ? 'Giao diện sáng' : 'Giao diện tối'}
+      className="flex size-8 items-center justify-center rounded-full bg-surface text-muted shadow-sm transition hover:text-text"
+    >
+      {dark ? <Sun size={17} /> : <Moon size={17} />}
+    </button>
+  )
+}
+
 function StatPills() {
   const s = useStats()
   return (
@@ -23,6 +64,7 @@ function StatPills() {
       <span className="flex items-center gap-1 rounded-full bg-surface px-3 py-1 shadow-sm" title="XP hôm nay">
         <Star size={16} className="text-accent" /> {s?.xpToday ?? 0}
       </span>
+      <ThemeToggle />
     </div>
   )
 }

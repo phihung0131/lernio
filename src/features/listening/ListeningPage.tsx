@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Eye, EyeOff, Gauge, Pause, Play } from 'lucide-react'
+import { Eye, EyeOff, Gauge, Lock, Pause, Play } from 'lucide-react'
 import { LEVELS } from '@/core/content/loader'
 import { isChapterUnlocked } from '@/core/content/unlock'
 import { exercisePool, sample } from '@/core/content/pool'
@@ -78,15 +78,31 @@ export default function ListeningPage() {
     <div>
       <h1 className="mb-3 text-2xl font-extrabold">Luyện nghe</h1>
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        {LEVELS.filter((l) => open.some((c) => c.levelId === l.id)).map((l) => (
-          <button key={l.id} type="button" aria-pressed={lv === l.id} onClick={() => setLevel(l.id)} className={`rounded-full border-2 px-4 py-1 text-sm font-bold ${lv === l.id ? 'border-brand bg-brand-soft text-brand' : 'border-line'}`}>
-            {l.id}
-          </button>
-        ))}
+        {LEVELS.map((l) => {
+          // Nội dung nghe theo đúng lộ trình: level chưa mở thì hiện khóa thay vì ẩn đi.
+          const unlocked = open.some((c) => c.levelId === l.id)
+          return (
+            <button
+              key={l.id}
+              type="button"
+              disabled={!unlocked}
+              aria-pressed={lv === l.id}
+              title={unlocked ? undefined : `Mở khi bạn học tới ${l.id} trên lộ trình`}
+              onClick={() => setLevel(l.id)}
+              className={`inline-flex items-center gap-1 rounded-full border-2 px-4 py-1 text-sm font-bold ${lv === l.id ? 'border-brand bg-brand-soft text-brand' : unlocked ? 'border-line' : 'border-line text-muted opacity-70'}`}
+            >
+              {!unlocked && <Lock size={13} aria-hidden />}
+              {l.id}
+            </button>
+          )
+        })}
         <button type="button" className="ml-auto inline-flex items-center gap-1 rounded-full border-2 border-line px-3 py-1 text-sm font-bold" onClick={() => setRate(rate === 1 ? 0.75 : 1)} aria-label="Đổi tốc độ phát">
           <Gauge size={16} /> {rate === 1 ? '1×' : '0.75×'}
         </button>
       </div>
+      {LEVELS.some((l) => !open.some((c) => c.levelId === l.id)) && (
+        <p className="mb-3 text-sm text-muted">Hội thoại, bài đọc và chính tả của mỗi cấp độ mở dần theo lộ trình. Hiện có nội dung của các chapter bạn đã mở.</p>
+      )}
       <div role="tablist" className="mb-4 grid grid-cols-3 gap-2">
         {([['dialogues', 'Hội thoại'], ['readings', 'Bài đọc'], ['dictation', 'Chính tả']] as const).map(([id, label]) => (
           <button key={id} role="tab" aria-selected={tab === id} onClick={() => { setTab(id); if (id === 'dictation') setRound(round + 1) }} className={tab === id ? 'btn-primary' : 'btn-secondary'}>

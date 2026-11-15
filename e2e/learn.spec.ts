@@ -94,7 +94,7 @@ test('cài đặt: mục tiêu XP và giao diện tối được lưu', async ({
   await login(page)
   await page.goto('/settings')
   await page.getByRole('button', { name: '50 XP' }).click()
-  await page.getByRole('button', { name: 'Tối' }).click()
+  await page.getByRole('button', { name: 'Tối', exact: true }).click()
   // Đợi giá trị đã lưu vào IndexedDB (giao diện đọc lại qua liveQuery) rồi mới tải lại.
   await expect(page.getByRole('button', { name: '50 XP' })).toHaveAttribute('aria-pressed', 'true')
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
