@@ -39,7 +39,7 @@ export default function LoginPage() {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) setMsg({ ok: false, text: vi(error.message) })
       } else {
-        const { error, data } = await supabase.auth.signUp({ email, password })
+        const { error, data } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: location.origin } })
         if (error) setMsg({ ok: false, text: vi(error.message) })
         else if (!data.session) setMsg({ ok: true, text: 'Đã tạo tài khoản. Hãy mở email, bấm link xác nhận rồi đăng nhập.' })
       }
