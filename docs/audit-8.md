@@ -16,3 +16,10 @@
   - Trang chủ, Lộ trình (A0/A1), bài a1-c01-l5, bài thi A0, Ôn tập, Thi thử, Điểm yếu đều hiển thị bình thường.
   - Đi từ `/test/a0-c10` sang `/test/a1-c02` (đang khóa) thì được chuyển về `/path`.
 - Playwright: đo số byte JS tải trên bản build; chạy toàn bộ e2e.
+
+## Vòng 9 (phản hồi người dùng)
+
+- **Nghe A2/B1**: trang Nghe ẩn hẳn các level chưa mở, nên trông như thiếu nội dung. Giờ hiện đủ tab A0–B1; tab chưa mở có biểu tượng khóa kèm dòng giải thích. Nội dung có sẵn: A2 và B1 đều có hội thoại và bài đọc, mở theo lộ trình.
+- **Học lại bài**: tính năng đã có (bấm vào bài đã xong trên Lộ trình). Đổi nhãn nút “Ôn lại bài” thành “Học lại bài” cho rõ.
+- **Nút sáng/tối**: trước đây chỉ có trong Cài đặt. Giờ có thêm nút mặt trời/mặt trăng trên thanh trên cùng, đồng bộ với Cài đặt.
+- Rà trên Chrome các trang Trang chủ, Ôn tập, Luyện tập, Từ điển, Ngữ pháp, Nghe, Thi thử, Hồ sơ, Cài đặt: không có lỗi console.

@@ -120,7 +120,7 @@ function Unit({ ch, idx, chapters, progress, color, currentKey }: { ch: Chapter;
                     </p>
                   ) : (
                     <Link to={it.href} className="btn-primary block text-center">
-                      {it.state === 'completed' ? (it.kind === 'test' ? 'Làm lại' : 'Ôn lại bài') : it.kind === 'test' ? 'Làm bài kiểm tra' : 'Bắt đầu'}
+                      {it.state === 'completed' ? (it.kind === 'test' ? 'Làm lại' : 'Học lại bài') : it.kind === 'test' ? 'Làm bài kiểm tra' : 'Bắt đầu'}
                     </Link>
                   )}
                 </div>
